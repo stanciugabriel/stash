@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:camera/camera.dart';
 import 'package:cardnest/add_card_name.dart';
+import 'package:cardnest/alert_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,7 +22,14 @@ class ScanModal {
     // Get the list of available cameras.
     final cameras = await availableCameras();
     if (cameras.isEmpty) {
-      _showNoCameraDialog(context);
+      AlertBox.show(context,
+          title: "No Camera Detected",
+          content: "We couldn't find an available camera on your device.",
+          accept: "Dismiss",
+          decline: "Dismiss",
+          acceptColor: Colors.red, declineCallback: () async {
+        Navigator.pop(context);
+      }, acceptCallback: () async {});
       return;
     }
 
