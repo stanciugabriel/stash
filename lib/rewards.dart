@@ -40,14 +40,17 @@ class _RewardsState extends State<Rewards> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset("assets/icons/stars.svg"),
+                SvgPicture.asset(
+                  "assets/icons/stars.svg",
+                  color: Theme.of(context).primaryColorDark,
+                ),
                 Text(
                   "Coming Soon.",
                   style: TextStyle(
                       fontSize: 48,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'SFProDisplay',
-                      color: Colors.white),
+                      color: Theme.of(context).primaryColorDark),
                 ),
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * 0.75,
@@ -58,7 +61,7 @@ class _RewardsState extends State<Rewards> {
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         fontFamily: 'SFProDisplay',
-                        color: Colors.white),
+                        color: Theme.of(context).primaryColorDark),
                   ),
                 ),
                 SizedBox(
@@ -100,7 +103,7 @@ class _AnimatedSubscribeButtonState extends State<AnimatedSubscribeButton>
       });
 
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(_controller);
-    _colorAnimation = ColorTween(begin: Colors.white, end: Colors.grey[300])
+    _colorAnimation = ColorTween(begin: Colors.black, end: Colors.grey[300])
         .animate(_controller);
   }
 
@@ -154,7 +157,10 @@ class _AnimatedSubscribeButtonState extends State<AnimatedSubscribeButton>
                   color: Colors.green,
                 )
               else
-                Icon(CupertinoIcons.bell, color: Color(0xFF494949)),
+                Icon(
+                  CupertinoIcons.bell,
+                  color: Theme.of(context).primaryColor,
+                ),
               SizedBox(width: 10),
               Text(
                 _isSubscribed ? "Subscribed" : "Subscribe",
@@ -162,7 +168,7 @@ class _AnimatedSubscribeButtonState extends State<AnimatedSubscribeButton>
                   fontFamily: "SFProDisplay",
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF494949),
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ],

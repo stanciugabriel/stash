@@ -30,7 +30,6 @@ class CardModal extends StatefulWidget {
       showModalBottomSheet(
           isScrollControlled: true,
           context: context,
-          backgroundColor: Colors.white,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(15),

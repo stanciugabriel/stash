@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cached_network_svg_image/cached_network_svg_image.dart';
+import 'package:cardnest/providers/theme_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -69,7 +70,7 @@ class _HomepageState extends State<Homepage> {
                   child: Container(
                     height: 45,
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 224, 224, 224),
+                      color: Theme.of(context).shadowColor,
                       borderRadius: BorderRadius.circular(40),
                     ),
                     child: Padding(
@@ -77,14 +78,16 @@ class _HomepageState extends State<Homepage> {
                       child: TextField(
                         controller: _searchController,
                         decoration: InputDecoration(
-                          icon: Icon(CupertinoIcons.search,
-                              color: Color(0xFF4E4E4E)),
+                          icon: Icon(
+                            CupertinoIcons.search,
+                            color: Theme.of(context).cardColor,
+                          ),
                           hintText: "Search...",
                           hintStyle: TextStyle(
                             fontFamily: 'SFProRounded',
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
-                            color: Color(0xFF4E4E4E),
+                            color: Theme.of(context).cardColor,
                           ),
                           border: InputBorder.none,
                         ),

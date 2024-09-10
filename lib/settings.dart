@@ -1,3 +1,5 @@
+import 'package:cardnest/appearance_modal.dart';
+import 'package:cardnest/notifications_modal.dart';
 import 'package:cardnest/terms.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -98,60 +100,70 @@ class _SettingsState extends State<Settings> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          CupertinoIcons.bell,
-                          size: 30,
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text("Notifications",
-                            style: TextStyle(
-                              fontFamily: "SFProDisplay",
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ))
-                      ],
-                    ),
-                    Icon(
-                      CupertinoIcons.chevron_right,
-                      size: 20,
-                    )
-                  ],
+                child: GestureDetector(
+                  onTap: () {
+                    NotificationsModal.show(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            CupertinoIcons.bell,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Text("Notifications",
+                              style: TextStyle(
+                                fontFamily: "SFProDisplay",
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                              ))
+                        ],
+                      ),
+                      Icon(
+                        CupertinoIcons.chevron_right,
+                        size: 20,
+                      )
+                    ],
+                  ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/palette.svg",
-                          height: 30,
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text("Appearance",
-                            style: TextStyle(
-                              fontFamily: "SFProDisplay",
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ))
-                      ],
-                    ),
-                    Icon(
-                      CupertinoIcons.chevron_right,
-                      size: 20,
-                    )
-                  ],
+                child: GestureDetector(
+                  onTap: () {
+                    AppearanceModal.show(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            CupertinoIcons.paintbrush,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Text("Appearance",
+                              style: TextStyle(
+                                fontFamily: "SFProDisplay",
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                              ))
+                        ],
+                      ),
+                      Icon(
+                        CupertinoIcons.chevron_right,
+                        size: 20,
+                      )
+                    ],
+                  ),
                 ),
               ),
               SizedBox(

@@ -52,7 +52,7 @@ class _NavBarState extends State<NavBar> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
+                  color: Theme.of(context).disabledColor,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black26,
@@ -73,7 +73,9 @@ class _NavBarState extends State<NavBar> {
                       child: SvgPicture.asset(
                         "assets/icons/home.svg",
                         height: 30,
-                        color: _selectedIndex == 0 ? Colors.black : Colors.grey,
+                        color: _selectedIndex == 0
+                            ? Theme.of(context).primaryColor
+                            : Colors.grey,
                       ),
                     ),
                     GestureDetector(
@@ -83,7 +85,9 @@ class _NavBarState extends State<NavBar> {
                       child: SvgPicture.asset(
                         "assets/icons/percent.svg",
                         height: 30,
-                        color: _selectedIndex == 1 ? Colors.black : Colors.grey,
+                        color: _selectedIndex == 1
+                            ? Theme.of(context).primaryColor
+                            : Colors.grey,
                       ),
                     ),
                     GestureDetector(
@@ -93,7 +97,9 @@ class _NavBarState extends State<NavBar> {
                       child: SvgPicture.asset(
                         "assets/icons/settings.svg",
                         height: 30,
-                        color: _selectedIndex == 2 ? Colors.black : Colors.grey,
+                        color: _selectedIndex == 2
+                            ? Theme.of(context).primaryColor
+                            : Colors.grey,
                       ),
                     ),
                     GestureDetector(
