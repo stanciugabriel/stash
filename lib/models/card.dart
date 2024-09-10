@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert'; // For jsonEncode and jsonDecode
+import 'package:flutter/material.dart';
 
 class Card {
   String barcode;
@@ -41,10 +42,29 @@ class CardStorage {
     final String? cardsJson = prefs.getString(_cardsKey);
 
     if (cardsJson == null) {
-      return [];
+      return [Card(barcode: "8572085538", name: "Penny", format: "code-128")];
     }
 
     final List<dynamic> cardsList = jsonDecode(cardsJson);
     return cardsList.map((map) => Card.fromMap(map)).toList();
+  }
+
+  // Map to store card names with their color and logo
+  static const Map<String, Map<String, dynamic>> cardDetails = {
+    'Penny': {
+      'color': Colors.red,
+      'logo': 'assets/penny.svg',
+    },
+    'Sephora': {
+      'color': Colors.white,
+      'logo':
+          'https://upload.wikimedia.org/wikipedia/commons/2/21/Sephora_logo.svg',
+    },
+    // Add other card names with their colors and logos
+  };
+
+  // Method to get card details based on card name
+  static Map<String, dynamic>? getCardDetails(String name) {
+    return cardDetails[name];
   }
 }

@@ -1,5 +1,6 @@
 import 'package:cardnest/cardlistpage.dart';
 import 'package:cardnest/homepage.dart';
+import 'package:cardnest/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:cardnest/models/card.dart' as LoyalCard;
 
@@ -113,7 +114,10 @@ class _AddCardNameState extends State<AddCardName> {
                 if (mounted) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Homepage()),
+                    MaterialPageRoute(
+                        builder: (context) => NavBar(
+                              pageIndex: 0,
+                            )),
                   ); // true indicates that a new card was added
                 }
               }

@@ -1,5 +1,6 @@
 import 'package:cardnest/cardlistpage.dart';
 import 'package:cardnest/homepage.dart';
+import 'package:cardnest/navbar.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       navigatorObservers: [routeObserver],
       debugShowCheckedModeBanner: false,
-      home: Homepage(),
+      home: NavBar(
+        pageIndex: 0,
+      ),
     );
   }
 }

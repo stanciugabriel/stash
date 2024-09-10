@@ -1,6 +1,5 @@
-import 'dart:io';
 import 'dart:ui';
-
+import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:cardnest/add_card_name.dart';
 import 'package:cardnest/alert_box.dart';
@@ -70,7 +69,6 @@ class ScanModal {
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (context, setState) {
-            // Start the camera feed with barcode scanning
             controller.startImageStream((CameraImage image) async {
               if (!hasScanned) {
                 final inputImage =
@@ -214,7 +212,7 @@ class ScanModal {
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
-                        color: Colors.green),
+                        color: Colors.black),
                   ),
                 ],
               ),
