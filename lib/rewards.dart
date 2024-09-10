@@ -1,14 +1,13 @@
 import 'package:cardnest/add_card_name.dart';
 import 'package:cardnest/alert_box.dart';
 import 'package:cardnest/card_modal.dart';
-import 'package:cardnest/card_preview.dart';
 import 'package:cardnest/homepage.dart';
 import 'package:cardnest/scan_modal.dart';
 import 'package:cardnest/settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cardnest/models/card.dart' as LCard;
 import 'package:flutter_svg/svg.dart';
+import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:mesh_gradient/mesh_gradient.dart';
 
 class Rewards extends StatefulWidget {
@@ -113,6 +112,7 @@ class _AnimatedSubscribeButtonState extends State<AnimatedSubscribeButton>
 
   void _onTap() {
     if (!_isSubscribed) {
+      Haptics.vibrate(HapticsType.success);
       setState(() {
         _isPressed = true;
         _isSubscribed = true;

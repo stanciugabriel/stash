@@ -1,22 +1,31 @@
 import 'dart:async';
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:screen_brightness/screen_brightness.dart';
-import 'package:cardnest/models/card.dart' as LCard;
+import 'package:provider/provider.dart';
+import 'package:cardnest/models/loyalty_cards.dart';
+import 'package:cardnest/providers/card_provider.dart'; // Import the CardProvider
 
 class CardModal extends StatefulWidget {
   final String name;
   final String barcode;
+  final String format; // Added format parameter
 
-  const CardModal({Key? key, required this.name, required this.barcode})
-      : super(key: key);
+  const CardModal({
+    Key? key,
+    required this.name,
+    required this.barcode,
+    required this.format, // Initialize format
+  }) : super(key: key);
 
   @override
   State<CardModal> createState() => _CardModal();
 
-  static void show(BuildContext context, String name, String barcode) {
+  static void show(
+      BuildContext context, String name, String barcode, String format) {
     ScreenBrightness().current.then((brightness) {
       showModalBottomSheet(
           isScrollControlled: true,
@@ -29,7 +38,7 @@ class CardModal extends StatefulWidget {
             ),
           ),
           builder: (BuildContext context) {
-            return CardModal(name: name, barcode: barcode);
+            return CardModal(name: name, barcode: barcode, format: format);
           }).then((_) async {
         // Restore the previous brightness level when the modal is dismissed
         await ScreenBrightness().setScreenBrightness(brightness);
@@ -39,6 +48,21 @@ class CardModal extends StatefulWidget {
 }
 
 class _CardModal extends State<CardModal> {
+  // Define a mapping for barcode format to height
+  final Map<String, double> barcodeHeights = {
+    'BarcodeFormat.ean13': 120,
+    'BarcodeFormat.code128': 120,
+    'BarcodeFormat.code93': 110,
+    'BarcodeFormat.dataMatrix': 150,
+    'BarcodeFormat.aztec': 150,
+    'BarcodeFormat.qrCode': 200,
+    'BarcodeFormat.upca': 120,
+    'BarcodeFormat.upce': 120,
+    'BarcodeFormat.code39': 110,
+    'BarcodeFormat.itf': 120,
+    'BarcodeFormat.pdf417': 100,
+  };
+
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -46,10 +70,54 @@ class _CardModal extends State<CardModal> {
     });
 
     // Get the card details from the CardStorage class
-    final cardInfo = LCard.CardStorage.getCardDetails(widget.name);
+    final cardInfo = CardStorage.getCardDetails(widget.name);
     final cardColor =
         cardInfo?['color'] ?? Colors.grey; // Default color if not found
     final cardLogo = cardInfo?['logo'];
+
+    // Determine the barcode format based on the card's format property
+    Barcode barcode;
+    switch (widget.format) {
+      case 'BarcodeFormat.ean13':
+        barcode = Barcode.ean13();
+        break;
+      case 'BarcodeFormat.code128':
+        barcode = Barcode.code128();
+        break;
+      case 'BarcodeFormat.code93':
+        barcode = Barcode.code93();
+        break;
+      case 'BarcodeFormat.dataMatrix':
+        barcode = Barcode.dataMatrix();
+        break;
+      case 'BarcodeFormat.aztec':
+        barcode = Barcode.aztec();
+        break;
+      case 'BarcodeFormat.qrCode':
+        barcode = Barcode.qrCode();
+        break;
+      case 'BarcodeFormat.upca':
+        barcode = Barcode.upcA();
+        break;
+      case 'BarcodeFormat.upce':
+        barcode = Barcode.upcE();
+        break;
+      case 'BarcodeFormat.code39':
+        barcode = Barcode.code39();
+        break;
+      case 'BarcodeFormat.itf':
+        barcode = Barcode.itf();
+        break;
+      case 'BarcodeFormat.pdf417':
+        barcode = Barcode.pdf417();
+        break;
+      default:
+        barcode = Barcode.qrCode(); // Default to QR code if unknown format
+        break;
+    }
+
+    // Get the height for the barcode based on the format
+    final barcodeHeight = barcodeHeights[widget.format] ?? 100.0;
 
     return Container(
       color: Colors.transparent,
@@ -60,6 +128,14 @@ class _CardModal extends State<CardModal> {
             decoration: BoxDecoration(
               color: cardColor, // Use card color from map
               borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 15,
+                  spreadRadius: -7,
+                  offset: Offset(0, 0),
+                ),
+              ],
             ),
             child: Column(
               children: [
@@ -88,9 +164,9 @@ class _CardModal extends State<CardModal> {
                     children: [
                       // Display the logo or the card name
                       cardLogo != null
-                          ? SvgPicture.asset(
-                              cardLogo,
-                              height: 30,
+                          ? CachedNetworkImage(
+                              imageUrl: cardLogo,
+                              height: MediaQuery.of(context).size.height * 0.1,
                             )
                           : Text(
                               widget.name,
@@ -101,7 +177,7 @@ class _CardModal extends State<CardModal> {
                               ),
                             ),
                       SizedBox(
-                        height: 30,
+                        height: 10,
                       ),
                       Container(
                         decoration: BoxDecoration(
@@ -113,10 +189,10 @@ class _CardModal extends State<CardModal> {
                           child: Column(
                             children: [
                               BarcodeWidget(
-                                height: 100,
+                                height: barcodeHeight,
                                 drawText: false,
                                 data: widget.barcode,
-                                barcode: Barcode.code128(),
+                                barcode: barcode,
                               ),
                               SizedBox(
                                 height: 17,
@@ -215,7 +291,7 @@ class _CardModal extends State<CardModal> {
           ),
           GestureDetector(
             onTap: () {
-              deleteCard(widget.barcode, context);
+              _deleteCard(context);
             },
             child: Padding(
               padding:
@@ -263,18 +339,20 @@ class _CardModal extends State<CardModal> {
       ),
     );
   }
-}
 
-Future<void> deleteCard(String barcode, context) async {
-  // Fetch the existing cards
-  List<LCard.Card> cards = await LCard.CardStorage.getCards();
+  Future<void> _deleteCard(BuildContext context) async {
+    print("Deleting card: ${widget.name}"); // Debug statement
+    final cardProvider = Provider.of<CardProvider>(context, listen: false);
 
-  // Find the card to delete and remove it
-  cards.removeWhere((card) => card.barcode == barcode);
+    // Create the card to delete
+    final cardToDelete = LoyaltyCard(
+      barcode: widget.barcode,
+      name: widget.name,
+      format: widget.format,
+    );
 
-  // Save the updated list
-  await LCard.CardStorage.saveCards(cards);
-
-  // Close the modal
-  Navigator.pop(context);
+    // Call removeCard and wait for completion
+    await cardProvider.removeCard(cardToDelete);
+    Navigator.pop(context); // Close the modal
+  }
 }

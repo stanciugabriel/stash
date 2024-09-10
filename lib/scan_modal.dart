@@ -89,6 +89,7 @@ class ScanModal {
                     await controller.stopImageStream();
 
                     Future.delayed(const Duration(seconds: 1), () {
+                      print(barcodes[0].format.toString());
                       Navigator.pop(context); // Dismiss the modal first
 
                       // Navigate to the EnterCardNamePage
@@ -97,7 +98,7 @@ class ScanModal {
                         MaterialPageRoute(
                             builder: (context) => AddCardName(
                                   cardCode: barcodes[0].rawValue ?? "Null",
-                                  codeType: barcodes[0].format.toString(),
+                                  format: barcodes[0].format.toString(),
                                 )),
                       );
                     });

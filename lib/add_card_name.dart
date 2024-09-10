@@ -1,21 +1,26 @@
-import 'package:cardnest/cardlistpage.dart';
-import 'package:cardnest/homepage.dart';
 import 'package:cardnest/navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:cardnest/models/card.dart' as LoyalCard;
+import 'package:provider/provider.dart';
+import 'package:cardnest/models/loyalty_cards.dart'; // New LoyaltyCard class
+import 'package:cardnest/providers/card_provider.dart'; // Provider for managing cards
 
 class AddCardName extends StatefulWidget {
   final String cardCode;
-  final String codeType;
-  const AddCardName(
-      {required this.cardCode, required this.codeType, super.key});
+  final String format;
+
+  const AddCardName({
+    required this.cardCode,
+    required this.format,
+    super.key,
+  });
 
   @override
   State<AddCardName> createState() => _AddCardNameState();
 }
 
 class _AddCardNameState extends State<AddCardName> {
-  TextEditingController cardcontroller = TextEditingController();
+  TextEditingController cardController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,11 +35,7 @@ class _AddCardNameState extends State<AddCardName> {
                 child: Row(
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        Navigator.pop(
-                          context,
-                        );
-                      },
+                      onTap: () => Navigator.pop(context),
                       child: const Icon(Icons.arrow_back_ios_new),
                     ),
                   ],
@@ -58,9 +59,7 @@ class _AddCardNameState extends State<AddCardName> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.only(bottom: 10, top: 5),
                 child: Column(
@@ -68,8 +67,7 @@ class _AddCardNameState extends State<AddCardName> {
                   children: [
                     TextField(
                       keyboardType: TextInputType.name,
-                      autofillHints: const [AutofillHints.familyName],
-                      controller: cardcontroller,
+                      controller: cardController,
                       textInputAction: TextInputAction.done,
                       cursorColor: Colors.black,
                       style: const TextStyle(
@@ -97,28 +95,22 @@ class _AddCardNameState extends State<AddCardName> {
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
           child: GestureDetector(
             onTap: () async {
-              String cardName = cardcontroller.text;
+              String cardName = cardController.text;
               if (cardName.isNotEmpty) {
-                LoyalCard.Card newCard = LoyalCard.Card(
-                    barcode: widget.cardCode,
-                    name: cardName,
-                    format: widget.codeType);
+                // Create a new LoyaltyCard instance
+                LoyaltyCard newCard = LoyaltyCard(
+                  barcode: widget.cardCode,
+                  name: cardName,
+                  format: widget.format,
+                );
 
-                List<LoyalCard.Card> cards =
-                    await LoyalCard.CardStorage.getCards();
-                cards.add(newCard);
+                // Add the card to the provider
+                Provider.of<CardProvider>(context, listen: false)
+                    .addCard(newCard);
 
-                await LoyalCard.CardStorage.saveCards(cards);
-
-                // Pass a success result back to the previous screen
+                // Pop the navigation twice to return to the homepage
                 if (mounted) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => NavBar(
-                              pageIndex: 0,
-                            )),
-                  ); // true indicates that a new card was added
+                  Navigator.pop(context);
                 }
               }
             },
@@ -131,19 +123,16 @@ class _AddCardNameState extends State<AddCardName> {
                 padding: const EdgeInsets.all(13.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                      child: Text(
-                        'Continua',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'SFProRounded',
-                        ),
+                  children: const [
+                    Text(
+                      'Continue',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'SFProRounded',
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

@@ -1,16 +1,7 @@
-import 'package:cardnest/add_card_name.dart';
-import 'package:cardnest/alert_box.dart';
-import 'package:cardnest/card_modal.dart';
-import 'package:cardnest/card_preview.dart';
-import 'package:cardnest/homepage.dart';
-import 'package:cardnest/rewards.dart';
-import 'package:cardnest/scan_modal.dart';
 import 'package:cardnest/terms.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cardnest/models/card.dart' as LCard;
 import 'package:flutter_svg/svg.dart';
-import 'package:mesh_gradient/mesh_gradient.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 

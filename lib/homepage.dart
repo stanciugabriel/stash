@@ -1,51 +1,43 @@
-import 'package:cardnest/add_card_name.dart';
-import 'package:cardnest/alert_box.dart';
-import 'package:cardnest/card_modal.dart';
-import 'package:cardnest/card_preview.dart';
-import 'package:cardnest/rewards.dart';
-import 'package:cardnest/scan_modal.dart';
-import 'package:cardnest/settings.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_svg_image/cached_network_svg_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cardnest/models/card.dart' as LCard;
-import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:cardnest/models/loyalty_cards.dart';
+import 'package:cardnest/card_modal.dart';
+import 'package:cardnest/providers/card_provider.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
   @override
-  State<Homepage> createState() => _HomepageState();
+  _HomepageState createState() => _HomepageState();
 }
 
 class _HomepageState extends State<Homepage> {
-  final List<Color> pastelColors = [
-    Color(0xFFCD1515), // Pink
-    Color(0xFFC8E6C9), // Green
-    Color(0xFFBBDEFB), // Blue
-    Color(0xFFFFF9C4), // Yellow
-    Color(0xFFD1C4E9), // Purple
-  ];
-
-  // Define card details with name, color, and logo
-  final Map<String, Map<String, dynamic>> cardDetails = {
-    'Penny': {'color': Colors.red, 'logo': 'assets/penny.svg'},
-    'DrMax': {'color': Colors.green, 'logo': 'assets/icons/home.svg'},
-    // Add other card names with their colors and logos
-  };
-
-  List<LCard.Card> _cards = [];
+  late TextEditingController _searchController;
+  List<LoyaltyCard> _filteredCards = [];
 
   @override
   void initState() {
     super.initState();
-    _loadCards();
+    _searchController = TextEditingController();
+    _searchController.addListener(_filterCards);
   }
 
-  // Load cards from local storage
-  Future<void> _loadCards() async {
-    List<LCard.Card> cards = await LCard.CardStorage.getCards();
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _filterCards() {
+    final query = _searchController.text.toLowerCase();
+    final cardProvider = Provider.of<CardProvider>(context, listen: false);
     setState(() {
-      _cards = cards;
+      _filteredCards = cardProvider.cards.where((card) {
+        return card.name.toLowerCase().contains(query);
+      }).toList();
     });
   }
 
@@ -61,18 +53,17 @@ class _HomepageState extends State<Homepage> {
               Text(
                 "Cards",
                 style: TextStyle(
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'SFProRounded'),
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'SFProRounded',
+                ),
               ),
             ],
           ),
           SizedBox(height: 20),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
                   child: Container(
@@ -83,23 +74,20 @@ class _HomepageState extends State<Homepage> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            CupertinoIcons.search,
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          icon: Icon(CupertinoIcons.search,
+                              color: Color(0xFF4E4E4E)),
+                          hintText: "Search...",
+                          hintStyle: TextStyle(
+                            fontFamily: 'SFProRounded',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
                             color: Color(0xFF4E4E4E),
                           ),
-                          SizedBox(width: 5),
-                          Text(
-                            "Search...",
-                            style: TextStyle(
-                              fontFamily: 'SFProRounded',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: Color(0xFF4E4E4E),
-                            ),
-                          ),
-                        ],
+                          border: InputBorder.none,
+                        ),
                       ),
                     ),
                   ),
@@ -107,89 +95,112 @@ class _HomepageState extends State<Homepage> {
               ],
             ),
           ),
-          SizedBox(height: 25), // Add spacing between Row and ListView
+          SizedBox(
+            height: 25,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Consumer<CardProvider>(
+                builder: (context, cardProvider, _) {
+                  final cards = _filteredCards.isEmpty
+                      ? cardProvider.cards
+                      : _filteredCards;
 
-          MediaQuery.removePadding(
-            removeTop: true,
-            context: context,
-            child: Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: ListView.builder(
-                  itemCount: (_cards.length / 2).ceil(), // Number of rows
-                  itemBuilder: (BuildContext context, int index) {
-                    final int firstItemIndex = index * 2;
-                    final int secondItemIndex = firstItemIndex + 1;
+                  return MediaQuery.removePadding(
+                    context: context,
+                    removeTop: true,
+                    child: ListView.builder(
+                      itemCount: (cards.length / 2).ceil(), // Number of rows
+                      itemBuilder: (BuildContext context, int index) {
+                        final firstItemIndex = index * 2;
+                        final secondItemIndex = firstItemIndex + 1;
 
-                    Widget buildCard(LCard.Card card) {
-                      final cardInfo = cardDetails[card.name];
-                      final cardColor = cardInfo?['color'] ??
-                          pastelColors[
-                              card.name.hashCode % pastelColors.length];
-                      final cardLogo = cardInfo?['logo'];
+                        Widget buildCard(LoyaltyCard card) {
+                          final cardInfo =
+                              CardStorage.getCardDetails(card.name);
+                          final cardColor = cardInfo?['color'] ?? Colors.grey;
+                          final cardLogo = cardInfo?['logo'];
 
-                      return Container(
-                        width: MediaQuery.of(context).size.width *
-                            0.44, // 44% of the screen width
-                        height: MediaQuery.of(context).size.width *
-                            0.44 /
-                            1.586, // Credit card aspect ratio
-                        decoration: BoxDecoration(
-                          color: cardColor,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Center(
-                          child: cardLogo != null
-                              ? SvgPicture.asset(cardLogo, height: 20)
-                              : Text(
-                                  card.name,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontFamily: 'SFProRounded'),
-                                ),
-                        ),
-                      );
-                    }
-
-                    return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // First item
-                            GestureDetector(
-                              onTap: () {
-                                CardModal.show(
-                                  context,
-                                  _cards[firstItemIndex].name,
-                                  _cards[firstItemIndex].barcode,
-                                );
-                              },
-                              child: buildCard(_cards[firstItemIndex]),
+                          return Container(
+                            width: MediaQuery.of(context).size.width * 0.44,
+                            height: MediaQuery.of(context).size.width *
+                                0.44 /
+                                1.586,
+                            decoration: BoxDecoration(
+                                color: cardColor,
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 15,
+                                    spreadRadius: -7,
+                                    offset: Offset(0, 0),
+                                  ),
+                                ]),
+                            child: Center(
+                              child: cardLogo != null
+                                  ? CachedNetworkImage(
+                                      imageUrl: cardLogo,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.37,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.09,
+                                    )
+                                  : Text(
+                                      card.name,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        fontFamily: 'SFProRounded',
+                                      ),
+                                    ),
                             ),
-                            // Second item (if it exists)
-                            if (secondItemIndex < _cards.length)
+                          );
+                        }
+
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
                               GestureDetector(
                                 onTap: () {
                                   CardModal.show(
                                     context,
-                                    _cards[secondItemIndex].name,
-                                    _cards[secondItemIndex].barcode,
+                                    cards[firstItemIndex].name,
+                                    cards[firstItemIndex].barcode,
+                                    cards[firstItemIndex].format,
                                   );
                                 },
-                                child: buildCard(_cards[secondItemIndex]),
+                                child: buildCard(cards[firstItemIndex]),
                               ),
-                            // Spacer if second item doesn't exist (for last odd row)
-                            if (secondItemIndex >= _cards.length)
-                              SizedBox(
+                              if (secondItemIndex < cards.length)
+                                GestureDetector(
+                                  onTap: () {
+                                    CardModal.show(
+                                      context,
+                                      cards[secondItemIndex].name,
+                                      cards[secondItemIndex].barcode,
+                                      cards[secondItemIndex].format,
+                                    );
+                                  },
+                                  child: buildCard(cards[secondItemIndex]),
+                                ),
+                              if (secondItemIndex >= cards.length)
+                                SizedBox(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.44),
-                          ],
-                        ));
-                  },
-                ),
+                                      MediaQuery.of(context).size.width * 0.44,
+                                ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
               ),
             ),
           ),
