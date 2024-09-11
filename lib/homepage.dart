@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:cardnest/models/loyalty_cards.dart';
 import 'package:cardnest/card_modal.dart';
 import 'package:cardnest/providers/card_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -52,7 +53,7 @@ class _HomepageState extends State<Homepage> {
             children: [
               SizedBox(width: 20),
               Text(
-                "Cards",
+                AppLocalizations.of(context)!.card_title,
                 style: TextStyle(
                   fontSize: 36,
                   fontWeight: FontWeight.bold,
@@ -82,7 +83,7 @@ class _HomepageState extends State<Homepage> {
                             CupertinoIcons.search,
                             color: Theme.of(context).cardColor,
                           ),
-                          hintText: "Search...",
+                          hintText: AppLocalizations.of(context)!.search,
                           hintStyle: TextStyle(
                             fontFamily: 'SFProRounded',
                             fontWeight: FontWeight.w600,

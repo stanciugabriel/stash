@@ -2,6 +2,7 @@ import 'package:cardnest/providers/theme_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppearanceModal extends StatefulWidget {
   const AppearanceModal({super.key});
@@ -57,7 +58,7 @@ class _AppearanceModal extends State<AppearanceModal> {
                   },
                   child: Icon(CupertinoIcons.chevron_back)),
               Text(
-                "Appearance",
+                AppLocalizations.of(context)!.appearance,
                 style: TextStyle(
                   fontFamily: "SFProDisplay",
                   fontWeight: FontWeight.w600,
@@ -72,7 +73,7 @@ class _AppearanceModal extends State<AppearanceModal> {
           ),
           SizedBox(height: 20),
           Text(
-            "Color Scheme",
+            AppLocalizations.of(context)!.color_scheme,
             style: TextStyle(
               fontFamily: "SFProDisplay",
               fontWeight: FontWeight.w600,
@@ -80,7 +81,7 @@ class _AppearanceModal extends State<AppearanceModal> {
             ),
           ),
           Text(
-            "Turn on dark mode, or let CardNest visually match your device settings.",
+            AppLocalizations.of(context)!.color_scheme_description,
             style: TextStyle(
               fontFamily: "SFProDisplay",
               fontWeight: FontWeight.w500,
@@ -100,7 +101,7 @@ class _AppearanceModal extends State<AppearanceModal> {
                   },
                   child: ThemeSwitcher(
                     isSelected: selectedScheme == 'System',
-                    label: 'System',
+                    label: AppLocalizations.of(context)!.system_mode,
                     icon: CupertinoIcons.circle_lefthalf_fill,
                   ),
                 ),
@@ -116,7 +117,7 @@ class _AppearanceModal extends State<AppearanceModal> {
                   },
                   child: ThemeSwitcher(
                     isSelected: selectedScheme == 'Light',
-                    label: 'Light',
+                    label: AppLocalizations.of(context)!.light_mode,
                     icon: CupertinoIcons.sun_max_fill,
                   ),
                 ),
@@ -132,7 +133,7 @@ class _AppearanceModal extends State<AppearanceModal> {
                   },
                   child: ThemeSwitcher(
                     isSelected: selectedScheme == 'Dark',
-                    label: 'Dark',
+                    label: AppLocalizations.of(context)!.dark_mode,
                     icon: CupertinoIcons.moon_fill,
                   ),
                 ),

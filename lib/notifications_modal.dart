@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotificationsModal extends StatefulWidget {
   const NotificationsModal({super.key});
@@ -42,7 +43,7 @@ class _NotificationsModal extends State<NotificationsModal> {
                   },
                   child: Icon(CupertinoIcons.chevron_back)),
               Text(
-                "Notifications",
+                AppLocalizations.of(context)!.notifications,
                 style: TextStyle(
                     fontFamily: "SFProDisplay",
                     fontWeight: FontWeight.w600,
@@ -61,7 +62,7 @@ class _NotificationsModal extends State<NotificationsModal> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Push Notifications",
+                AppLocalizations.of(context)!.push_notifications,
                 style: TextStyle(
                     fontFamily: "SFProDisplay",
                     fontWeight: FontWeight.w600,

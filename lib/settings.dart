@@ -1,4 +1,5 @@
 import 'package:cardnest/appearance_modal.dart';
+import 'package:cardnest/language_modal.dart';
 import 'package:cardnest/notifications_modal.dart';
 import 'package:cardnest/terms.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -67,7 +69,7 @@ class _SettingsState extends State<Settings> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "Account settings",
+                            AppLocalizations.of(context)!.account_settings,
                             style: TextStyle(
                                 fontFamily: "SFProDisplay",
                                 fontSize: 16,
@@ -88,7 +90,7 @@ class _SettingsState extends State<Settings> {
               SizedBox(
                 height: 40,
               ),
-              Text("Preferences",
+              Text(AppLocalizations.of(context)!.preferences,
                   style: TextStyle(
                     fontFamily: "SFProDisplay",
                     fontSize: 16,
@@ -116,7 +118,7 @@ class _SettingsState extends State<Settings> {
                           SizedBox(
                             width: 15,
                           ),
-                          Text("Notifications",
+                          Text(AppLocalizations.of(context)!.notifications,
                               style: TextStyle(
                                 fontFamily: "SFProDisplay",
                                 fontSize: 20,
@@ -150,7 +152,41 @@ class _SettingsState extends State<Settings> {
                           SizedBox(
                             width: 15,
                           ),
-                          Text("Appearance",
+                          Text(AppLocalizations.of(context)!.appearance,
+                              style: TextStyle(
+                                fontFamily: "SFProDisplay",
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                              ))
+                        ],
+                      ),
+                      Icon(
+                        CupertinoIcons.chevron_right,
+                        size: 20,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: GestureDetector(
+                  onTap: () {
+                    LanguageModal.show(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            CupertinoIcons.globe,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Text(AppLocalizations.of(context)!.language,
                               style: TextStyle(
                                 fontFamily: "SFProDisplay",
                                 fontSize: 20,
@@ -169,7 +205,7 @@ class _SettingsState extends State<Settings> {
               SizedBox(
                 height: 20,
               ),
-              Text("Resources",
+              Text(AppLocalizations.of(context)!.resources,
                   style: TextStyle(
                     fontFamily: "SFProDisplay",
                     fontSize: 16,
@@ -193,7 +229,7 @@ class _SettingsState extends State<Settings> {
                         SizedBox(
                           width: 15,
                         ),
-                        Text("Leave feedback",
+                        Text(AppLocalizations.of(context)!.leave_feedback,
                             style: TextStyle(
                               fontFamily: "SFProDisplay",
                               fontSize: 20,
@@ -228,7 +264,7 @@ class _SettingsState extends State<Settings> {
                           SizedBox(
                             width: 15,
                           ),
-                          Text("Rate in App Store",
+                          Text(AppLocalizations.of(context)!.rate_in_app_store,
                               style: TextStyle(
                                 fontFamily: "SFProDisplay",
                                 fontSize: 20,
@@ -259,7 +295,7 @@ class _SettingsState extends State<Settings> {
                     SizedBox(
                       width: 15,
                     ),
-                    Text("Sign Out",
+                    Text(AppLocalizations.of(context)!.sign_out,
                         style: TextStyle(
                             fontFamily: "SFProDisplay",
                             fontSize: 20,
@@ -281,7 +317,8 @@ class _SettingsState extends State<Settings> {
                         height: 10,
                       ),
                       Text(
-                        "Version ${_packageInfo.version} (${_packageInfo.buildNumber})",
+                        AppLocalizations.of(context)!.version +
+                            " ${_packageInfo.version} (${_packageInfo.buildNumber})",
                         style: TextStyle(color: Color(0xFF6F6F6F)),
                       ),
                       GestureDetector(
@@ -289,7 +326,7 @@ class _SettingsState extends State<Settings> {
                           TermsOfUse.show(context);
                         },
                         child: Text(
-                          "Terms & Privacy",
+                          AppLocalizations.of(context)!.terms_and_privacy,
                           style: TextStyle(color: Color(0xFF6F6F6F)),
                         ),
                       ),

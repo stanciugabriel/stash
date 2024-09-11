@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cardnest/models/loyalty_cards.dart'; // New LoyaltyCard class
 import 'package:cardnest/providers/card_provider.dart'; // Provider for managing cards
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddCardName extends StatefulWidget {
   final String cardCode;
@@ -42,8 +43,8 @@ class _AddCardNameState extends State<AddCardName> {
                 ),
               ),
               const SizedBox(height: 15),
-              const Text(
-                "Enter the name of the store",
+              Text(
+                AppLocalizations.of(context)!.card_name_title,
                 style: TextStyle(
                   fontSize: 22,
                   fontFamily: 'SFProRounded',
@@ -51,8 +52,8 @@ class _AddCardNameState extends State<AddCardName> {
                 ),
               ),
               const SizedBox(height: 5),
-              const Text(
-                "Please enter the name of the store that issued the loyalty card.",
+              Text(
+                AppLocalizations.of(context)!.card_name_description,
                 style: TextStyle(
                   fontSize: 15,
                   fontFamily: 'SFProRounded',
@@ -123,9 +124,9 @@ class _AddCardNameState extends State<AddCardName> {
                 padding: const EdgeInsets.all(13.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
-                      'Continue',
+                      AppLocalizations.of(context)!.continue_button,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 22,

@@ -62,7 +62,7 @@ class CardStorage {
       return [
         LoyaltyCard(
             barcode: "barcode",
-            name: "Intersport",
+            name: "Sephora",
             format: "BarcodeFormat.code128"),
       ];
     }

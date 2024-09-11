@@ -1,0 +1,167 @@
+{
+  "@@locale": "ro",
+  "title": "Titlu",
+  "@title": {
+    "description": "Textul principal afișat pe ecranul de titlu"
+  },
+  "welcome_message": "Bine ai venit!",
+  "@welcome_message": {
+    "description": "Mesajul de salut afișat utilizatorilor"
+  },
+  "login": "Autentificare",
+  "@login": {
+    "description": "Buton pentru autentificarea utilizatorului"
+  },
+  "logout": "Deconectare",
+  "@logout": {
+    "description": "Buton pentru deconectarea utilizatorului"
+  },
+  "settings": "Setări",
+  "@settings": {
+    "description": "Buton pentru accesarea setărilor"
+  },
+  "dark_mode": "Întunecat",
+  "@dark_mode": {
+    "description": "Etichetă pentru comutatorul modului întunecat"
+  },
+  "light_mode": "Luminos",
+  "@light_mode": {
+    "description": "Etichetă pentru comutatorul modului luminos"
+  },
+  "system_mode": "Sistem",
+  "@system_mode": {
+    "description": "Etichetă pentru comutatorul modului sistem"
+  },
+  "card_title": "Carduri",
+  "@card_title": {
+    "description": "Etichetă pentru titlul ecranului principal"
+  },
+  "appearance": "Aspect",
+  "@appearance": {
+    "description": "Etichetă pentru titlul filei de aspect"
+  },
+  "color_scheme": "Schemă de culori",
+  "@color_scheme": {
+    "description": "Titlu pentru schema de culori"
+  },
+  "color_scheme_description": "Activează modul întunecat sau lasă CardNest să se potrivească vizual cu setările dispozitivului tău.",
+  "@color_scheme_description": {
+    "description": "Descrierea schemei de culori"
+  },
+  "search": "Caută...",
+  "@search": {
+    "description": "Etichetă pentru bara de căutare"
+  },
+  "edit": "Editează",
+  "@edit": {
+    "description": "Titlu pentru butonul de editare"
+  },
+  "share": "Distribuie",
+  "@share": {
+    "description": "Titlu pentru butonul de partajare"
+  },
+  "delete": "Șterge",
+  "@delete": {
+    "description": "Titlu pentru butonul de ștergere"
+  },
+  "edit_description": "Editează detaliile cardului tău.",
+  "@edit_description": {
+    "description": "Descrierea butonului de editare"
+  },
+  "share_description": "Distribuie acest card cu prietenii tăi.",
+  "@share_description": {
+    "description": "Descrierea butonului de partajare"
+  },
+  "delete_description": "Șterge acest card permanent.",
+  "@delete_description": {
+    "description": "Descrierea butonului de ștergere"
+  },
+  "coming_soon": "În Curând.",
+  "@coming_soon": {
+    "description": "Titlu pentru pagina de recompense"
+  },
+  "coming_soon_description": "Între timp, abonează-te pentru a primi notificări când adăugăm funcții noi.",
+  "@coming_soon_description": {
+    "description": "Descriere pentru pagina de recompense"
+  },
+  "subscribe": "Abonează-te",
+  "@subscribe": {
+    "description": "Buton pentru abonare"
+  },
+  "subscribed": "Abonat",
+  "@subscribed": {
+    "description": "Buton pentru abonați"
+  },
+  "account_settings": "Setări cont",
+  "@account_settings": {
+    "description": "Buton pentru setările contului"
+  },
+  "preferences": "Preferințe",
+  "@preferences": {
+    "description": "Titlu pentru preferințe"
+  },
+  "notifications": "Notificări",
+  "@notifications": {
+    "description": "Buton pentru notificări"
+  },
+  "resources": "Resurse",
+  "@resources": {
+    "description": "Titlu pentru resurse"
+  },
+  "leave_feedback": "Lasă un feedback",
+  "@leave_feedback": {
+    "description": "Buton pentru feedback"
+  },
+  "rate_in_app_store": "Evaluează în App Store",
+  "@rate_in_app_store": {
+    "description": "Buton pentru evaluare în App Store"
+  },
+  "sign_out": "Deconectare",
+  "@sign_out": {
+    "description": "Buton pentru deconectare"
+  },
+  "version": "Versiune",
+  "@version": {
+    "description": "Text pentru versiune"
+  },
+  "terms_and_privacy": "Termeni & Confidențialitate",
+  "@terms_and_privacy": {
+    "description": "Buton pentru termeni și confidențialitate"
+  },
+  "push_notifications": "Notificări push",
+  "@push_notifications": {
+    "description": "Comutator pentru notificări push"
+  },
+  "add_manually_button": "Sau, adaugă cardul manual.",
+  "@add_manually_button": {
+    "description": "Buton pentru adăugarea manuală"
+  },
+  "scan_loyalty_card": "Scanează cardul tău de loialitate",
+  "@scan_loyalty_card": {
+    "description": "Titlu pentru scanarea cardului de loialitate"
+  },
+  "card_name_title": "Introdu numele magazinului",
+  "@card_name_title": {
+    "description": "Titlu pentru numele cardului"
+  },
+  "card_name_description": "Te rugăm să introduci numele magazinului care a emis cardul de loialitate.",
+  "@card_name_description": {
+    "description": "Descrierea pentru numele cardului"
+  },
+  "continue_button": "Continuă",
+  "@continue_button": {
+    "description": "Buton pentru continuare"
+  },
+  "language": "Limbă",
+    "@language": {
+      "description": "Buton pentru limba"
+    },
+    "language_title": "Schimbă Limba",
+    "@language_title": {
+      "description": "Language Title"
+    },
+    "language_description": "Alege limba ta preferată sau folosește limba implicită de pe dispozitivul tău.",
+    "@language_description": {
+      "description": "Language Description"
+    }
+}

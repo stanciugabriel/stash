@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:glass/glass.dart';
 import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ScanModal {
   static Future<void> show(BuildContext context) async {
@@ -55,7 +56,7 @@ class ScanModal {
     bool hasScanned = false;
 
     showModalBottomSheet(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).shadowColor,
       isScrollControlled: true,
       context: context,
       isDismissible: false,
@@ -144,19 +145,20 @@ class ScanModal {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Container(
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color.fromARGB(255, 231, 231, 231)),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Theme.of(context).cardColor,
+                        ),
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pop(context);
                             controller.dispose();
                           },
-                          child: const Padding(
+                          child: Padding(
                             padding: EdgeInsets.all(3.0),
                             child: Icon(
                               Icons.close,
-                              color: Color.fromARGB(255, 170, 170, 170),
+                              color: Theme.of(context).shadowColor,
                             ),
                           ),
                         ),
@@ -164,8 +166,8 @@ class ScanModal {
                     ],
                   ),
                   const SizedBox(height: 5),
-                  const Text(
-                    'Scan your loyalty card',
+                  Text(
+                    AppLocalizations.of(context)!.scan_loyalty_card,
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
@@ -208,12 +210,12 @@ class ScanModal {
                   ),
 
                   const SizedBox(height: 20),
-                  const Text(
-                    'Or, add the card manually.',
+                  Text(
+                    AppLocalizations.of(context)!.add_manually_button,
                     style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),

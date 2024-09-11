@@ -8,6 +8,7 @@ import 'package:screen_brightness/screen_brightness.dart';
 import 'package:provider/provider.dart';
 import 'package:cardnest/models/loyalty_cards.dart';
 import 'package:cardnest/providers/card_provider.dart'; // Import the CardProvider
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CardModal extends StatefulWidget {
   final String name;
@@ -149,7 +150,7 @@ class _CardModal extends State<CardModal> {
                         },
                         child: Icon(
                           CupertinoIcons.clear_thick_circled,
-                          color: Colors.black,
+                          color: getCloseButtonColor(cardColor),
                           size: 35,
                         ),
                       )
@@ -201,7 +202,8 @@ class _CardModal extends State<CardModal> {
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontFamily: "SFProDisplay",
-                                    fontWeight: FontWeight.w600),
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black),
                               ),
                             ],
                           ),
@@ -230,7 +232,7 @@ class _CardModal extends State<CardModal> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Edit",
+                      AppLocalizations.of(context)!.edit,
                       style: TextStyle(
                           fontFamily: "SFProDisplay",
                           fontWeight: FontWeight.w700,
@@ -238,7 +240,7 @@ class _CardModal extends State<CardModal> {
                           height: 1.3),
                     ),
                     Text(
-                      "Edit your card details.",
+                      AppLocalizations.of(context)!.edit_description,
                       style: TextStyle(
                         fontFamily: "SFProDisplay",
                         fontWeight: FontWeight.w500,
@@ -267,7 +269,7 @@ class _CardModal extends State<CardModal> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Share",
+                        AppLocalizations.of(context)!.share,
                         style: TextStyle(
                             fontFamily: "SFProDisplay",
                             fontWeight: FontWeight.w700,
@@ -275,7 +277,7 @@ class _CardModal extends State<CardModal> {
                             height: 1.3),
                       ),
                       Text(
-                        "Share this card with your friends.",
+                        AppLocalizations.of(context)!.share_description,
                         style: TextStyle(
                           fontFamily: "SFProDisplay",
                           fontWeight: FontWeight.w500,
@@ -310,7 +312,7 @@ class _CardModal extends State<CardModal> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Delete",
+                        AppLocalizations.of(context)!.delete,
                         style: TextStyle(
                           fontFamily: "SFProDisplay",
                           fontWeight: FontWeight.w700,
@@ -320,7 +322,7 @@ class _CardModal extends State<CardModal> {
                         ),
                       ),
                       Text(
-                        "Permanently delete this card.",
+                        AppLocalizations.of(context)!.delete_description,
                         style: TextStyle(
                           fontFamily: "SFProDisplay",
                           fontWeight: FontWeight.w500,
@@ -354,4 +356,14 @@ class _CardModal extends State<CardModal> {
     await cardProvider.removeCard(cardToDelete);
     Navigator.pop(context); // Close the modal
   }
+}
+
+// Method to calculate if the color is light or dark
+bool isLightColor(Color color) {
+  return ThemeData.estimateBrightnessForColor(color) == Brightness.light;
+}
+
+// Method to get the close button color based on background
+Color getCloseButtonColor(Color backgroundColor) {
+  return isLightColor(backgroundColor) ? Colors.black : Colors.white;
 }

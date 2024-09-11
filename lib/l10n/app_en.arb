@@ -1,0 +1,167 @@
+{
+    "@@locale": "en",
+    "title": "Title",
+    "@title": {
+      "description": "The main text displayed on the title screen"
+    },
+    "welcome_message": "Welcome!",
+    "@welcome_message": {
+      "description": "The greeting message displayed to users"
+    },
+    "login": "Login",
+    "@login": {
+      "description": "Button for user login"
+    },
+    "logout": "Logout",
+    "@logout": {
+      "description": "Button for user logout"
+    },
+    "settings": "Settings",
+    "@settings": {
+      "description": "Button to access settings"
+    },
+    "dark_mode": "Dark",
+    "@dark_mode": {
+      "description": "Label for the dark mode toggle"
+    },
+    "light_mode": "Light",
+    "@light_mode": {
+      "description": "Label for the light mode toggle"
+    },
+    "system_mode": "System",
+    "@system_mode": {
+      "description": "Label for the system mode toggle"
+    },
+    "card_title": "Cards",
+    "@card_title": {
+      "description": "Label for homescreen title"
+    },
+    "appearance": "Appearance",
+    "@appearance": {
+      "description": "Label for appearance tab title"
+    },
+    "color_scheme": "Color Scheme",
+    "@color_scheme": {
+      "description": "Title for color scheme"
+    },
+    "color_scheme_description": "Turn on dark mode, or let CardNest visually match your device settings.",
+    "@color_scheme_description": {
+      "description": "Color scheme description"
+    },
+    "search": "Search..",
+    "@search": {
+      "description": "Search Label for searchbar"
+    },
+    "edit": "Edit",
+    "@edit": {
+      "description": "Title for edit button"
+    },
+    "share": "Share",
+    "@share": {
+      "description": "Title for share button"
+    },
+    "delete": "Delete",
+    "@delete": {
+      "description": "Title for delete button"
+    },
+    "edit_description": "Edit your card details.",
+    "@edit_description": {
+      "description": "Description for edit button"
+    },
+    "share_description": "Share this card with your friends.",
+    "@share_description": {
+      "description": "Description for share button"
+    },
+    "delete_description": "Permanently delete this card.",
+    "@delete_description": {
+      "description": "Description for delete button"
+    },
+    "coming_soon": "Coming Soon.",
+    "@coming_soon": {
+      "description": "Title for rewards page"
+    },
+    "coming_soon_description": "In the meantime, subscribe to receive updates when we add new features.",
+    "@coming_soon_description": {
+      "description": "Description for rewards page"
+    },
+    "subscribe": "Subscribe",
+    "@subscribe": {
+      "description": "Subscribe button"
+    },
+    "subscribed": "Subscribed",
+    "@subscribed": {
+      "description": "Subscribed button"
+    },
+    "account_settings": "Account settings",
+    "@account_settings": {
+      "description": "Account settings button"
+    },
+    "preferences": "Preferences",
+    "@preferences": {
+      "description": "preferences title"
+    },
+    "notifications": "Notifications",
+    "@notifications": {
+      "description": "Notifications button"
+    },
+    "resources": "Resources",
+    "@resources": {
+      "description": "resources title"
+    },
+    "leave_feedback": "Leave Feedback",
+    "@leave_feedback": {
+      "description": "Leave feedback button"
+    },
+    "rate_in_app_store": "Rate in App Store",
+    "@rate_in_app_store": {
+      "description": "rate_in_app_store button"
+    },
+    "sign_out": "Sign out",
+    "@sign_out": {
+      "description": "sign_out button"
+    },
+    "version": "Version",
+    "@version": {
+      "description": "version text"
+    },
+    "terms_and_privacy": "Terms & Privacy",
+    "@terms_and_privacy": {
+      "description": "terms_and_privacy button"
+    },
+    "push_notifications": "Push Notifications",
+    "@push_notifications": {
+      "description": "push_notifications toggle"
+    },
+    "add_manually_button": "Or, add the card manually.",
+    "@add_manually_button": {
+      "description": "Add manually button"
+    },
+    "scan_loyalty_card": "Scan your loyaty card",
+    "@scan_loyalty_card": {
+      "description": "Scan loyalty card title"
+    },
+    "card_name_title": "Enter the name of the store",
+    "@card_name_title": {
+      "description": "Scan loyalty card title"
+    },
+    "card_name_description": "Please enter the name of the store that issued the loyalty card.",
+    "@card_name_description": {
+      "description": "Scan loyalty card title"
+    },
+    "continue_button": "Continue",
+    "@continue_button": {
+      "description": "Continue button"
+    },
+    "language": "Language",
+    "@language": {
+      "description": "Language button"
+    },
+    "language_title": "Change Language",
+    "@language_title": {
+      "description": "Language Title"
+    },
+    "language_description": "Choose your favourite language, or use the default language on your device.",
+    "@language_description": {
+      "description": "Language Description"
+    }
+  }

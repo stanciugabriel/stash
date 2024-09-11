@@ -65,6 +65,7 @@ final ThemeData lightTheme = ThemeData(
   shadowColor: Color(0xFFE5E2E2),
   disabledColor: Colors.white, //used for navbar
   scaffoldBackgroundColor: Colors.white,
+  cardColor: Color(0xFF4E4E4E),
   bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.white),
 );
 

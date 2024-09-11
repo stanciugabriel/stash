@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:mesh_gradient/mesh_gradient.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Rewards extends StatefulWidget {
   const Rewards({super.key});
@@ -45,7 +46,7 @@ class _RewardsState extends State<Rewards> {
                   color: Theme.of(context).primaryColorDark,
                 ),
                 Text(
-                  "Coming Soon.",
+                  AppLocalizations.of(context)!.coming_soon,
                   style: TextStyle(
                       fontSize: 48,
                       fontWeight: FontWeight.bold,
@@ -55,7 +56,7 @@ class _RewardsState extends State<Rewards> {
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * 0.75,
                   child: Text(
-                    "In the meantime, subscribe to receive updates when we add new features.",
+                    AppLocalizations.of(context)!.coming_soon_description,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 16,
@@ -103,7 +104,7 @@ class _AnimatedSubscribeButtonState extends State<AnimatedSubscribeButton>
       });
 
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(_controller);
-    _colorAnimation = ColorTween(begin: Colors.black, end: Colors.grey[300])
+    _colorAnimation = ColorTween(begin: Colors.white, end: Colors.grey[300])
         .animate(_controller);
   }
 
@@ -135,7 +136,7 @@ class _AnimatedSubscribeButtonState extends State<AnimatedSubscribeButton>
         transform: Matrix4.identity()..scale(_scaleAnimation.value),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
-          color: _colorAnimation.value,
+          color: Theme.of(context).disabledColor,
           boxShadow: [
             BoxShadow(
               color: Colors.black26,
@@ -163,7 +164,9 @@ class _AnimatedSubscribeButtonState extends State<AnimatedSubscribeButton>
                 ),
               SizedBox(width: 10),
               Text(
-                _isSubscribed ? "Subscribed" : "Subscribe",
+                _isSubscribed
+                    ? AppLocalizations.of(context)!.subscribed
+                    : AppLocalizations.of(context)!.subscribe,
                 style: TextStyle(
                   fontFamily: "SFProDisplay",
                   fontSize: 16,
