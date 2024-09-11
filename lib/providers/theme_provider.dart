@@ -62,20 +62,20 @@ final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   primaryColor: Colors.black,
   primaryColorDark: Colors.white,
-  shadowColor: Color(0xFFE5E2E2),
+  shadowColor: const Color(0xFFE5E2E2),
   disabledColor: Colors.white, //used for navbar
   scaffoldBackgroundColor: Colors.white,
-  cardColor: Color(0xFF4E4E4E),
-  bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.white),
+  cardColor: const Color(0xFF4E4E4E),
+  bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.white),
 );
 
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: Colors.white,
   primaryColorDark: Colors.black,
-  shadowColor: Color(0xFF141414),
-  disabledColor: Color(0xFF141414),
+  shadowColor: const Color(0xFF141414),
+  disabledColor: const Color(0xFF141414),
   scaffoldBackgroundColor: Colors.black,
-  cardColor: Color(0xFF545357), //used for text on grey background
-  bottomSheetTheme: BottomSheetThemeData(backgroundColor: Color(0xFF141414)),
+  cardColor: const Color(0xFF545357), //used for text on grey background
+  bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Color(0xFF141414)),
 );

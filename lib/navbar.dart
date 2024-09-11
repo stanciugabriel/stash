@@ -10,8 +10,8 @@ class NavBar extends StatefulWidget {
   final int pageIndex;
   const NavBar({
     required this.pageIndex,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -27,9 +27,9 @@ class _NavBarState extends State<NavBar> {
   }
 
   final List<Widget> _screens = [
-    Homepage(),
-    Rewards(),
-    Settings(),
+    const Homepage(),
+    const Rewards(),
+    const Settings(),
   ];
 
   void _onItemTapped(int index) {
@@ -53,7 +53,7 @@ class _NavBarState extends State<NavBar> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Theme.of(context).disabledColor,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black26,
                       blurRadius: 15,
@@ -65,7 +65,7 @@ class _NavBarState extends State<NavBar> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(),
+                    const SizedBox(),
                     GestureDetector(
                       onTap: () {
                         _onItemTapped(0);
@@ -106,13 +106,13 @@ class _NavBarState extends State<NavBar> {
                       onTap: () {
                         ScanModal.show(context);
                       },
-                      child: Icon(
+                      child: const Icon(
                         CupertinoIcons.add_circled_solid,
                         color: Color.fromARGB(255, 24, 104, 242),
                         size: 30,
                       ),
                     ),
-                    SizedBox(),
+                    const SizedBox(),
                   ],
                 ),
               ),

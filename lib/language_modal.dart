@@ -175,7 +175,7 @@ class _LanguageModal extends State<LanguageModal> {
                 ),
               ),
             );
-          }).toList(),
+          }),
         ],
       ),
     );

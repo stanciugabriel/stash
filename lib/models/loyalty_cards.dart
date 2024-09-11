@@ -76,6 +76,13 @@ class CardStorage {
     }
   }
 
+  // Remove a specific card from SharedPreferences
+  static Future<void> removeCard(LoyaltyCard cardToRemove) async {
+    final cards = await getCards();
+    cards.removeWhere((card) => card.barcode == cardToRemove.barcode);
+    await saveCards(cards);
+  }
+
   // Map to store card names with their color and logo
   static const Map<String, Map<String, dynamic>> cardDetails = {
     'Penny': {

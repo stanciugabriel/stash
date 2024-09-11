@@ -1,9 +1,3 @@
-import 'package:cardnest/add_card_name.dart';
-import 'package:cardnest/alert_box.dart';
-import 'package:cardnest/card_modal.dart';
-import 'package:cardnest/homepage.dart';
-import 'package:cardnest/scan_modal.dart';
-import 'package:cardnest/settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,11 +18,11 @@ class _RewardsState extends State<Rewards> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
+          SizedBox(
             height: double.infinity,
             width: double.infinity,
             child: AnimatedMeshGradient(
-              colors: [
+              colors: const [
                 Color.fromARGB(255, 192, 160, 248),
                 Color.fromARGB(255, 76, 164, 252),
                 Color.fromARGB(255, 255, 187, 228),
@@ -65,10 +59,10 @@ class _RewardsState extends State<Rewards> {
                         color: Theme.of(context).primaryColorDark),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                AnimatedSubscribeButton(),
+                const AnimatedSubscribeButton(),
               ],
             ),
           ),
@@ -79,6 +73,8 @@ class _RewardsState extends State<Rewards> {
 }
 
 class AnimatedSubscribeButton extends StatefulWidget {
+  const AnimatedSubscribeButton({super.key});
+
   @override
   _AnimatedSubscribeButtonState createState() =>
       _AnimatedSubscribeButtonState();
@@ -137,7 +133,7 @@ class _AnimatedSubscribeButtonState extends State<AnimatedSubscribeButton>
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
           color: Theme.of(context).disabledColor,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black26,
               blurRadius: 15,
@@ -153,7 +149,7 @@ class _AnimatedSubscribeButtonState extends State<AnimatedSubscribeButton>
             mainAxisSize: MainAxisSize.min,
             children: [
               if (_isSubscribed)
-                Icon(
+                const Icon(
                   CupertinoIcons.check_mark,
                   color: Colors.green,
                 )
@@ -162,7 +158,7 @@ class _AnimatedSubscribeButtonState extends State<AnimatedSubscribeButton>
                   CupertinoIcons.bell,
                   color: Theme.of(context).primaryColor,
                 ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Text(
                 _isSubscribed
                     ? AppLocalizations.of(context)!.subscribed

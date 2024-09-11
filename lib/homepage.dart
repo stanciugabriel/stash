@@ -1,6 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cached_network_svg_image/cached_network_svg_image.dart';
-import 'package:cardnest/providers/theme_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,13 +46,13 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(height: 70),
+          const SizedBox(height: 70),
           Row(
             children: [
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Text(
                 AppLocalizations.of(context)!.card_title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 36,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'SFProRounded',
@@ -62,7 +60,7 @@ class _HomepageState extends State<Homepage> {
               ),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
@@ -99,7 +97,7 @@ class _HomepageState extends State<Homepage> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
           Expanded(
@@ -134,7 +132,7 @@ class _HomepageState extends State<Homepage> {
                             decoration: BoxDecoration(
                                 color: cardColor,
                                 borderRadius: BorderRadius.circular(15),
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     color: Colors.black26,
                                     blurRadius: 15,
@@ -154,7 +152,7 @@ class _HomepageState extends State<Homepage> {
                                     )
                                   : Text(
                                       card.name,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         fontSize: 16,
                                         color: Colors.black,

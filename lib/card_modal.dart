@@ -3,7 +3,6 @@ import 'package:barcode_widget/barcode_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:provider/provider.dart';
 import 'package:cardnest/models/loyalty_cards.dart';
@@ -16,11 +15,11 @@ class CardModal extends StatefulWidget {
   final String format; // Added format parameter
 
   const CardModal({
-    Key? key,
+    super.key,
     required this.name,
     required this.barcode,
     required this.format, // Initialize format
-  }) : super(key: key);
+  });
 
   @override
   State<CardModal> createState() => _CardModal();
@@ -128,7 +127,7 @@ class _CardModal extends State<CardModal> {
             decoration: BoxDecoration(
               color: cardColor, // Use card color from map
               borderRadius: BorderRadius.circular(15),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.black26,
                   blurRadius: 15,
@@ -170,13 +169,13 @@ class _CardModal extends State<CardModal> {
                             )
                           : Text(
                               widget.name,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
                             ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Container(
@@ -194,12 +193,12 @@ class _CardModal extends State<CardModal> {
                                 data: widget.barcode,
                                 barcode: barcode,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 17,
                               ),
                               Text(
                                 widget.barcode,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 20,
                                     fontFamily: "SFProDisplay",
                                     fontWeight: FontWeight.w600,
@@ -221,11 +220,11 @@ class _CardModal extends State<CardModal> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   CupertinoIcons.pencil,
                   size: 35,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(
@@ -233,7 +232,7 @@ class _CardModal extends State<CardModal> {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.edit,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: "SFProDisplay",
                           fontWeight: FontWeight.w700,
                           fontSize: 20,
@@ -241,7 +240,7 @@ class _CardModal extends State<CardModal> {
                     ),
                     Text(
                       AppLocalizations.of(context)!.edit_description,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: "SFProDisplay",
                         fontWeight: FontWeight.w500,
                         fontSize: 14,
@@ -257,11 +256,11 @@ class _CardModal extends State<CardModal> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   CupertinoIcons.share,
                   size: 35,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Expanded(
@@ -270,7 +269,7 @@ class _CardModal extends State<CardModal> {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.share,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: "SFProDisplay",
                             fontWeight: FontWeight.w700,
                             fontSize: 20,
@@ -278,7 +277,7 @@ class _CardModal extends State<CardModal> {
                       ),
                       Text(
                         AppLocalizations.of(context)!.share_description,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: "SFProDisplay",
                           fontWeight: FontWeight.w500,
                           fontSize: 14,
@@ -300,12 +299,12 @@ class _CardModal extends State<CardModal> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     CupertinoIcons.delete_solid,
                     size: 35,
                     color: Colors.red,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Column(
@@ -313,7 +312,7 @@ class _CardModal extends State<CardModal> {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.delete,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: "SFProDisplay",
                           fontWeight: FontWeight.w700,
                           fontSize: 20,
@@ -323,7 +322,7 @@ class _CardModal extends State<CardModal> {
                       ),
                       Text(
                         AppLocalizations.of(context)!.delete_description,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: "SFProDisplay",
                           fontWeight: FontWeight.w500,
                           fontSize: 14,

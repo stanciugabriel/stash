@@ -41,10 +41,10 @@ class _NotificationsModal extends State<NotificationsModal> {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Icon(CupertinoIcons.chevron_back)),
+                  child: const Icon(CupertinoIcons.chevron_back)),
               Text(
                 AppLocalizations.of(context)!.notifications,
-                style: TextStyle(
+                style: const TextStyle(
                     fontFamily: "SFProDisplay",
                     fontWeight: FontWeight.w600,
                     fontSize: 22),
@@ -55,7 +55,7 @@ class _NotificationsModal extends State<NotificationsModal> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
@@ -63,7 +63,7 @@ class _NotificationsModal extends State<NotificationsModal> {
             children: [
               Text(
                 AppLocalizations.of(context)!.push_notifications,
-                style: TextStyle(
+                style: const TextStyle(
                     fontFamily: "SFProDisplay",
                     fontWeight: FontWeight.w600,
                     fontSize: 16),

@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:cardnest/add_card_name.dart';
@@ -155,7 +154,7 @@ class ScanModal {
                             controller.dispose();
                           },
                           child: Padding(
-                            padding: EdgeInsets.all(3.0),
+                            padding: const EdgeInsets.all(3.0),
                             child: Icon(
                               Icons.close,
                               color: Theme.of(context).shadowColor,
@@ -168,7 +167,7 @@ class ScanModal {
                   const SizedBox(height: 5),
                   Text(
                     AppLocalizations.of(context)!.scan_loyalty_card,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
                       fontFamily: "SFProRounded",
@@ -198,7 +197,7 @@ class ScanModal {
                               tintColor: Colors.transparent,
                               clipBorderRadius: BorderRadius.circular(15.0),
                             ),
-                            Icon(
+                            const Icon(
                               CupertinoIcons.check_mark_circled_solid,
                               color: Colors.green,
                               size: 60,
@@ -212,7 +211,7 @@ class ScanModal {
                   const SizedBox(height: 20),
                   Text(
                     AppLocalizations.of(context)!.add_manually_button,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
@@ -296,12 +295,13 @@ class ScanModal {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('No Camera Found'),
-          content: Text('No available cameras were found on this device.'),
+          title: const Text('No Camera Found'),
+          content:
+              const Text('No available cameras were found on this device.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -311,7 +311,7 @@ class ScanModal {
 }
 
 Widget buildCameraPreview(CameraController cameraController) {
-  final double previewAspectRatio = 0.7;
+  const double previewAspectRatio = 0.7;
   return ClipRRect(
     borderRadius: BorderRadius.circular(15),
     child: AspectRatio(

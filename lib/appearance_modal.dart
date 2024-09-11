@@ -56,10 +56,10 @@ class _AppearanceModal extends State<AppearanceModal> {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Icon(CupertinoIcons.chevron_back)),
+                  child: const Icon(CupertinoIcons.chevron_back)),
               Text(
                 AppLocalizations.of(context)!.appearance,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: "SFProDisplay",
                   fontWeight: FontWeight.w600,
                   fontSize: 22,
@@ -71,10 +71,10 @@ class _AppearanceModal extends State<AppearanceModal> {
               ),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text(
             AppLocalizations.of(context)!.color_scheme,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: "SFProDisplay",
               fontWeight: FontWeight.w600,
               fontSize: 20,
@@ -82,13 +82,13 @@ class _AppearanceModal extends State<AppearanceModal> {
           ),
           Text(
             AppLocalizations.of(context)!.color_scheme_description,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: "SFProDisplay",
               fontWeight: FontWeight.w500,
               fontSize: 16,
             ),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Row(
             children: [
               Expanded(
@@ -106,7 +106,7 @@ class _AppearanceModal extends State<AppearanceModal> {
                   ),
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: GestureDetector(
                   onTap: () {
@@ -122,7 +122,7 @@ class _AppearanceModal extends State<AppearanceModal> {
                   ),
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: GestureDetector(
                   onTap: () {
@@ -152,11 +152,11 @@ class ThemeSwitcher extends StatelessWidget {
   final IconData icon;
 
   const ThemeSwitcher({
-    Key? key,
+    super.key,
     required this.isSelected,
     required this.label,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +165,7 @@ class ThemeSwitcher extends StatelessWidget {
         begin: isSelected ? Colors.blue : Colors.grey,
         end: isSelected ? Colors.blue : Colors.grey,
       ),
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       builder: (context, borderColor, child) {
         return Container(
           decoration: BoxDecoration(
@@ -182,18 +182,18 @@ class ThemeSwitcher extends StatelessWidget {
                     begin: isSelected ? Colors.blue : Colors.grey,
                     end: isSelected ? Colors.blue : Colors.grey,
                   ),
-                  duration: Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 300),
                   builder: (context, iconColor, child) {
                     return Icon(icon, color: iconColor);
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TweenAnimationBuilder<Color?>(
                   tween: ColorTween(
                     begin: isSelected ? Colors.blue : Colors.grey,
                     end: isSelected ? Colors.blue : Colors.grey,
                   ),
-                  duration: Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 300),
                   builder: (context, textColor, child) {
                     return Text(
                       label,

@@ -136,7 +136,7 @@
   "@add_manually_button": {
     "description": "Buton pentru adăugarea manuală"
   },
-  "scan_loyalty_card": "Scanează cardul tău de loialitate",
+  "scan_loyalty_card": "Scanează cardul tău",
   "@scan_loyalty_card": {
     "description": "Titlu pentru scanarea cardului de loialitate"
   },

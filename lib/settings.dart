@@ -52,13 +52,13 @@ class _SettingsState extends State<Settings> {
               Row(
                 children: [
                   SvgPicture.asset("assets/icons/profile.svg"),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Gabriel Stanciu",
                         style: TextStyle(
                             fontFamily: "SFProDisplay",
@@ -70,13 +70,13 @@ class _SettingsState extends State<Settings> {
                         children: [
                           Text(
                             AppLocalizations.of(context)!.account_settings,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: "SFProDisplay",
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xFF6F6F6F)),
                           ),
-                          Icon(
+                          const Icon(
                             CupertinoIcons.forward,
                             color: Color(0xFF6F6F6F),
                             size: 16,
@@ -87,17 +87,17 @@ class _SettingsState extends State<Settings> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Text(AppLocalizations.of(context)!.preferences,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: "SFProDisplay",
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: Color(0xFF6F6F6F),
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Padding(
@@ -111,22 +111,22 @@ class _SettingsState extends State<Settings> {
                     children: [
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             CupertinoIcons.bell,
                             size: 30,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
                           Text(AppLocalizations.of(context)!.notifications,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontFamily: "SFProDisplay",
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ))
                         ],
                       ),
-                      Icon(
+                      const Icon(
                         CupertinoIcons.chevron_right,
                         size: 20,
                       )
@@ -145,22 +145,22 @@ class _SettingsState extends State<Settings> {
                     children: [
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             CupertinoIcons.paintbrush,
                             size: 30,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
                           Text(AppLocalizations.of(context)!.appearance,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontFamily: "SFProDisplay",
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ))
                         ],
                       ),
-                      Icon(
+                      const Icon(
                         CupertinoIcons.chevron_right,
                         size: 20,
                       )
@@ -179,22 +179,22 @@ class _SettingsState extends State<Settings> {
                     children: [
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             CupertinoIcons.globe,
                             size: 30,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
                           Text(AppLocalizations.of(context)!.language,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontFamily: "SFProDisplay",
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ))
                         ],
                       ),
-                      Icon(
+                      const Icon(
                         CupertinoIcons.chevron_right,
                         size: 20,
                       )
@@ -202,17 +202,17 @@ class _SettingsState extends State<Settings> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(AppLocalizations.of(context)!.resources,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: "SFProDisplay",
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: Color(0xFF6F6F6F),
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Padding(
@@ -222,22 +222,22 @@ class _SettingsState extends State<Settings> {
                   children: [
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           CupertinoIcons.ellipses_bubble,
                           size: 30,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 15,
                         ),
                         Text(AppLocalizations.of(context)!.leave_feedback,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "SFProDisplay",
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
                             ))
                       ],
                     ),
-                    Icon(
+                    const Icon(
                       CupertinoIcons.chevron_right,
                       size: 20,
                     )
@@ -257,22 +257,22 @@ class _SettingsState extends State<Settings> {
                     children: [
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             CupertinoIcons.star,
                             size: 30,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
                           Text(AppLocalizations.of(context)!.rate_in_app_store,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontFamily: "SFProDisplay",
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ))
                         ],
                       ),
-                      Icon(
+                      const Icon(
                         CupertinoIcons.chevron_right,
                         size: 20,
                       )
@@ -280,23 +280,23 @@ class _SettingsState extends State<Settings> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       CupertinoIcons.square_arrow_left,
                       color: Colors.red,
                       size: 30,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     Text(AppLocalizations.of(context)!.sign_out,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: "SFProDisplay",
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
@@ -313,13 +313,12 @@ class _SettingsState extends State<Settings> {
                         "assets/icons/hex.svg",
                         height: 30,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        AppLocalizations.of(context)!.version +
-                            " ${_packageInfo.version} (${_packageInfo.buildNumber})",
-                        style: TextStyle(color: Color(0xFF6F6F6F)),
+                        "${AppLocalizations.of(context)!.version} ${_packageInfo.version} (${_packageInfo.buildNumber})",
+                        style: const TextStyle(color: Color(0xFF6F6F6F)),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -327,7 +326,7 @@ class _SettingsState extends State<Settings> {
                         },
                         child: Text(
                           AppLocalizations.of(context)!.terms_and_privacy,
-                          style: TextStyle(color: Color(0xFF6F6F6F)),
+                          style: const TextStyle(color: Color(0xFF6F6F6F)),
                         ),
                       ),
                     ],

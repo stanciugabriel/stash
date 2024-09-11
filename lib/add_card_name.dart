@@ -1,4 +1,3 @@
-import 'package:cardnest/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cardnest/models/loyalty_cards.dart'; // New LoyaltyCard class
@@ -45,7 +44,7 @@ class _AddCardNameState extends State<AddCardName> {
               const SizedBox(height: 15),
               Text(
                 AppLocalizations.of(context)!.card_name_title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 22,
                   fontFamily: 'SFProRounded',
                   fontWeight: FontWeight.w600,
@@ -54,7 +53,7 @@ class _AddCardNameState extends State<AddCardName> {
               const SizedBox(height: 5),
               Text(
                 AppLocalizations.of(context)!.card_name_description,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 15,
                   fontFamily: 'SFProRounded',
                   fontWeight: FontWeight.w400,
@@ -127,7 +126,7 @@ class _AddCardNameState extends State<AddCardName> {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.continue_button,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
