@@ -44,7 +44,7 @@
     "@color_scheme": {
       "description": "Title for color scheme"
     },
-    "color_scheme_description": "Turn on dark mode, or let CardNest visually match your device settings.",
+    "color_scheme_description": "Turn on dark mode, or let Stash visually match your device settings.",
     "@color_scheme_description": {
       "description": "Color scheme description"
     },
@@ -163,5 +163,74 @@
     "language_description": "Choose your favourite language, or use the default language on your device.",
     "@language_description": {
       "description": "Language Description"
-    }
+    },
+    "welcome_to_stash": "Welcome to Stash",
+  "@welcome_to_stash": {
+    "description": "App welcome title"
+  },
+  "your_loyalty_cards_all_in_one_place": "Your loyalty cards, all in one place.",
+  "@your_loyalty_cards_all_in_one_place": {
+    "description": "Short description of the app"
+  },
+ 
+  "stash_is_better_with_an_account": "Stash is better with an account",
+  "@stash_is_better_with_an_account": {
+    "description": "Title for account creation prompt"
+  },
+  "consider_acc": "Consider creating one to unlock exclusive features like automatic backups and syncing your cards across devices. It only takes a moment and will make sure you never lose your data.",
+  "@consider_acc": {
+    "description": "Detailed description for account creation prompt"
+  },
+  "create_account": "Create Account",
+  "@create_account": {
+    "description": "Button text to create an account"
+  },
+  "create_an_account": "Create an account",
+  "@create_an_account": {
+    "description": "Button text to create an account"
+  },
+  "continue_without_an_account": "Continue without an account",
+  "@continue_without_an_account": {
+    "description": "Button text to create an account"
+  },
+  "continue_without": "Continue Without",
+  "@continue_without": {
+    "description": "Button text to continue without an account"
+  },
+  "store_your_loyalty_cards": "Store your loyalty cards",
+  "@store_your_loyalty_cards": {
+    "description": "Feature title for storing cards"
+  },
+  "keep_all_cards_securely_stored": "Keep all cards securely stored.",
+  "@keep_all_cards_securely_stored": {
+    "description": "Feature description for storing cards"
+  },
+  "share_your_cards_with_ease": "Share your cards with ease",
+  "@share_your_cards_with_ease": {
+    "description": "Feature title for sharing cards"
+  },
+  "share_cards_with_just_a_link": "Share cards with just a link.",
+  "@share_cards_with_just_a_link": {
+    "description": "Feature description for sharing cards"
+  },
+  "offline_access": "Offline access",
+  "@offline_access": {
+    "description": "Feature title for offline access"
+  },
+  "access_cards_without_an_internet_connection": "Access cards without an internet connection.",
+  "@access_cards_without_an_internet_connection": {
+    "description": "Feature description for offline access"
+  },
+  "automatic_backup": "Automatic backup",
+  "@automatic_backup": {
+    "description": "Feature title for automatic backup"
+  },
+  "backup_cards_and_never_lose_them": "Backup cards and never lose them.",
+  "@backup_cards_and_never_lose_them": {
+    "description": "Feature description for automatic backup"
+  },
+  "meet_your_new_favourite_loyalty_app": "Meet your new favourite loyalty app",
+  "@meet_your_new_favourite_loyalty_app": {
+    "description": "Feature description for automatic backup"
+  }
   }

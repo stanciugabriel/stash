@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:cardnest/models/account.dart';
-import 'package:cardnest/models/fidelity_card.dart';
-import 'package:cardnest/models/store.dart';
+import 'package:Stash/models/account.dart';
+import 'package:Stash/models/fidelity_card.dart';
+import 'package:Stash/models/store.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // TOKEN

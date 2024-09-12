@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:provider/provider.dart';
-import 'package:cardnest/models/loyalty_cards.dart';
-import 'package:cardnest/providers/card_provider.dart'; // Import the CardProvider
+import 'package:Stash/models/loyalty_cards.dart';
+import 'package:Stash/providers/card_provider.dart'; // Import the CardProvider
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CardModal extends StatefulWidget {

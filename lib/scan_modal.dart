@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
-import 'package:cardnest/add_card_name.dart';
-import 'package:cardnest/alert_box.dart';
+import 'package:Stash/add_card_name.dart';
+import 'package:Stash/alert_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -42,6 +42,7 @@ class ScanModal {
       imageFormatGroup: Platform.isAndroid
           ? ImageFormatGroup.nv21
           : ImageFormatGroup.bgra8888,
+      enableAudio: false,
     );
 
     // Initialize the controller. This returns a Future.

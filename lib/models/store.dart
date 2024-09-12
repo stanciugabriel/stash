@@ -1,4 +1,4 @@
-import 'package:cardnest/utils/convert.dart';
+import 'package:Stash/utils/convert.dart';
 import 'package:flutter/material.dart';
 
 class Store {

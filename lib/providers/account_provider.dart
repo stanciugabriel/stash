@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:cardnest/models/account.dart';
-import 'package:cardnest/utils/preferences.dart';
-import 'package:cardnest/utils/url.dart';
+import 'package:Stash/models/account.dart';
+import 'package:Stash/utils/preferences.dart';
+import 'package:Stash/utils/url.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
