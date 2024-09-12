@@ -1,4 +1,7 @@
 import 'package:cardnest/navbar.dart';
+import 'package:cardnest/onboarding/features.dart';
+import 'package:cardnest/onboarding/get_started.dart';
+import 'package:cardnest/onboarding/main_screen.dart';
 import 'package:cardnest/providers/card_provider.dart';
 import 'package:cardnest/providers/locale_provider.dart';
 import 'package:cardnest/providers/theme_provider.dart';
@@ -38,9 +41,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
-      home: const NavBar(
-        pageIndex: 0,
-      ),
+      home: MainScreen(),
     );
   }
 }

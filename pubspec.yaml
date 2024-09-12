@@ -83,3 +83,5 @@ flutter:
     - assets/icons/profile.svg
     - assets/icons/palette.svg
     - assets/icons/hex.svg
+    - assets/icons/profileheart.svg
+    - assets/logo.png

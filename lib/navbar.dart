@@ -5,6 +5,7 @@ import 'package:cardnest/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
+import 'dart:io' show Platform;
 
 class NavBar extends StatefulWidget {
   final int pageIndex;
@@ -40,84 +41,90 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Stack(children: [
-          _screens[_selectedIndex],
-          SafeArea(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 55,
-                width: MediaQuery.of(context).size.width * 0.6,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Theme.of(context).disabledColor,
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 15,
-                      spreadRadius: -7,
-                      offset: Offset(0, 0),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Stack(children: [
+            _screens[_selectedIndex],
+            Padding(
+              padding: EdgeInsets.only(bottom: Platform.isAndroid ? 12 : 0),
+              child: SafeArea(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: 55,
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Theme.of(context).disabledColor,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 15,
+                          spreadRadius: -7,
+                          offset: Offset(0, 0),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const SizedBox(),
-                    GestureDetector(
-                      onTap: () {
-                        _onItemTapped(0);
-                      },
-                      child: SvgPicture.asset(
-                        "assets/icons/home.svg",
-                        height: 30,
-                        color: _selectedIndex == 0
-                            ? Theme.of(context).primaryColor
-                            : Colors.grey,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const SizedBox(),
+                        GestureDetector(
+                          onTap: () {
+                            _onItemTapped(0);
+                          },
+                          child: SvgPicture.asset(
+                            "assets/icons/home.svg",
+                            height: 30,
+                            color: _selectedIndex == 0
+                                ? Theme.of(context).primaryColor
+                                : Colors.grey,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            _onItemTapped(1);
+                          },
+                          child: SvgPicture.asset(
+                            "assets/icons/percent.svg",
+                            height: 30,
+                            color: _selectedIndex == 1
+                                ? Theme.of(context).primaryColor
+                                : Colors.grey,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            _onItemTapped(2);
+                          },
+                          child: SvgPicture.asset(
+                            "assets/icons/settings.svg",
+                            height: 30,
+                            color: _selectedIndex == 2
+                                ? Theme.of(context).primaryColor
+                                : Colors.grey,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            ScanModal.show(context);
+                          },
+                          child: const Icon(
+                            CupertinoIcons.add_circled_solid,
+                            color: Color.fromARGB(255, 24, 104, 242),
+                            size: 30,
+                          ),
+                        ),
+                        const SizedBox(),
+                      ],
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        _onItemTapped(1);
-                      },
-                      child: SvgPicture.asset(
-                        "assets/icons/percent.svg",
-                        height: 30,
-                        color: _selectedIndex == 1
-                            ? Theme.of(context).primaryColor
-                            : Colors.grey,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        _onItemTapped(2);
-                      },
-                      child: SvgPicture.asset(
-                        "assets/icons/settings.svg",
-                        height: 30,
-                        color: _selectedIndex == 2
-                            ? Theme.of(context).primaryColor
-                            : Colors.grey,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        ScanModal.show(context);
-                      },
-                      child: const Icon(
-                        CupertinoIcons.add_circled_solid,
-                        color: Color.fromARGB(255, 24, 104, 242),
-                        size: 30,
-                      ),
-                    ),
-                    const SizedBox(),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ]));
+          ])),
+    );
   }
 }

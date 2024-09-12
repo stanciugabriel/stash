@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glass/glass.dart';
 
 class AlertBox {
@@ -36,10 +37,12 @@ class AlertBox {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(
-                        CupertinoIcons.exclamationmark_triangle_fill,
-                        color: Colors.amber,
-                        size: 50,
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SvgPicture.asset(
+                        'assets/icons/profileheart.svg',
+                        height: 50,
                       ),
                       const SizedBox(
                         height: 20,
@@ -64,7 +67,7 @@ class AlertBox {
                             fontFamily: "SFProRounded",
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
-                            color: Color.fromARGB(255, 104, 104, 104),
+                            color: Color.fromARGB(255, 91, 91, 91),
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -78,23 +81,64 @@ class AlertBox {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5.0),
-                        child: Row(children: [
-                          Expanded(
-                            child: Center(
-                              child: GestureDetector(
-                                onTap: declineCallback,
-                                child: Text(
-                                  decline,
-                                  style: const TextStyle(
-                                    fontFamily: "SFProRounded",
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14,
+                        child: Column(
+                          children: !loading
+                              ? [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(40),
+                                        color: const Color.fromARGB(
+                                            255, 17, 24, 223)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: Center(
+                                        child: GestureDetector(
+                                            onTap: () async {
+                                              await acceptCallback();
+                                              loading = true;
+                                            },
+                                            child: Text(
+                                              accept,
+                                              style: TextStyle(
+                                                fontFamily: "SFProRounded",
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14,
+                                                color: acceptColor,
+                                              ),
+                                            )),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ]),
+                                  SizedBox(height: 15),
+                                  Center(
+                                    child: GestureDetector(
+                                      onTap: declineCallback,
+                                      child: Text(
+                                        decline,
+                                        style: const TextStyle(
+                                          fontFamily: "SFProRounded",
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ]
+                              : [
+                                  const Expanded(
+                                    // padding: EdgeInsets,
+                                    child: Center(
+                                        child: SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                      child: CircularProgressIndicator(
+                                        color: Color.fromARGB(255, 91, 91, 91),
+                                        strokeWidth: 2,
+                                      ),
+                                    )),
+                                  ),
+                                ],
+                        ),
                       ),
                     ],
                   ),

@@ -163,5 +163,74 @@
     "language_description": "Alege limba ta preferată sau folosește limba implicită de pe dispozitivul tău.",
     "@language_description": {
       "description": "Language Description"
-    }
+    },
+    "welcome_to_stash": "Bun venit la Stash",
+  "@welcome_to_stash": {
+    "description": "Titlu de bun venit în aplicație"
+  },
+  "your_loyalty_cards_all_in_one_place": "Cardurile tale de loialitate, toate într-un singur loc.",
+  "@your_loyalty_cards_all_in_one_place": {
+    "description": "Descriere scurtă a aplicației"
+  },
+
+  "stash_is_better_with_an_account": "Stash este mai bun cu un cont",
+  "@stash_is_better_with_an_account": {
+    "description": "Titlu pentru solicitarea creării unui cont"
+  },
+  "consider_acc": "Consideră crearea unui cont pentru a debloca funcții exclusive precum backup-uri automate și sincronizarea cardurilor tale pe dispozitive. Nu durează decât câteva momente și va asigura că nu îți vei pierde niciodată datele.",
+  "@consider_acc": {
+    "description": "Descriere detaliată pentru solicitarea creării unui cont"
+  },
+  "create_account": "Creează cont",
+  "@create_account": {
+    "description": "Textul butonului pentru crearea unui cont"
+  },
+  "continue_without": "Continuă fără",
+  "@continue_without": {
+    "description": "Textul butonului pentru continuarea fără cont"
+  },
+  "store_your_loyalty_cards": "Păstrează cardurile tale de loialitate",
+  "@store_your_loyalty_cards": {
+    "description": "Titlu funcție pentru stocarea cardurilor"
+  },
+  "keep_all_cards_securely_stored": "Păstrează toate cardurile în siguranță.",
+  "@keep_all_cards_securely_stored": {
+    "description": "Descriere funcție pentru stocarea cardurilor"
+  },
+  "share_your_cards_with_ease": "Împarte cardurile tale cu ușurință",
+  "@share_your_cards_with_ease": {
+    "description": "Titlu funcție pentru împărtășirea cardurilor"
+  },
+  "share_cards_with_just_a_link": "Împarte cardurile cu un simplu link.",
+  "@share_cards_with_just_a_link": {
+    "description": "Descriere funcție pentru împărtășirea cardurilor"
+  },
+  "offline_access": "Acces offline",
+  "@offline_access": {
+    "description": "Titlu funcție pentru accesul offline"
+  },
+  "access_cards_without_an_internet_connection": "Accesează cardurile fără o conexiune la internet.",
+  "@access_cards_without_an_internet_connection": {
+    "description": "Descriere funcție pentru accesul offline"
+  },
+  "automatic_backup": "Backup automat",
+  "@automatic_backup": {
+    "description": "Titlu funcție pentru backup-ul automat"
+  },
+  "backup_cards_and_never_lose_them": "Backup cardurilor și nu le pierde niciodată.",
+  "@backup_cards_and_never_lose_them": {
+    "description": "Descriere funcție pentru backup-ul automat"
+  },
+  "create_an_account": "Creează un cont",
+  "@create_an_account": {
+    "description": "Button text to create an account"
+  },
+  "continue_without_an_account": "Continuă fără un cont",
+  "@continue_without_an_account": {
+    "description": "Button text to create an account"
+  },
+  "meet_your_new_favourite_loyalty_app": "Fă cunoștință cu aplicația ta favorită de loialitate",
+  "@meet_your_new_favourite_loyalty_app": {
+    "description": "Feature description for automatic backup"
+  }
 }
