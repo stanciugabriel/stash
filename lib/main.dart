@@ -1,8 +1,10 @@
 import 'package:Stash/navbar.dart';
-import 'package:Stash/onboarding/main_screen.dart';
+import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/card_provider.dart';
 import 'package:Stash/providers/locale_provider.dart';
+import 'package:Stash/providers/stores_provider.dart';
 import 'package:Stash/providers/theme_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,6 +17,8 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider(create: (_) => AccountProvider()),
+      ChangeNotifierProvider(create: (_) => StoresProvider()),
       ChangeNotifierProvider(create: (_) => CardProvider()),
       ChangeNotifierProvider(create: (_) => themeProvider),
       ChangeNotifierProvider(create: (_) => LocaleProvider()),
@@ -32,6 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final localeProvider = Provider.of<LocaleProvider>(context);
+
     return MaterialApp(
       theme: themeProvider.themeData,
       navigatorObservers: [routeObserver],

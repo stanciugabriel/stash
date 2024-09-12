@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:Stash/homepage.dart';
+import 'package:Stash/providers/stores_provider.dart';
 import 'package:Stash/rewards.dart';
 import 'package:Stash/scan_modal.dart';
 import 'package:Stash/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'dart:io' show Platform;
 
 class NavBar extends StatefulWidget {
@@ -24,6 +28,12 @@ class _NavBarState extends State<NavBar> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final stores = Provider.of<StoresProvider>(context, listen: false);
+      await stores.loadStores();
+      await stores.fetchStores();
+      inspect(stores.stores);
+    });
     _selectedIndex = widget.pageIndex;
   }
 

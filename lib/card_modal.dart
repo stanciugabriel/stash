@@ -25,23 +25,22 @@ class CardModal extends StatefulWidget {
   State<CardModal> createState() => _CardModal();
 
   static void show(
-      BuildContext context, String name, String barcode, String format) {
-    ScreenBrightness().current.then((brightness) {
-      showModalBottomSheet(
-          isScrollControlled: true,
-          context: context,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15),
-              topRight: Radius.circular(15),
-            ),
+      BuildContext context, String name, String barcode, String format) async {
+    final brightness = await ScreenBrightness().current;
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
           ),
-          builder: (BuildContext context) {
-            return CardModal(name: name, barcode: barcode, format: format);
-          }).then((_) async {
-        // Restore the previous brightness level when the modal is dismissed
-        await ScreenBrightness().setScreenBrightness(brightness);
-      });
+        ),
+        builder: (BuildContext context) {
+          return CardModal(name: name, barcode: barcode, format: format);
+        }).then((_) async {
+      // Restore the previous brightness level when the modal is dismissed
+      await ScreenBrightness().setScreenBrightness(brightness);
     });
   }
 }
