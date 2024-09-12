@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cardnest/models/loyalty_cards.dart'; // New LoyaltyCard class
-import 'package:cardnest/providers/card_provider.dart'; // Provider for managing cards
+import 'package:Stash/models/loyalty_cards.dart'; // New LoyaltyCard class
+import 'package:Stash/providers/card_provider.dart'; // Provider for managing cards
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddCardName extends StatefulWidget {

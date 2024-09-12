@@ -44,7 +44,7 @@
     "@color_scheme": {
       "description": "Title for color scheme"
     },
-    "color_scheme_description": "Turn on dark mode, or let CardNest visually match your device settings.",
+    "color_scheme_description": "Turn on dark mode, or let Stash visually match your device settings.",
     "@color_scheme_description": {
       "description": "Color scheme description"
     },

@@ -1,9 +1,9 @@
-import 'package:cardnest/alert_box.dart';
-import 'package:cardnest/homepage.dart';
-import 'package:cardnest/navbar.dart';
+import 'package:Stash/alert_box.dart';
+import 'package:Stash/homepage.dart';
+import 'package:Stash/navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cardnest/onboarding/account_prompt.dart'; // Import AccountPrompt
+import 'package:Stash/onboarding/account_prompt.dart'; // Import AccountPrompt
 import 'background_widget.dart'; // Import the background widget
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

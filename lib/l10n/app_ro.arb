@@ -44,7 +44,7 @@
   "@color_scheme": {
     "description": "Titlu pentru schema de culori"
   },
-  "color_scheme_description": "Activează modul întunecat sau lasă CardNest să se potrivească vizual cu setările dispozitivului tău.",
+  "color_scheme_description": "Activează modul întunecat sau lasă Stash să se potrivească vizual cu setările dispozitivului tău.",
   "@color_scheme_description": {
     "description": "Descrierea schemei de culori"
   },

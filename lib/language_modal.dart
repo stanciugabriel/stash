@@ -1,4 +1,4 @@
-import 'package:cardnest/providers/locale_provider.dart';
+import 'package:Stash/providers/locale_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

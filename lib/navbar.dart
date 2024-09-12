@@ -1,7 +1,7 @@
-import 'package:cardnest/homepage.dart';
-import 'package:cardnest/rewards.dart';
-import 'package:cardnest/scan_modal.dart';
-import 'package:cardnest/settings.dart';
+import 'package:Stash/homepage.dart';
+import 'package:Stash/rewards.dart';
+import 'package:Stash/scan_modal.dart';
+import 'package:Stash/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';

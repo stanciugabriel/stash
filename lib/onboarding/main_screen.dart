@@ -1,4 +1,4 @@
-import 'package:cardnest/onboarding/get_started.dart';
+import 'package:Stash/onboarding/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'background_widget.dart'; // Import your background widget
 import 'features.dart'; // Import the Features screen

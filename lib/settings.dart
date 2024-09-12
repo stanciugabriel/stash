@@ -1,7 +1,7 @@
-import 'package:cardnest/appearance_modal.dart';
-import 'package:cardnest/language_modal.dart';
-import 'package:cardnest/notifications_modal.dart';
-import 'package:cardnest/terms.dart';
+import 'package:Stash/appearance_modal.dart';
+import 'package:Stash/language_modal.dart';
+import 'package:Stash/notifications_modal.dart';
+import 'package:Stash/terms.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cardnest/models/loyalty_cards.dart'; // Assuming this is where your LoyaltyCard and CardStorage are
+import 'package:Stash/models/loyalty_cards.dart'; // Assuming this is where your LoyaltyCard and CardStorage are
 
 class CardProvider with ChangeNotifier {
   List<LoyaltyCard> _cards = [];
