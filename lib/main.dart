@@ -1,6 +1,8 @@
 import 'package:cardnest/navbar.dart';
+import 'package:cardnest/providers/account_provider.dart';
 import 'package:cardnest/providers/card_provider.dart';
 import 'package:cardnest/providers/locale_provider.dart';
+import 'package:cardnest/providers/stores_provider.dart';
 import 'package:cardnest/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +16,8 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider(create: (_) => AccountProvider()),
+      ChangeNotifierProvider(create: (_) => StoresProvider()),
       ChangeNotifierProvider(create: (_) => CardProvider()),
       ChangeNotifierProvider(create: (_) => themeProvider),
       ChangeNotifierProvider(create: (_) => LocaleProvider()),

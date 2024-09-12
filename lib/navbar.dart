@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:cardnest/homepage.dart';
+import 'package:cardnest/providers/stores_provider.dart';
 import 'package:cardnest/rewards.dart';
 import 'package:cardnest/scan_modal.dart';
 import 'package:cardnest/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 class NavBar extends StatefulWidget {
   final int pageIndex;
@@ -23,6 +27,12 @@ class _NavBarState extends State<NavBar> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final stores = Provider.of<StoresProvider>(context, listen: false);
+      await stores.loadStores();
+      await stores.fetchStores();
+      inspect(stores.stores);
+    });
     _selectedIndex = widget.pageIndex;
   }
 
