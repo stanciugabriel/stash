@@ -4,6 +4,7 @@ import 'package:cardnest/providers/card_provider.dart';
 import 'package:cardnest/providers/locale_provider.dart';
 import 'package:cardnest/providers/stores_provider.dart';
 import 'package:cardnest/providers/theme_provider.dart';
+import 'package:cardnest/utils/gen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final localeProvider = Provider.of<LocaleProvider>(context);
+
     return MaterialApp(
       theme: themeProvider.themeData,
       navigatorObservers: [routeObserver],

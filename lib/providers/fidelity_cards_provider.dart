@@ -31,12 +31,10 @@ class FidelityCardsProvider with ChangeNotifier {
   addFidelityCard(String token, FidelityCard card) async {
     if (token != '') {
       await postAddFidelityCard(token, card);
-      if (errorMessage != '') {
-        return;
-      }
+    } else {
+      cards.add(card);
+      notifyListeners();
     }
-    cards.add(card);
-    notifyListeners();
     setCards(cards);
   }
 

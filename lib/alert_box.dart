@@ -14,7 +14,6 @@ class AlertBox {
     required Future<void> Function() declineCallback,
   }) {
     double screenWidth = MediaQuery.of(context).size.width;
-    bool loading = false;
     showDialog(
       context: context,
       builder: (BuildContext context) {

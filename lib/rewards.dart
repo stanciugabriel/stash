@@ -83,10 +83,9 @@ class AnimatedSubscribeButton extends StatefulWidget {
 class _AnimatedSubscribeButtonState extends State<AnimatedSubscribeButton>
     with SingleTickerProviderStateMixin {
   bool _isSubscribed = false;
-  bool _isPressed = false;
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
-  late Animation<Color?> _colorAnimation;
+  // late Animation<Color?> _colorAnimation;
 
   @override
   void initState() {
@@ -100,8 +99,8 @@ class _AnimatedSubscribeButtonState extends State<AnimatedSubscribeButton>
       });
 
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(_controller);
-    _colorAnimation = ColorTween(begin: Colors.white, end: Colors.grey[300])
-        .animate(_controller);
+    // _colorAnimation = ColorTween(begin: Colors.white, end: Colors.grey[300])
+    //     .animate(_controller);
   }
 
   @override
@@ -114,7 +113,6 @@ class _AnimatedSubscribeButtonState extends State<AnimatedSubscribeButton>
     if (!_isSubscribed) {
       Haptics.vibrate(HapticsType.success);
       setState(() {
-        _isPressed = true;
         _isSubscribed = true;
       });
       _controller.forward().then((_) {

@@ -5,6 +5,7 @@ import 'package:cardnest/providers/stores_provider.dart';
 import 'package:cardnest/rewards.dart';
 import 'package:cardnest/scan_modal.dart';
 import 'package:cardnest/settings.dart';
+import 'package:cardnest/utils/gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
