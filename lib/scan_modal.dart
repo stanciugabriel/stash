@@ -42,6 +42,7 @@ class ScanModal {
       imageFormatGroup: Platform.isAndroid
           ? ImageFormatGroup.nv21
           : ImageFormatGroup.bgra8888,
+      enableAudio: false,
     );
 
     // Initialize the controller. This returns a Future.
