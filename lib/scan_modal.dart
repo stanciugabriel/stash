@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:glass/glass.dart';
 import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
+import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image/image.dart' as img;
@@ -108,6 +109,7 @@ class ScanModal {
                   if (barcodes.isNotEmpty) {
                     setState(() {
                       hasScanned = true;
+                      Haptics.vibrate(HapticsType.success);
                     });
 
                     // Optionally: Stop the image stream to avoid multiple scans
