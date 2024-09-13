@@ -1,3 +1,4 @@
+import 'package:Stash/homepage.dart';
 import 'package:Stash/navbar.dart';
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/card_provider.dart';
@@ -38,15 +39,14 @@ class MyApp extends StatelessWidget {
     final localeProvider = Provider.of<LocaleProvider>(context);
 
     return MaterialApp(
-      theme: themeProvider.themeData,
-      navigatorObservers: [routeObserver],
-      locale: localeProvider.locale,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      debugShowCheckedModeBanner: false,
-      home: NavBar(
-        pageIndex: 0,
-      ),
-    );
+        theme: themeProvider.themeData,
+        navigatorObservers: [routeObserver],
+        locale: localeProvider.locale,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        debugShowCheckedModeBanner: false,
+        home: NavBar(
+          pageIndex: 0,
+        ));
   }
 }

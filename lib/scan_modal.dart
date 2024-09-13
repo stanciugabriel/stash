@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:Stash/add_barcode.dart';
+import 'package:Stash/store_modal.dart';
 import 'package:camera/camera.dart';
 import 'package:Stash/add_card_name.dart';
 import 'package:Stash/alert_box.dart';
@@ -92,16 +94,9 @@ class ScanModal {
                     Future.delayed(const Duration(seconds: 1), () {
                       print(barcodes[0].format.toString());
                       Navigator.pop(context); // Dismiss the modal first
-
+                      StoreModal.show(context, barcodes[0].rawValue ?? "Null",
+                          barcodes[0].format.toString());
                       // Navigate to the EnterCardNamePage
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AddCardName(
-                                  cardCode: barcodes[0].rawValue ?? "Null",
-                                  format: barcodes[0].format.toString(),
-                                )),
-                      );
                     });
 
                     // Process barcodes (example handling)
@@ -210,11 +205,19 @@ class ScanModal {
                   ),
 
                   const SizedBox(height: 20),
-                  Text(
-                    AppLocalizations.of(context)!.add_manually_button,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddBarcode()),
+                      );
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.add_manually_button,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],

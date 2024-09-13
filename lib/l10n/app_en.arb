@@ -100,6 +100,14 @@
     "@preferences": {
       "description": "preferences title"
     },
+    "enter_the_barcode": "Enter the barcode on your card",
+    "@enter_the_barcode": {
+      "description": "preferences title"
+    },
+    "enter_the_barcode_description": "Please enter the code written on your loyalty card",
+    "@enter_the_barcode_description": {
+      "description": "preferences title"
+    },
     "notifications": "Notifications",
     "@notifications": {
       "description": "Notifications button"
@@ -232,5 +240,9 @@
   "meet_your_new_favourite_loyalty_app": "Meet your new favourite loyalty app",
   "@meet_your_new_favourite_loyalty_app": {
     "description": "Feature description for automatic backup"
+  },
+  "how_does_your_barcode_look": "How does your barcode look like?",
+  "@how_does_your_barcode_look": {
+    "description": "Feature description for automatic backup"
   }
-  }
+}

@@ -1,3 +1,5 @@
+import 'package:Stash/add_barcode.dart';
+import 'package:Stash/store_modal.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -50,12 +52,20 @@ class _HomepageState extends State<Homepage> {
           Row(
             children: [
               const SizedBox(width: 20),
-              Text(
-                AppLocalizations.of(context)!.card_title,
-                style: const TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'SFProRounded',
+              GestureDetector(
+                onLongPress: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddBarcode()),
+                  );
+                },
+                child: Text(
+                  AppLocalizations.of(context)!.card_title,
+                  style: const TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'SFProRounded',
+                  ),
                 ),
               ),
             ],
@@ -79,14 +89,14 @@ class _HomepageState extends State<Homepage> {
                         decoration: InputDecoration(
                           icon: Icon(
                             CupertinoIcons.search,
-                            color: Theme.of(context).cardColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                           hintText: AppLocalizations.of(context)!.search,
                           hintStyle: TextStyle(
                             fontFamily: 'SFProRounded',
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
-                            color: Theme.of(context).cardColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                           border: InputBorder.none,
                         ),

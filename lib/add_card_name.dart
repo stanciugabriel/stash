@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Stash/models/loyalty_cards.dart'; // New LoyaltyCard class
@@ -39,6 +40,20 @@ class _AddCardNameState extends State<AddCardName> {
                       child: const Icon(Icons.arrow_back_ios_new),
                     ),
                   ],
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey[300],
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Icon(
+                    CupertinoIcons.textformat_abc_dottedunderline,
+                    size: 30,
+                    color: Color.fromARGB(255, 76, 76, 76),
+                  ),
                 ),
               ),
               const SizedBox(height: 15),
@@ -91,46 +106,47 @@ class _AddCardNameState extends State<AddCardName> {
         ),
       ),
       bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-          child: GestureDetector(
-            onTap: () async {
-              String cardName = cardController.text;
-              if (cardName.isNotEmpty) {
-                // Create a new LoyaltyCard instance
-                LoyaltyCard newCard = LoyaltyCard(
-                  barcode: widget.cardCode,
-                  name: cardName,
-                  format: widget.format,
-                );
+        child: GestureDetector(
+          onTap: () async {
+            String cardName = cardController.text;
+            if (cardName.isNotEmpty) {
+              // Create a new LoyaltyCard instance
+              LoyaltyCard newCard = LoyaltyCard(
+                barcode: widget.cardCode,
+                name: cardName,
+                format: widget.format,
+              );
 
-                // Add the card to the provider
-                Provider.of<CardProvider>(context, listen: false)
-                    .addCard(newCard);
+              // Add the card to the provider
+              Provider.of<CardProvider>(context, listen: false)
+                  .addCard(newCard);
 
-                // Pop the navigation twice to return to the homepage
-                if (mounted) {
-                  Navigator.pop(context);
-                }
+              // Pop the navigation twice to return to the homepage
+              if (mounted) {
+                Navigator.pop(context);
+                Navigator.pop(context);
               }
-            },
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(9),
-                color: const Color(0XFF2E01C8),
+                color: const Color.fromARGB(255, 3, 68, 230),
+                borderRadius: BorderRadius.circular(11),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(13.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       AppLocalizations.of(context)!.continue_button,
-                      style: const TextStyle(
+                      style: TextStyle(
+                        fontFamily: "SFProDisplay",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
                         color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'SFProRounded',
                       ),
                     ),
                   ],
