@@ -107,7 +107,7 @@ class ScanModal {
                   if (barcodes.isNotEmpty) {
                     setState(() {
                       hasScanned = true;
-                      Haptics.vibrate(HapticsType.success);
+                      Haptics.vibrate(HapticsType.success); //may need deleting
                     });
 
                     // Optionally: Stop the image stream to avoid multiple scans

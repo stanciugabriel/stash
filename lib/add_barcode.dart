@@ -40,7 +40,7 @@ class _AddBarcodeState extends State<AddBarcode> {
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.grey[300],
+                  color: Theme.of(context).shadowColor,
                 ),
                 child: const Padding(
                   padding: EdgeInsets.all(15.0),
@@ -89,7 +89,7 @@ class _AddBarcodeState extends State<AddBarcode> {
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none,
                         ),
-                        fillColor: const Color(0xFFE8E8E8),
+                        fillColor: Theme.of(context).shadowColor,
                         filled: true,
                       ),
                     ),
