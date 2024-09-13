@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:Stash/add_barcode.dart';
+import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/store_modal.dart';
 import 'package:camera/camera.dart';
 import 'package:Stash/alert_box.dart';
@@ -11,6 +12,7 @@ import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart
 import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 const dev = false;
 
@@ -83,149 +85,153 @@ class ScanModal {
         ),
       ),
       builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            if (dev) print('Starting image stream...');
-            controller.startImageStream((CameraImage image) async {
-              if (dev) print('Received image stream.');
+        return Consumer<FidelityCardsProvider>(builder: (context, cards, _) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              if (dev) print('Starting image stream...');
+              controller.startImageStream((CameraImage image) async {
+                if (dev) print('Received image stream.');
 
-              if (!hasScanned) {
-                if (dev) print('Processing image...');
-                final inputImage =
-                    _inputImageFromCameraImage(controller, image);
-                if (inputImage == null) {
-                  if (dev) print('InputImage is null.');
-                  return;
-                }
-
-                try {
-                  // Process the image to detect barcodes
-                  if (dev) print('Scanning image for barcodes...');
-                  final List<Barcode> barcodes =
-                      await barcodeScanner.processImage(inputImage);
-                  if (dev) print('Barcodes found: ${barcodes.length}');
-
-                  if (barcodes.isNotEmpty) {
-                    setState(() {
-                      hasScanned = true;
-                      Haptics.vibrate(HapticsType.success); //may need deleting
-                    });
-
-                    // Optionally: Stop the image stream to avoid multiple scans
-                    if (dev) print('Stopping image stream...');
-                    await controller.stopImageStream();
-
-                    Future.delayed(const Duration(seconds: 1), () {
-                      if (dev) print('Barcode format: ${barcodes[0].format}');
-                      Navigator.pop(context); // Dismiss the modal first
-                      StoreModal.show(context, barcodes[0].rawValue ?? "Null",
-                          barcodes[0].format.toString());
-                      // Navigate to the EnterCardNamePage
-                    });
+                if (!hasScanned) {
+                  if (dev) print('Processing image...');
+                  final inputImage =
+                      _inputImageFromCameraImage(controller, image);
+                  if (inputImage == null) {
+                    if (dev) print('InputImage is null.');
+                    return;
                   }
-                } catch (e) {
-                  if (dev) print('Error scanning barcode: $e');
-                }
-              }
-            });
 
-            return Padding(
-              padding: const EdgeInsets.only(
-                  left: 20, right: 20, top: 20, bottom: 30),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Theme.of(context).cardColor,
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            if (dev)
-                              print('Closing modal and disposing camera...');
-                            Navigator.pop(context);
-                            controller.dispose();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: Icon(
-                              Icons.close,
-                              color: Theme.of(context).shadowColor,
+                  try {
+                    // Process the image to detect barcodes
+                    if (dev) print('Scanning image for barcodes...');
+                    final List<Barcode> barcodes =
+                        await barcodeScanner.processImage(inputImage);
+                    if (dev) print('Barcodes found: ${barcodes.length}');
+
+                    if (barcodes.isNotEmpty) {
+                      setState(() {
+                        hasScanned = true;
+                        Haptics.vibrate(
+                            HapticsType.success); //may need deleting
+                      });
+
+                      // Optionally: Stop the image stream to avoid multiple scans
+                      if (dev) print('Stopping image stream...');
+                      await controller.stopImageStream();
+
+                      Future.delayed(const Duration(seconds: 1), () {
+                        if (dev) print('Barcode format: ${barcodes[0].format}');
+                        Navigator.pop(context); // Dismiss the modal first
+                        StoreModal.show(context, barcodes[0].rawValue ?? "Null",
+                            barcodes[0].format.toString());
+                        // Navigate to the EnterCardNamePage
+                      });
+                    }
+                  } catch (e) {
+                    if (dev) print('Error scanning barcode: $e');
+                  }
+                }
+              });
+
+              return Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 20, bottom: 30),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context).cardColor,
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              if (dev)
+                                print('Closing modal and disposing camera...');
+                              Navigator.pop(context);
+                              controller.dispose();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(3.0),
+                              child: Icon(
+                                Icons.close,
+                                color: Theme.of(context).shadowColor,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    AppLocalizations.of(context)!.scan_loyalty_card,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: "SFProRounded",
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  // Display the camera preview
-                  Stack(
-                    children: [
-                      buildCameraPreview(controller),
-                      AnimatedOpacity(
-                        opacity: hasScanned ? 1.0 : 0.0,
-                        duration: const Duration(
-                            milliseconds: 500), // Adjust the duration as needed
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Container(
-                              height: 273,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: Colors.white.withOpacity(0),
+                    const SizedBox(height: 5),
+                    Text(
+                      AppLocalizations.of(context)!.scan_loyalty_card,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: "SFProRounded",
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    // Display the camera preview
+                    Stack(
+                      children: [
+                        buildCameraPreview(controller),
+                        AnimatedOpacity(
+                          opacity: hasScanned ? 1.0 : 0.0,
+                          duration: const Duration(
+                              milliseconds:
+                                  500), // Adjust the duration as needed
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                height: 273,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.white.withOpacity(0),
+                                ),
+                              ).asGlass(
+                                enabled: true,
+                                tintColor: Colors.transparent,
+                                clipBorderRadius: BorderRadius.circular(15.0),
                               ),
-                            ).asGlass(
-                              enabled: true,
-                              tintColor: Colors.transparent,
-                              clipBorderRadius: BorderRadius.circular(15.0),
-                            ),
-                            const Icon(
-                              CupertinoIcons.check_mark_circled_solid,
-                              color: Colors.green,
-                              size: 60,
-                            ),
-                          ],
+                              const Icon(
+                                CupertinoIcons.check_mark_circled_solid,
+                                color: Colors.green,
+                                size: 60,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    GestureDetector(
+                      onTap: () {
+                        if (dev) print('Navigating to AddBarcode page...');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AddBarcode()),
+                        );
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.add_manually_button,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () {
-                      if (dev) print('Navigating to AddBarcode page...');
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AddBarcode()),
-                      );
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.add_manually_button,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
+                  ],
+                ),
+              );
+            },
+          );
+        });
       },
     ).whenComplete(() async {
       // Dispose of the controller when the modal is closed
