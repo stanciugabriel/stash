@@ -1,14 +1,13 @@
 import 'package:Stash/navbar.dart';
-// import 'package:Stash/onboarding/main_screen.dart';
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/card_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/providers/locale_provider.dart';
 import 'package:Stash/providers/stores_provider.dart';
 import 'package:Stash/providers/theme_provider.dart';
-import 'package:Stash/testpad.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -17,6 +16,10 @@ void main() async {
 
   final themeProvider = ThemeProvider(lightTheme);
   await themeProvider.initialize();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
 
   runApp(MultiProvider(
     providers: [

@@ -25,6 +25,9 @@ dependencies:
   package_info_plus: ^8.0.2
   webview_flutter: ^4.8.0
   cached_network_image: ^3.4.1
+  image: ^4.2.0
+  flutter_launcher_icons: ^0.13.1
+  lottie: ^3.1.2
   provider: ^6.1.2
   cached_network_svg_image: ^1.0.0
   flutter_localizations:
@@ -86,3 +89,11 @@ flutter:
     - assets/icons/hex.svg
     - assets/icons/profileheart.svg
     - assets/logo.png
+    - assets/lottie/tickw.json
+    - assets/lottie/tick.json
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "assets/logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21

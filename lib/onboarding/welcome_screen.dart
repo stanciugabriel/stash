@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -70,26 +72,29 @@ class WelcomeScreen extends StatelessWidget {
           onTap: onContinue,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 3, 68, 230),
-                borderRadius: BorderRadius.circular(11),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.continue_button,
-                      style: TextStyle(
-                        fontFamily: "SFProDisplay",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: Platform.isAndroid ? 15 : 0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 3, 68, 230),
+                  borderRadius: BorderRadius.circular(11),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.continue_button,
+                        style: TextStyle(
+                          fontFamily: "SFProDisplay",
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

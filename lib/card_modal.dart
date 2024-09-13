@@ -29,6 +29,7 @@ class CardModal extends StatefulWidget {
     final brightness = await ScreenBrightness().current;
     showModalBottomSheet(
         isScrollControlled: true,
+        enableDrag: false,
         context: context,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(

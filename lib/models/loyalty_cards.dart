@@ -59,12 +59,7 @@ class CardStorage {
     final cardsJson = _prefs?.getString(_cardsKey);
 
     if (cardsJson == null || cardsJson.isEmpty) {
-      return [
-        LoyaltyCard(
-            barcode: "barcode",
-            name: "Sephora",
-            format: "BarcodeFormat.code128"),
-      ];
+      return [];
     }
 
     try {

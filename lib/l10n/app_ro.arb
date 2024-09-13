@@ -232,5 +232,17 @@
   "meet_your_new_favourite_loyalty_app": "Fă cunoștință cu aplicația ta favorită de loialitate",
   "@meet_your_new_favourite_loyalty_app": {
     "description": "Feature description for automatic backup"
+  },
+  "enter_the_barcode": "Introdu codul de pe card",
+  "@enter_the_barcode": {
+    "description": "preferences title"
+  },
+  "enter_the_barcode_description": "Introdu codul scris pe cardul tau de loialitate.",
+  "@enter_the_barcode_description": {
+    "description": "preferences title"
+  },
+  "how_does_your_barcode_look": "Cum arata codul tau de bare?",
+  "@how_does_your_barcode_look": {
+    "description": "Feature description for automatic backup"
   }
 }
