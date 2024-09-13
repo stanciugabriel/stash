@@ -107,7 +107,6 @@ class ScanModal {
                     // Process barcodes (example handling)
                     for (Barcode barcode in barcodes) {
                       final BarcodeType type = barcode.type;
-                      final String? displayValue = barcode.displayValue;
                       final String? rawValue = barcode.rawValue;
 
                       // Example switch case to handle different barcode types

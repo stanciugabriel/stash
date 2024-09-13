@@ -9,9 +9,17 @@ import 'package:http/http.dart' as http;
 class StoresProvider with ChangeNotifier {
   List<Store> stores = [];
 
+  StoresProvider() {
+    loadStores();
+  }
+
   loadStores() async {
     stores = await getStores();
     notifyListeners();
+
+    if (stores.isEmpty) {
+      await fetchStores();
+    }
   }
 
   fetchStores() async {

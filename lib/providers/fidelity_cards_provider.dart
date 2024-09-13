@@ -7,7 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class FidelityCardsProvider with ChangeNotifier {
+  // all usable, locally stored cards
   List<FidelityCard> cards = [];
+
+  // cards being added
+  FidelityCard addCard = FidelityCard.fromEmpty();
+  String deleteCard = '';
+  UpdateFidelityCard updateCard = UpdateFidelityCard.fromEmpty();
+
+  // cards not yet synced with backend
+  List<FidelityCard> addQueue = [];
+  List<String> deleteQueue = [];
+  List<UpdateFidelityCard> updateQueue = [];
 
   // general signals
   bool loading = false;
@@ -15,7 +26,16 @@ class FidelityCardsProvider with ChangeNotifier {
 
   loadCards() async {
     cards = await getCards();
+    addQueue = await getAddQueue();
+    deleteQueue = await getDeleteQueue();
+    updateQueue = await getUpdateQueue();
     notifyListeners();
+  }
+
+  sweepAll(String token) async {
+    await sweepAddQueue(token);
+    await sweepDeleteQueue(token);
+    await sweepUpdateQueue(token);
   }
 
   setLoading(bool newLoading) {
@@ -28,36 +48,145 @@ class FidelityCardsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  addFidelityCard(String token, FidelityCard card) async {
-    if (token != '') {
-      await postAddFidelityCard(token, card);
-    } else {
-      cards.add(card);
-      notifyListeners();
-    }
-    setCards(cards);
+  addCardInitialize(String accountID) async {
+    addCard = FidelityCard.init(accountID);
+    notifyListeners();
   }
 
-  postAddFidelityCard(String token, FidelityCard card) async {
+  addCardAttachBarcode(String code, String format) async {
+    addCard.code = code;
+    addCard.format = format;
+
+    notifyListeners();
+  }
+
+  addCardAttachStore(String storeID) async {
+    addCard.storeID = storeID;
+
+    notifyListeners();
+  }
+
+  addCardAttachNickname(String nickname) async {
+    addCard.nickname = nickname;
+
+    notifyListeners();
+  }
+
+  addFidelityCard(String token) async {
+    // adding the card to the queue
+    pushAddQueue();
+
+    // adding the card to the active cards
+    commitAddCard();
+
+    // trying to sweep the queue
+    await sweepAddQueue(token);
+
+    // deleting the add card
+    addCard = FidelityCard.fromEmpty();
+    notifyListeners();
+  }
+
+  updateFidelityCard(String token) async {
+    // adding the update to the queue
+    pushUpdateQueue();
+
+    // updating the card to the active cards
+    commitUpdateCard();
+
+    // trying to sweep the queue
+    await sweepUpdateQueue(token);
+
+    // deleting the update card
+    updateCard = UpdateFidelityCard.fromEmpty();
+    notifyListeners();
+  }
+
+  deleteFidelityCard(String token) async {
+    // adding the delete to the queue
+    pushDeleteQueue();
+
+    // deleting the card from the active cards
+    commitDeleteCard();
+
+    // trying to sweep the queu
+    await sweepDeleteQueue(token);
+
+    // deleting the delete card
+    deleteCard = '';
+    notifyListeners();
+  }
+
+  pushAddQueue() {
+    addQueue.add(addCard);
+    setAddQueue(addQueue);
+    notifyListeners();
+  }
+
+  pushDeleteQueue() {
+    deleteQueue.add(deleteCard);
+    setDeleteQueue(deleteQueue);
+    notifyListeners();
+  }
+
+  pushUpdateQueue() {
+    updateQueue.add(updateCard);
+    setUpdateQueue(updateQueue);
+    notifyListeners();
+  }
+
+  commitAddCard() {
+    cards.add(addCard);
+    setCards(cards);
+    notifyListeners();
+  }
+
+  commitDeleteCard() {
+    List<FidelityCard> newCards = [];
+    for (int i = 0; i < cards.length; i++) {
+      if (cards[i].id != deleteCard) {
+        newCards.add(cards[i]);
+      }
+    }
+    setCards(newCards);
+    newCards = cards;
+    notifyListeners();
+  }
+
+  commitUpdateCard() {
+    for (int i = 0; i < cards.length; i++) {
+      if (cards[i].id == updateCard.id) {
+        cards[i].nickname = updateCard.nickname;
+      }
+    }
+    setCards(cards);
+    notifyListeners();
+  }
+
+  sweepAddQueue(String token) async {
     setLoading(true);
 
-    final res = await http.post(Uri.parse('$apiURL/cards'),
-        headers: authHeader(token), body: jsonEncode(card.toJSON()));
+    List<Map<String, String>> queueJSON = [];
+    for (int i = 0; i < addQueue.length; i++) {
+      queueJSON.add(addQueue[i].toJSON());
+    }
 
-    final body = jsonDecode(utf8.decode(res.bodyBytes));
+    final res = await http.post(Uri.parse('$apiURL/cards'),
+        headers: authHeader(token), body: jsonEncode(queueJSON));
+
     final statusCode = res.statusCode;
 
     setLoading(false);
 
     if (statusCode == 200) {
-      cards = body.map((c) => FidelityCard.fromJSON(c));
+      addQueue = [];
       notifyListeners();
-
-      setCards(cards);
-    } else {
-      setError(body['message']);
     }
   }
+
+  sweepUpdateQueue(String token) async {}
+
+  sweepDeleteQueue(String token) async {}
 
   fetchFidelityCards(String token) async {
     setLoading(true);

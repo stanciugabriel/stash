@@ -1,4 +1,5 @@
 import 'package:Stash/navbar.dart';
+// import 'package:Stash/onboarding/main_screen.dart';
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/card_provider.dart';
 import 'package:Stash/providers/locale_provider.dart';
@@ -44,9 +45,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
-      home: NavBar(
-        pageIndex: 0,
-      ),
+      home: const NavBar(pageIndex: 0),
     );
   }
 }

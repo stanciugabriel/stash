@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'background_widget.dart'; // Import the background widget
 
 class AccountPrompt extends StatelessWidget {
   const AccountPrompt({super.key});
@@ -11,11 +9,11 @@ class AccountPrompt extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 45),
+          const SizedBox(height: 45),
           Center(
             child: SizedBox(
               width: MediaQuery.sizeOf(context).width * 0.8,
-              child: Text(
+              child: const Text(
                 "Stash is Better with an Account",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -28,11 +26,11 @@ class AccountPrompt extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Center(
             child: SizedBox(
               width: MediaQuery.sizeOf(context).width * 0.8,
-              child: Text(
+              child: const Text(
                 "Create an account to unlock all features, or continue without one.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -45,18 +43,18 @@ class AccountPrompt extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
           // Sign Up Button
           GestureDetector(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color(0xFF151515),
+                  color: const Color(0xFF151515),
                   borderRadius: BorderRadius.circular(11),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -75,10 +73,10 @@ class AccountPrompt extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          Text(
+          const Text(
             "Continue without an account",
             style: TextStyle(
               fontFamily: "SFProDisplay",
