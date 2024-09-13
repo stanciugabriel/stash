@@ -52,6 +52,10 @@ Future<List<FidelityCard>> getCards() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final cardsString = prefs.getString('fidelitycards') ?? '';
 
+  if (cardsString.isEmpty) {
+    return [];
+  }
+
   List<dynamic> cardsList = jsonDecode(cardsString);
   return cardsList.map((c) => FidelityCard.fromJSON(c)).toList();
 }
@@ -74,6 +78,10 @@ Future<List<FidelityCard>> getAddQueue() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final cardsString = prefs.getString('addQueue') ?? '';
 
+  if (cardsString.isEmpty) {
+    return [];
+  }
+
   List<dynamic> cardsList = jsonDecode(cardsString);
   return cardsList.map((c) => FidelityCard.fromJSON(c)).toList();
 }
@@ -94,7 +102,11 @@ void removeAddQueue() async {
 // DELETE QUEUE CARDS
 Future<List<String>> getDeleteQueue() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  final idsString = prefs.getString('removeQueue') ?? '';
+  final idsString = prefs.getString('deleteQueue') ?? '';
+
+  if (idsString.isEmpty) {
+    return [];
+  }
 
   return jsonDecode(idsString);
 }
@@ -103,18 +115,22 @@ void setDeleteQueue(List<String> ids) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   final idsString = jsonEncode(ids);
-  await prefs.setString('removeQueue', idsString);
+  await prefs.setString('deleteQueue', idsString);
 }
 
 void removeDeleteQueue() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.remove('addQueue');
+  prefs.remove('deleteQueue');
 }
 
 // UPDATE QUEUE CARDS
 Future<List<UpdateFidelityCard>> getUpdateQueue() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final cardsString = prefs.getString('addQueue') ?? '';
+
+  if (cardsString.isEmpty) {
+    return [];
+  }
 
   List<dynamic> cardsList = jsonDecode(cardsString);
   return cardsList.map((c) => UpdateFidelityCard.fromJSON(c)).toList();

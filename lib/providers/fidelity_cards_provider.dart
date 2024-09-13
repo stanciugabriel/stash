@@ -24,11 +24,17 @@ class FidelityCardsProvider with ChangeNotifier {
   bool loading = false;
   String errorMessage = '';
 
+  FidelityCardsProvider() {
+    loadCards();
+  }
+
   loadCards() async {
     cards = await getCards();
+
     addQueue = await getAddQueue();
     deleteQueue = await getDeleteQueue();
     updateQueue = await getUpdateQueue();
+
     notifyListeners();
   }
 
@@ -72,48 +78,66 @@ class FidelityCardsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  deleteCardSet(String id) {
+    deleteCard = id;
+
+    notifyListeners();
+  }
+
+  updateCardSet(String id, String nickname) {
+    updateCard = UpdateFidelityCard(id: id, nickname: nickname);
+
+    notifyListeners();
+  }
+
   addFidelityCard(String token) async {
-    // adding the card to the queue
-    pushAddQueue();
+    if (token != '') {
+      // adding the card to the queue
+      pushAddQueue();
+
+      // trying to sweep the queue
+      await sweepAddQueue(token);
+    }
 
     // adding the card to the active cards
     commitAddCard();
-
-    // trying to sweep the queue
-    await sweepAddQueue(token);
 
     // deleting the add card
     addCard = FidelityCard.fromEmpty();
     notifyListeners();
   }
 
-  updateFidelityCard(String token) async {
-    // adding the update to the queue
-    pushUpdateQueue();
-
-    // updating the card to the active cards
-    commitUpdateCard();
-
-    // trying to sweep the queue
-    await sweepUpdateQueue(token);
-
-    // deleting the update card
-    updateCard = UpdateFidelityCard.fromEmpty();
-    notifyListeners();
-  }
-
   deleteFidelityCard(String token) async {
-    // adding the delete to the queue
-    pushDeleteQueue();
+    if (token != '') {
+      // adding the delete to the queue
+      pushDeleteQueue();
+
+      // trying to sweep the queu
+      await sweepDeleteQueue(token);
+    }
 
     // deleting the card from the active cards
     commitDeleteCard();
 
-    // trying to sweep the queu
-    await sweepDeleteQueue(token);
-
     // deleting the delete card
     deleteCard = '';
+    notifyListeners();
+  }
+
+  updateFidelityCard(String token) async {
+    if (token != '') {
+      // adding the update to the queue
+      pushUpdateQueue();
+
+      // trying to sweep the queue
+      await sweepUpdateQueue(token);
+    }
+
+    // updating the card to the active cards
+    commitUpdateCard();
+
+    // deleting the update card
+    updateCard = UpdateFidelityCard.fromEmpty();
     notifyListeners();
   }
 
@@ -149,7 +173,7 @@ class FidelityCardsProvider with ChangeNotifier {
       }
     }
     setCards(newCards);
-    newCards = cards;
+    cards = newCards;
     notifyListeners();
   }
 
@@ -160,6 +184,24 @@ class FidelityCardsProvider with ChangeNotifier {
       }
     }
     setCards(cards);
+    notifyListeners();
+  }
+
+  clearAddQueue() {
+    addQueue = [];
+    removeAddQueue();
+    notifyListeners();
+  }
+
+  clearDeleteQueue() {
+    deleteQueue = [];
+    removeDeleteQueue();
+    notifyListeners();
+  }
+
+  clearUpdateQueue() {
+    updateQueue = [];
+    removeUpdateQueue();
     notifyListeners();
   }
 
@@ -179,14 +221,44 @@ class FidelityCardsProvider with ChangeNotifier {
     setLoading(false);
 
     if (statusCode == 200) {
-      addQueue = [];
-      notifyListeners();
+      clearAddQueue();
     }
   }
 
-  sweepUpdateQueue(String token) async {}
+  sweepDeleteQueue(String token) async {
+    setLoading(true);
 
-  sweepDeleteQueue(String token) async {}
+    final res = await http.delete(Uri.parse('$apiURL/cards'),
+        headers: authHeader(token), body: jsonEncode(deleteQueue));
+
+    final statusCode = res.statusCode;
+
+    setLoading(false);
+
+    if (statusCode == 200) {
+      clearDeleteQueue();
+    }
+  }
+
+  sweepUpdateQueue(String token) async {
+    setLoading(true);
+
+    List<Map<String, String>> queueJSON = [];
+    for (int i = 0; i < updateQueue.length; i++) {
+      queueJSON.add(updateQueue[i].toJSON());
+    }
+
+    final res = await http.patch(Uri.parse('$apiURL/cards'),
+        headers: authHeader(token), body: jsonEncode(queueJSON));
+
+    final statusCode = res.statusCode;
+
+    setLoading(false);
+
+    if (statusCode == 200) {
+      clearUpdateQueue();
+    }
+  }
 
   fetchFidelityCards(String token) async {
     setLoading(true);
@@ -200,7 +272,10 @@ class FidelityCardsProvider with ChangeNotifier {
     setLoading(false);
 
     if (statusCode == 200) {
-      cards = body.map((c) => FidelityCard.fromJSON(c));
+      cards = [];
+      for (int i = 0; i < body.length; i++) {
+        cards.add(FidelityCard.fromJSON(body[i]));
+      }
       notifyListeners();
 
       setCards(cards);

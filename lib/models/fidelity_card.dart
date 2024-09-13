@@ -18,7 +18,7 @@ class UpdateFidelityCard {
         id: json['id'] ?? '', nickname: json['nickname'] ?? '');
   }
 
-  Map<String, dynamic> toJSON() {
+  Map<String, String> toJSON() {
     return {
       'id': id,
       'nickname': nickname,
@@ -64,7 +64,7 @@ class FidelityCard {
     return fc;
   }
 
-  factory FidelityCard.fromJSON(Map<String, String> json) {
+  factory FidelityCard.fromJSON(Map<String, dynamic> json) {
     return FidelityCard(
       id: json['id'] ?? '',
       accountID: json['accountID'] ?? '',

@@ -18,6 +18,10 @@ class AccountProvider with ChangeNotifier {
 
   Account account = Account.fromEmpty();
 
+  AccountProvider() {
+    loadAccount();
+  }
+
   loadAccount() async {
     token = await getToken();
     account = await getAccount();
