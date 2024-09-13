@@ -23,6 +23,9 @@ class CardProvider with ChangeNotifier {
 
   Future<void> removeCard(LoyaltyCard card) async {
     _cards.removeWhere((c) => c.barcode == card.barcode);
-    notifyListeners();
+
+    await CardStorage.saveCards(_cards);
+
+    notifyListeners(); // Update the UI
   }
 }
