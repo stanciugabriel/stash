@@ -50,8 +50,9 @@ class MyApp extends StatelessWidget {
       locale: localeProvider.locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      debugShowCheckedModeBanner: false,
       home: const NavBar(pageIndex: 0),
+      // home: const Testpad()
+      debugShowCheckedModeBanner: false,
     );
   }
 }

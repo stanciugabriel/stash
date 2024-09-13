@@ -183,7 +183,7 @@ class _FeaturesState extends State<Features> {
                   fontFamily: "SFProDisplay",
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: const Color.fromARGB(255, 3, 68, 230),
+                  color: Color.fromARGB(255, 3, 68, 230),
                 ),
               ),
             ),

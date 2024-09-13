@@ -28,7 +28,7 @@ class FidelityCardsProvider with ChangeNotifier {
     loadCards();
   }
 
-  loadCards() async {
+  Future<void> loadCards() async {
     cards = await getCards();
 
     addQueue = await getAddQueue();
@@ -107,7 +107,7 @@ class FidelityCardsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  deleteFidelityCard(String token) async {
+  Future<void> deleteFidelityCard(String token) async {
     if (token != '') {
       // adding the delete to the queue
       pushDeleteQueue();

@@ -56,7 +56,7 @@ class _StoreModal extends State<StoreModal> {
       storesProvider.fetchStores().then((_) {
         setState(() {
           storeNames =
-              storesProvider.stores.map((store) => store.name).toList();
+              storesProvider.rawStores.map((store) => store.name).toList();
           filteredStores = storeNames; // Set the initial list of stores
           isLoading = false; // Turn off loading state
         });
@@ -137,7 +137,7 @@ class _StoreModal extends State<StoreModal> {
                         CircularProgressIndicator()) // Show a loading indicator
                 : Consumer<StoresProvider>(
                     builder: (context, storesProvider, _) {
-                      storeNames = storesProvider.stores
+                      storeNames = storesProvider.rawStores
                           .map((store) => store.name)
                           .toList();
 

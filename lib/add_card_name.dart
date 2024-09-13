@@ -40,7 +40,7 @@ class _AddCardNameState extends State<AddCardName> {
       storesProvider.fetchStores().then((_) {
         setState(() {
           storeNames =
-              storesProvider.stores.map((store) => store.name).toList();
+              storesProvider.rawStores.map((store) => store.name).toList();
           isLoading = false; // Turn off loading state
         });
       });
