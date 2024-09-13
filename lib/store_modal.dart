@@ -3,10 +3,10 @@ import 'package:barcode_widget/barcode_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:screen_brightness/screen_brightness.dart';
 import 'package:provider/provider.dart';
 import 'package:Stash/models/loyalty_cards.dart';
 import 'package:Stash/providers/card_provider.dart'; // Import the CardProvider
+import 'package:Stash/providers/stores_provider.dart'; // Import the StoresProvider
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StoreModal extends StatefulWidget {
@@ -42,19 +42,29 @@ class StoreModal extends StatefulWidget {
 
 class _StoreModal extends State<StoreModal> {
   final TextEditingController _searchController = TextEditingController();
-  final List<String> stores = [
-    'Catena',
-    'Kaufland',
-    'OptiBlu',
-  ];
-
   List<String> filteredStores = [];
+  List<String> storeNames = []; // List to store all store names initially
+  bool isLoading = true; // To show loading state while stores load
 
   @override
   void initState() {
     super.initState();
-    filteredStores = stores;
+
     _searchController.addListener(_filterStores);
+
+    // Load stores from the provider
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final storesProvider =
+          Provider.of<StoresProvider>(context, listen: false);
+      storesProvider.fetchStores().then((_) {
+        setState(() {
+          storeNames =
+              storesProvider.stores.map((store) => store.name).toList();
+          filteredStores = storeNames; // Set the initial list of stores
+          isLoading = false; // Turn off loading state
+        });
+      });
+    });
   }
 
   @override
@@ -66,7 +76,7 @@ class _StoreModal extends State<StoreModal> {
 
   void _filterStores() {
     setState(() {
-      filteredStores = stores
+      filteredStores = storeNames
           .where((store) => store
               .toLowerCase()
               .contains(_searchController.text.toLowerCase()))
@@ -124,57 +134,76 @@ class _StoreModal extends State<StoreModal> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: filteredStores.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () async {
-                    String cardName = filteredStores[index];
-                    LoyaltyCard newCard = LoyaltyCard(
-                      barcode: widget.barcode,
-                      name: cardName,
-                      format: widget.format,
-                    );
+            child: isLoading
+                ? Center(
+                    child:
+                        CircularProgressIndicator()) // Show a loading indicator
+                : Consumer<StoresProvider>(
+                    builder: (context, storesProvider, _) {
+                      storeNames = storesProvider.stores
+                          .map((store) => store.name)
+                          .toList();
 
-                    Provider.of<CardProvider>(context, listen: false)
-                        .addCard(newCard);
-                    if (mounted) Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 5),
-                    child: Row(children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.17,
-                        height:
-                            MediaQuery.of(context).size.width * 0.17 / 1.586,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.blueGrey[100],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Kaufland_201x_logo.svg/1200px-Kaufland_201x_logo.svg.png',
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        filteredStores[index],
-                        style:
-                            TextStyle(fontFamily: "SFProDisplay", fontSize: 16),
-                      ),
-                    ]),
+                      if (filteredStores.isEmpty &&
+                          _searchController.text.isEmpty) {
+                        // Initialize filteredStores with all stores on first load
+                        filteredStores = storeNames;
+                      }
+
+                      return ListView.builder(
+                        itemCount: filteredStores.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () async {
+                              String cardName = filteredStores[index];
+                              LoyaltyCard newCard = LoyaltyCard(
+                                barcode: widget.barcode,
+                                name: cardName,
+                                format: widget.format,
+                              );
+
+                              Provider.of<CardProvider>(context, listen: false)
+                                  .addCard(newCard);
+                              if (mounted) Navigator.pop(context);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 5),
+                              child: Row(children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.17,
+                                  height: MediaQuery.of(context).size.width *
+                                      0.17 /
+                                      1.586,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.blueGrey[100],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    // child: CachedNetworkImage(
+                                    //   imageUrl: storesProvider.stores[index].logoUrl, // Ensure this property exists
+                                    //   errorWidget: (context, url, error) =>
+                                    //       Icon(Icons.error),
+                                    // ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  filteredStores[index],
+                                  style: TextStyle(
+                                      fontFamily: "SFProDisplay", fontSize: 16),
+                                ),
+                              ]),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ),
         ],
       ),

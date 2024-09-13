@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:Stash/add_barcode.dart';
 import 'package:Stash/store_modal.dart';
 import 'package:camera/camera.dart';
-import 'package:Stash/add_card_name.dart';
 import 'package:Stash/alert_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,6 @@ import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart
 import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:image/image.dart' as img;
 import 'dart:typed_data';
 
 class ScanModal {
@@ -123,31 +121,6 @@ class ScanModal {
                           barcodes[0].format.toString());
                       // Navigate to the EnterCardNamePage
                     });
-
-                    // Process barcodes (example handling)
-                    for (Barcode barcode in barcodes) {
-                      final BarcodeType type = barcode.type;
-                      final String? displayValue = barcode.displayValue;
-                      final String? rawValue = barcode.rawValue;
-
-                      // Example switch case to handle different barcode types
-                      switch (type) {
-                        case BarcodeType.wifi:
-                          final BarcodeWifi wifiInfo =
-                              barcode.value as BarcodeWifi;
-                          print(
-                              'Wi-Fi: ${wifiInfo.ssid}, ${wifiInfo.password}');
-                          break;
-                        case BarcodeType.url:
-                          final BarcodeUrl urlInfo =
-                              barcode.value as BarcodeUrl;
-                          print('URL: ${urlInfo.title}, ${urlInfo.url}');
-                          break;
-                        default:
-                          print('Barcode value: $rawValue');
-                          break;
-                      }
-                    }
                   }
                 } catch (e) {
                   print('Error scanning barcode: $e');
