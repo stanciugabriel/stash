@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:Stash/alert_box.dart';
 import 'package:Stash/homepage.dart';
 import 'package:Stash/navbar.dart';
@@ -174,13 +176,16 @@ class _FeaturesState extends State<Features> {
                 },
               );
             },
-            child: Text(
-              AppLocalizations.of(context)!.continue_without_an_account,
-              style: TextStyle(
-                fontFamily: "SFProDisplay",
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: const Color.fromARGB(255, 3, 68, 230),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: Platform.isAndroid ? 15 : 0),
+              child: Text(
+                AppLocalizations.of(context)!.continue_without_an_account,
+                style: TextStyle(
+                  fontFamily: "SFProDisplay",
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: const Color.fromARGB(255, 3, 68, 230),
+                ),
               ),
             ),
           ),

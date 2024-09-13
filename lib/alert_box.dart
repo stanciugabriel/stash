@@ -29,7 +29,8 @@ class AlertBox {
               child: Container(
                 width: screenWidth * 0.7,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(.8),
+                  // color: Colors.white.withOpacity(.8),
+                  color: Theme.of(context).shadowColor.withOpacity(.7),
                   borderRadius: BorderRadius.circular(40),
                 ),
                 child: Padding(

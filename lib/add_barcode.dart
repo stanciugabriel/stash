@@ -2,6 +2,7 @@ import 'package:Stash/add_card_name.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'dart:io' show Platform;
 
 class AddBarcode extends StatefulWidget {
   const AddBarcode({
@@ -161,26 +162,29 @@ class _AddBarcodeState extends State<AddBarcode> {
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 3, 68, 230),
-                borderRadius: BorderRadius.circular(11),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.continue_button,
-                      style: TextStyle(
-                        fontFamily: "SFProDisplay",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: Platform.isAndroid ? 15 : 0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 3, 68, 230),
+                  borderRadius: BorderRadius.circular(11),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.continue_button,
+                        style: TextStyle(
+                          fontFamily: "SFProDisplay",
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
