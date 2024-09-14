@@ -298,9 +298,9 @@ class _CardModal extends State<CardModal> {
               Consumer<AccountProvider>(builder: (context, auth, _) {
                 return GestureDetector(
                   onTap: () async {
+                    Navigator.pop(context);
                     cards.deleteCardSet(widget.id);
                     await cards.deleteFidelityCard(auth.token);
-                    Navigator.pop(context);
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

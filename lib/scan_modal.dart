@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:Stash/add_barcode.dart';
+import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/store_modal.dart';
 import 'package:camera/camera.dart';
@@ -18,6 +19,10 @@ const dev = false;
 
 class ScanModal {
   static Future<void> show(BuildContext context) async {
+    final auth = Provider.of<AccountProvider>(context, listen: false);
+    final cards = Provider.of<FidelityCardsProvider>(context, listen: false);
+    await cards.addCardInitialize(auth.account.id);
+
     // Request camera permission
     if (dev) print('Requesting camera permission...');
     var status = await Permission.camera.status;
