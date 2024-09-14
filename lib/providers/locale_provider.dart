@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class LocaleProvider with ChangeNotifier {
   Locale? locale;
 
@@ -23,13 +25,13 @@ class LocaleProvider with ChangeNotifier {
   }
 
   void setLocale(String newLocale) async {
-    locale = Locale(newLocale);
     if (newLocale == '') {
       locale = null;
+    } else {
+      locale = Locale(newLocale);
     }
 
     final prefs = await SharedPreferences.getInstance();
-
     prefs.setString('locale', newLocale);
 
     notifyListeners();

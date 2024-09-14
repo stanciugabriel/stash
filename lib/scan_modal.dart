@@ -82,8 +82,8 @@ class ScanModal {
       context: context,
       backgroundColor: Theme.of(context).shadowColor,
       isScrollControlled: true,
-      isDismissible: false,
-      enableDrag: false,
+      isDismissible: true,
+      enableDrag: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(35),
@@ -92,11 +92,9 @@ class ScanModal {
       ),
       builder: (BuildContext context) {
         FlutterStatusbarcolor.setNavigationBarColor(
-            Theme.of(context).shadowColor);
-        if (Theme.of(context).brightness == Brightness.light) {
-          FlutterStatusbarcolor.setStatusBarColor(
-              Theme.of(context).dividerColor);
-        }
+            Theme.of(context).shadowColor,
+            animate: true);
+        FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).dividerColor);
         return Consumer<FidelityCardsProvider>(builder: (context, cards, _) {
           return StatefulBuilder(
             builder: (context, setState) {

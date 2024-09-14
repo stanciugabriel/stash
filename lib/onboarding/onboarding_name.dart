@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class OnboardingName extends StatefulWidget {
   const OnboardingName({super.key});
 
@@ -96,9 +98,9 @@ class _OnboardingNameState extends State<OnboardingName> {
                   ),
                 ),
                 Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: lightGrey,
+                    color: Theme.of(context).shadowColor,
                   ),
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
@@ -110,18 +112,18 @@ class _OnboardingNameState extends State<OnboardingName> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                const Text(
-                  "Introdu numele și prenumele",
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.onboarding_name_title,
+                  style: const TextStyle(
                     fontSize: 22,
                     fontFamily: 'SFProRounded',
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 5),
-                const Text(
-                  "Hai sa ne cunoastem mai bine!",
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.onboarding_name_subtitle,
+                  style: const TextStyle(
                     fontSize: 15,
                     fontFamily: 'SFProRounded',
                     fontWeight: FontWeight.w400,
@@ -130,13 +132,13 @@ class _OnboardingNameState extends State<OnboardingName> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
-                  "Nume",
-                  style: TextStyle(
-                      fontFamily: "SFProRounded",
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18),
-                ),
+                // const Text(
+                //   "Nume",
+                //   style: TextStyle(
+                //       fontFamily: "SFProRounded",
+                //       fontWeight: FontWeight.w600,
+                //       fontSize: 18),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10, top: 5),
                   child: Column(
@@ -147,7 +149,6 @@ class _OnboardingNameState extends State<OnboardingName> {
                         autofillHints: const [AutofillHints.familyName],
                         controller: lastNameController,
                         textInputAction: TextInputAction.done,
-                        cursorColor: Colors.black,
                         style: const TextStyle(
                           fontSize: 18,
                           fontFamily: 'UberMoveMedium',
@@ -157,20 +158,25 @@ class _OnboardingNameState extends State<OnboardingName> {
                             borderRadius: BorderRadius.circular(12),
                             borderSide: BorderSide.none,
                           ),
-                          fillColor: const Color(0xFFE8E8E8),
+                          fillColor: Theme.of(context).shadowColor,
                           filled: true,
+                          hintText: AppLocalizations.of(context)!
+                              .onboarding_surname_hint,
+                          hintStyle: const TextStyle(
+                              fontSize: 18, fontFamily: 'UberMoveMedium'),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const Text(
-                  "Prenume",
-                  style: TextStyle(
-                      fontFamily: "SFProRounded",
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18),
-                ),
+                // const Text(
+                //   "Prenume",
+                //   style: TextStyle(
+                //       fontFamily: "SFProRounded",
+                //       fontWeight: FontWeight.w600,
+                //       fontSize: 18),
+                // ),
+                const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10, top: 5),
                   child: Column(
@@ -181,19 +187,21 @@ class _OnboardingNameState extends State<OnboardingName> {
                         autofillHints: const [AutofillHints.givenName],
                         controller: firstNameController,
                         textInputAction: TextInputAction.done,
-                        cursorColor: Colors.black,
                         style: const TextStyle(
                             fontSize: 18,
                             fontFamily: 'SFProDisplay',
                             fontWeight: FontWeight.w500),
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide.none,
-                          ),
-                          fillColor: const Color(0xFFE8E8E8),
-                          filled: true,
-                        ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide.none,
+                            ),
+                            fillColor: Theme.of(context).shadowColor,
+                            filled: true,
+                            hintText: AppLocalizations.of(context)!
+                                .onboarding_firstname_hint,
+                            hintStyle: const TextStyle(
+                                fontSize: 18, fontFamily: 'UberMoveMedium')),
                       ),
                     ],
                   ),

@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:Stash/providers/theme_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -21,9 +24,15 @@ class AppearanceModal extends StatefulWidget {
         ),
       ),
       builder: (BuildContext context) {
+        FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).dividerColor,
+            animate: true);
         return const AppearanceModal();
       },
-    );
+    ).whenComplete(() {
+      FlutterStatusbarcolor.setStatusBarColor(
+          Theme.of(context).primaryColorDark,
+          animate: true);
+    });
   }
 }
 
@@ -38,7 +47,6 @@ class _AppearanceModal extends State<AppearanceModal> {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Consumer<ThemeProvider>(builder: (context, theme, _) {
-      print("THEME: ${theme.selectedScheme}.");
       return Container(
         padding: const EdgeInsets.all(20.0),
         color: Colors.transparent,
@@ -90,11 +98,12 @@ class _AppearanceModal extends State<AppearanceModal> {
               children: [
                 Expanded(
                   child: GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       setState(() {
                         theme.selectedScheme = 'System';
                       });
-                      themeProvider.setSystemTheme();
+
+                      await themeProvider.setSystemTheme();
                     },
                     child: ThemeSwitcher(
                       isSelected: theme.selectedScheme == 'System',
@@ -106,11 +115,12 @@ class _AppearanceModal extends State<AppearanceModal> {
                 const SizedBox(width: 10),
                 Expanded(
                   child: GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       setState(() {
                         theme.selectedScheme = 'Light';
                       });
-                      themeProvider.setLightTheme();
+
+                      await themeProvider.setLightTheme();
                     },
                     child: ThemeSwitcher(
                       isSelected: theme.selectedScheme == 'Light',
@@ -122,11 +132,12 @@ class _AppearanceModal extends State<AppearanceModal> {
                 const SizedBox(width: 10),
                 Expanded(
                   child: GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       setState(() {
                         theme.selectedScheme = 'Dark';
                       });
-                      themeProvider.setDarkTheme();
+
+                      await themeProvider.setDarkTheme();
                     },
                     child: ThemeSwitcher(
                       isSelected: theme.selectedScheme == 'Dark',

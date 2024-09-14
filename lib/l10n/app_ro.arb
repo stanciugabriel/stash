@@ -276,5 +276,29 @@
   "this_action_cannot_be_reverted": "Această acțiune este ireversibilă.",
   "@this_action_cannot_be_reverted": {
     "description": "Account details modal title"
+  },
+  "onboarding_phone_hint": "Număr de telefon",
+  "@onboarding_phone_hint" : {
+    "description": "Hint text for onboarding phone number text field"
+  },
+  "onboarding_otp_hint": "Codul OTP",
+  "@onboarding_otp_hint": {
+    "description": "Hint text for OTP field"
+  },
+  "onboarding_surname_hint": "Numele de familie",
+  "@onboarding_surname_hint": {
+    "description": "Hint text for onboarding surname"
+  },
+  "onboarding_firstname_hint": "Prenumele",
+  "@onboarding_firstname_hint": {
+    "description": "Hint text for onboarding firstname"
+  },
+  "onboarding_name_title": "Hai să ne cunoaștem mai bine!",
+  "@onboarding_name_title": {
+    "description": "Titlul paginii de adaugare nume"
+  },
+  "onboarding_name_subtitle": "Introdu numele și prenumele",
+  "@onboarding_name_subtitle": {
+    "description": "Subtitlul paginii de adaugare nume"
   }
 }

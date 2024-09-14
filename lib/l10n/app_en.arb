@@ -276,5 +276,29 @@
   "this_action_cannot_be_reverted": "This action cannot be reverted",
   "@this_action_cannot_be_reverted": {
     "description": "Account details modal title"
+  },
+  "onboarding_phone_hint": "Phone number",
+  "@onboarding_phone_hint" : {
+    "description": "Hint text for onboarding phone number text field"
+  },
+  "onboarding_otp_hint": "One Time Password",
+  "@onboarding_otp_hint": {
+    "description": "Hint text for OTP field"
+  },
+  "onboarding_surname_hint": "Surname",
+  "@onboarding_surname_hint": {
+    "description": "Hint text for onboarding surname"
+  },
+  "onboarding_firstname_hint": "Name",
+  "@onboarding_firstname_hint": {
+    "description": "Hint text for onboarding firstname"
+  },
+  "onboarding_name_title": "Let's get to know each other",
+  "@onboarding_name_title": {
+    "description": "Title of the add name onboarding page"
+  },
+  "onboarding_name_subtitle": "Enter your name and surname",
+  "@onboarding_name_subtitle": {
+    "description": "Subtitle of the add name onboarding page"
   }
 }

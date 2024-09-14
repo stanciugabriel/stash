@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider with ChangeNotifier {
@@ -54,7 +53,6 @@ class ThemeProvider with ChangeNotifier {
 
   Future<void> saveTheme() async {
     final prefs = await SharedPreferences.getInstance();
-    print("SELECTEDTHEME: $selectedScheme");
     await prefs.setString(_themeKey, selectedScheme);
   }
 }
@@ -69,6 +67,7 @@ final ThemeData lightTheme = ThemeData(
   cardColor: const Color(0xFF4E4E4E),
   bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.white),
   dividerColor: const Color(0xFF757575),
+  splashColor: const Color.fromARGB(0, 0, 0, 0),
 );
 
 final ThemeData darkTheme = ThemeData(
@@ -81,4 +80,6 @@ final ThemeData darkTheme = ThemeData(
   cardColor: const Color(0xFF545357), //used for text on grey background
   bottomSheetTheme:
       const BottomSheetThemeData(backgroundColor: Color(0xFF141414)),
+  dividerColor: Colors.black,
+  splashColor: const Color.fromARGB(0, 0, 0, 0),
 );
