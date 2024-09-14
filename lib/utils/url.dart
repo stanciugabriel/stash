@@ -12,3 +12,7 @@ Map<String, String> authHeader(String token) {
     'Authorization': 'Bearer $token',
   };
 }
+
+String getStoreImage(String id) {
+  return '$apiURL/images/$id.png';
+}

@@ -44,7 +44,11 @@ class _TestpadState extends State<Testpad> {
                             const SizedBox(height: 20),
                             GestureDetector(
                                 onTap: () async {
-                                  print(stores.rawStores);
+                                  for (int i = 0;
+                                      i < stores.rawStores.length;
+                                      i++) {
+                                    print(stores.rawStores[i].id);
+                                  }
                                 },
                                 child: const Text("See stores")),
                             const SizedBox(height: 20),

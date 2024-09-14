@@ -1,5 +1,6 @@
 import 'package:Stash/models/fidelity_card.dart';
 import 'package:Stash/models/store.dart';
+import 'package:Stash/utils/url.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +39,7 @@ const Map<String, String> storeLogos = {
 Widget cardBuilder(
     BuildContext context, FidelityCard card, Map<String, Store> stores) {
   final cardColor = getCardColor(card, stores);
-  final cardLogo = getCardLogo(card, stores);
+  final cardLogo = getStoreImage(card.storeID);
   return Container(
     width: MediaQuery.of(context).size.width * 0.44,
     height: MediaQuery.of(context).size.width * 0.44 / 1.586,

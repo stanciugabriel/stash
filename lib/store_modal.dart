@@ -1,6 +1,8 @@
 import 'package:Stash/models/store.dart';
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
+import 'package:Stash/utils/url.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -169,15 +171,17 @@ class _StoreModal extends State<StoreModal> {
                                               1.586,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: Colors.blueGrey[100],
+                                        // image: DecorationImage(
+                                        //     image: CachedNetworkImageProvider(
+                                        //   '$apiURL/images/${filteredStores[index].id}.png',
+                                        // )),
                                       ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(5.0),
-                                        // child: CachedNetworkImage(
-                                        //   imageUrl: storesProvider.stores[index].logoUrl, // Ensure this property exists
-                                        //   errorWidget: (context, url, error) =>
-                                        //       Icon(Icons.error),
-                                        // ),
+                                      child: CachedNetworkImage(
+                                        imageUrl: getStoreImage(filteredStores[
+                                                index]
+                                            .id), // Ensure this property exists
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
                                       ),
                                     ),
                                     const SizedBox(
