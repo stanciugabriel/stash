@@ -1,12 +1,10 @@
 import 'dart:io';
 
 import 'package:Stash/alert_box.dart';
-import 'package:Stash/homepage.dart';
 import 'package:Stash/navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Stash/onboarding/account_prompt.dart'; // Import AccountPrompt
-import 'background_widget.dart'; // Import the background widget
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Features extends StatefulWidget {
@@ -34,7 +32,7 @@ class _FeaturesState extends State<Features> {
   void _animateFeatures() async {
     for (int i = 0; i < _visible.length; i++) {
       await Future.delayed(
-          Duration(milliseconds: 300)); // Delay between each feature
+          const Duration(milliseconds: 300)); // Delay between each feature
       setState(() {
         _visible[i] = true; // Make the feature visible
       });
@@ -47,7 +45,7 @@ class _FeaturesState extends State<Features> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 45),
+          const SizedBox(height: 45),
           Center(
             child: SizedBox(
               width: MediaQuery.sizeOf(context).width * 0.8,
@@ -55,7 +53,7 @@ class _FeaturesState extends State<Features> {
                 AppLocalizations.of(context)!
                     .meet_your_new_favourite_loyalty_app,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   height: 1,
                   fontFamily: "SFProDisplay",
                   fontSize: 32,
@@ -65,11 +63,11 @@ class _FeaturesState extends State<Features> {
               ),
             ),
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           // Wrap each feature in AnimatedOpacity with visibility control
           AnimatedOpacity(
             opacity: _visible[0] ? 1.0 : 0.0,
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             child: FeatureContainer(
               context,
               icon: CupertinoIcons.lock_fill,
@@ -79,10 +77,10 @@ class _FeaturesState extends State<Features> {
                   AppLocalizations.of(context)!.keep_all_cards_securely_stored,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           AnimatedOpacity(
             opacity: _visible[1] ? 1.0 : 0.0,
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             child: FeatureContainer(
               context,
               icon: CupertinoIcons.arrowshape_turn_up_right_fill,
@@ -92,7 +90,7 @@ class _FeaturesState extends State<Features> {
                   AppLocalizations.of(context)!.share_cards_with_just_a_link,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           AnimatedOpacity(
             opacity: _visible[2] ? 1.0 : 0.0,
             duration: Duration(milliseconds: 500),
@@ -105,10 +103,10 @@ class _FeaturesState extends State<Features> {
                   .access_cards_without_an_internet_connection,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           AnimatedOpacity(
             opacity: _visible[3] ? 1.0 : 0.0,
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             child: FeatureContainer(
               context,
               icon: CupertinoIcons.arrow_up_circle_fill,
@@ -118,7 +116,7 @@ class _FeaturesState extends State<Features> {
                   .backup_cards_and_never_lose_them,
             ),
           ),
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
           GestureDetector(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -134,7 +132,7 @@ class _FeaturesState extends State<Features> {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.create_an_account,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: "SFProDisplay",
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -147,7 +145,7 @@ class _FeaturesState extends State<Features> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           GestureDetector(
@@ -163,13 +161,14 @@ class _FeaturesState extends State<Features> {
                 acceptCallback: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => AccountPrompt()), //Needs replacing
+                      builder: (context) =>
+                          const AccountPrompt()), //Needs replacing
                 ),
                 declineCallback: () async {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => NavBar(
+                        builder: (context) => const NavBar(
                               pageIndex: 0,
                             )),
                   );
@@ -180,11 +179,11 @@ class _FeaturesState extends State<Features> {
               padding: EdgeInsets.only(bottom: Platform.isAndroid ? 15 : 0),
               child: Text(
                 AppLocalizations.of(context)!.continue_without_an_account,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: "SFProDisplay",
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: const Color.fromARGB(255, 3, 68, 230),
+                  color: Color.fromARGB(255, 3, 68, 230),
                 ),
               ),
             ),
@@ -224,14 +223,14 @@ class _FeaturesState extends State<Features> {
                 size: 20,
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     height: 1.4,
                     fontFamily: "SFProDisplay",
                     fontSize: 18,
@@ -241,7 +240,7 @@ class _FeaturesState extends State<Features> {
                 ),
                 Text(
                   description,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: "SFProDisplay",
                     fontSize: 15,
                     fontWeight: FontWeight.w500,

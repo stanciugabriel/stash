@@ -1,28 +1,42 @@
 import 'package:Stash/add_barcode.dart';
-import 'package:Stash/store_modal.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:Stash/models/fidelity_card.dart';
+import 'package:Stash/models/store.dart';
+import 'package:Stash/providers/fidelity_cards_provider.dart';
+import 'package:Stash/providers/stores_provider.dart';
+import 'package:Stash/testpad.dart';
+import 'package:Stash/utils/card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:Stash/models/loyalty_cards.dart';
 import 'package:Stash/card_modal.dart';
-import 'package:Stash/providers/card_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
   @override
-  _HomepageState createState() => _HomepageState();
+  State<Homepage> createState() => _HomepageState();
 }
 
 class _HomepageState extends State<Homepage> {
   late TextEditingController _searchController;
-  List<LoyaltyCard> _filteredCards = [];
+  List<FidelityCard> rawCards = [];
+  List<Store> rawStores = [];
+  List<FidelityCard> _filteredCards = [];
 
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final cards = Provider.of<FidelityCardsProvider>(context, listen: false);
+      final stores = Provider.of<StoresProvider>(context, listen: false);
+
+      rawCards = cards.cards;
+      _filteredCards = rawCards;
+      rawStores = stores.rawStores;
+    });
+
     _searchController = TextEditingController();
     _searchController.addListener(_filterCards);
   }
@@ -35,11 +49,25 @@ class _HomepageState extends State<Homepage> {
 
   void _filterCards() {
     final query = _searchController.text.toLowerCase();
-    final cardProvider = Provider.of<CardProvider>(context, listen: false);
+
+    List<String> queryStores = [];
+    for (int i = 0; i < rawStores.length; i++) {
+      if (rawStores[i].name.toLowerCase().contains(query.toLowerCase())) {
+        queryStores.add(rawStores[i].id);
+      }
+    }
+
     setState(() {
-      _filteredCards = cardProvider.cards.where((card) {
-        return card.name.toLowerCase().contains(query);
-      }).toList();
+      if (query == '') {
+        _filteredCards = rawCards;
+      } else {
+        _filteredCards = [];
+        for (int i = 0; i < rawCards.length; i++) {
+          if (queryStores.contains(rawCards[i].storeID)) {
+            _filteredCards.add(rawCards[i]);
+          }
+        }
+      }
     });
   }
 
@@ -56,8 +84,12 @@ class _HomepageState extends State<Homepage> {
                 onLongPress: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => AddBarcode()),
+                    MaterialPageRoute(builder: (context) => const AddBarcode()),
                   );
+                },
+                onDoubleTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Testpad()));
                 },
                 child: Text(
                   AppLocalizations.of(context)!.card_title,
@@ -113,107 +145,67 @@ class _HomepageState extends State<Homepage> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Consumer<CardProvider>(
-                builder: (context, cardProvider, _) {
-                  final cards = _filteredCards.isEmpty
-                      ? cardProvider.cards
-                      : _filteredCards;
+              child: Consumer<StoresProvider>(builder: (context, stores, _) {
+                return Consumer<FidelityCardsProvider>(
+                  builder: (context, cards, _) {
+                    final showCards = _searchController.text == ''
+                        ? cards.cards
+                        : _filteredCards;
 
-                  return MediaQuery.removePadding(
-                    context: context,
-                    removeTop: true,
-                    child: ListView.builder(
-                      itemCount: (cards.length / 2).ceil(), // Number of rows
-                      itemBuilder: (BuildContext context, int index) {
-                        final firstItemIndex = index * 2;
-                        final secondItemIndex = firstItemIndex + 1;
+                    return MediaQuery.removePadding(
+                      context: context,
+                      removeTop: true,
+                      child: ListView.builder(
+                        itemCount:
+                            (showCards.length / 2).ceil(), // Number of rows
+                        itemBuilder: (BuildContext context, int index) {
+                          final firstItemIndex = index * 2;
+                          final secondItemIndex = firstItemIndex + 1;
 
-                        Widget buildCard(LoyaltyCard card) {
-                          final cardInfo =
-                              CardStorage.getCardDetails(card.name);
-                          final cardColor = cardInfo?['color'] ?? Colors.grey;
-                          final cardLogo = cardInfo?['logo'];
-
-                          return Container(
-                            width: MediaQuery.of(context).size.width * 0.44,
-                            height: MediaQuery.of(context).size.width *
-                                0.44 /
-                                1.586,
-                            decoration: BoxDecoration(
-                                color: cardColor,
-                                borderRadius: BorderRadius.circular(15),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 15,
-                                    spreadRadius: -7,
-                                    offset: Offset(0, 0),
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                    onTap: () {
+                                      CardModal.show(
+                                        context,
+                                        showCards[firstItemIndex].id,
+                                      );
+                                    },
+                                    child: cardBuilder(
+                                      context,
+                                      showCards[firstItemIndex],
+                                      stores.stores,
+                                    )),
+                                if (secondItemIndex < showCards.length)
+                                  GestureDetector(
+                                      onTap: () {
+                                        CardModal.show(
+                                          context,
+                                          showCards[secondItemIndex].id,
+                                        );
+                                      },
+                                      child: cardBuilder(
+                                        context,
+                                        showCards[secondItemIndex],
+                                        stores.stores,
+                                      )),
+                                if (secondItemIndex >= showCards.length)
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.44,
                                   ),
-                                ]),
-                            child: Center(
-                              child: cardLogo != null
-                                  ? CachedNetworkImage(
-                                      imageUrl: cardLogo,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.37,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.09,
-                                    )
-                                  : Text(
-                                      card.name,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 16,
-                                        color: Colors.black,
-                                        fontFamily: 'SFProRounded',
-                                      ),
-                                    ),
+                              ],
                             ),
                           );
-                        }
-
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  CardModal.show(
-                                    context,
-                                    cards[firstItemIndex].name,
-                                    cards[firstItemIndex].barcode,
-                                    cards[firstItemIndex].format,
-                                  );
-                                },
-                                child: buildCard(cards[firstItemIndex]),
-                              ),
-                              if (secondItemIndex < cards.length)
-                                GestureDetector(
-                                  onTap: () {
-                                    CardModal.show(
-                                      context,
-                                      cards[secondItemIndex].name,
-                                      cards[secondItemIndex].barcode,
-                                      cards[secondItemIndex].format,
-                                    );
-                                  },
-                                  child: buildCard(cards[secondItemIndex]),
-                                ),
-                              if (secondItemIndex >= cards.length)
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.44,
-                                ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                },
-              ),
+                        },
+                      ),
+                    );
+                  },
+                );
+              }),
             ),
           ),
         ],

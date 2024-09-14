@@ -1,35 +1,44 @@
 import 'dart:io';
 import 'package:Stash/add_barcode.dart';
+import 'package:Stash/providers/account_provider.dart';
+import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/store_modal.dart';
 import 'package:camera/camera.dart';
 import 'package:Stash/alert_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:glass/glass.dart';
 import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
 import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'dart:typed_data';
+import 'package:provider/provider.dart';
+
+const dev = false;
 
 class ScanModal {
   static Future<void> show(BuildContext context) async {
+    final auth = Provider.of<AccountProvider>(context, listen: false);
+    final cards = Provider.of<FidelityCardsProvider>(context, listen: false);
+    await cards.addCardInitialize(auth.account.id);
+
     // Request camera permission
-    print('Requesting camera permission...');
+    if (dev) print('Requesting camera permission...');
     var status = await Permission.camera.status;
     if (!status.isGranted) {
-      print('Camera permission not granted, requesting...');
+      if (dev) print('Camera permission not granted, requesting...');
       await Permission.camera.request();
     } else {
-      print('Camera permission already granted.');
+      if (dev) print('Camera permission already granted.');
     }
 
     // Get the list of available cameras.
-    print('Fetching available cameras...');
+    if (dev) print('Fetching available cameras...');
     final cameras = await availableCameras();
     if (cameras.isEmpty) {
-      print('No cameras found.');
+      if (dev) print('No cameras found.');
       AlertBox.show(context,
           title: "No Camera Detected",
           content: "We couldn't find an available camera on your device.",
@@ -41,13 +50,13 @@ class ScanModal {
       return;
     }
 
-    print('Available cameras: ${cameras.length}');
+    if (dev) print('Available cameras: ${cameras.length}');
     // Get a specific camera from the list of available cameras.
     final firstCamera = cameras.first;
-    print('Using camera: ${firstCamera.name}');
+    if (dev) print('Using camera: ${firstCamera.name}');
 
     // Initialize a CameraController
-    print('Initializing CameraController...');
+    if (dev) print('Initializing CameraController...');
     final controller = CameraController(
       firstCamera,
       ResolutionPreset.high,
@@ -59,20 +68,20 @@ class ScanModal {
 
     // Initialize the controller. This returns a Future.
     await controller.initialize();
-    print('CameraController initialized.');
+    if (dev) print('CameraController initialized.');
 
     // Specify the formats you want to scan (in this case, all formats)
     final List<BarcodeFormat> formats = [BarcodeFormat.all];
     final barcodeScanner = BarcodeScanner(formats: formats);
-    print('BarcodeScanner initialized with formats: $formats');
+    if (dev) print('BarcodeScanner initialized with formats: $formats');
 
     // State to control the blur and tick animation
     bool hasScanned = false;
 
     showModalBottomSheet(
+      context: context,
       backgroundColor: Theme.of(context).shadowColor,
       isScrollControlled: true,
-      context: context,
       isDismissible: false,
       enableDrag: false,
       shape: const RoundedRectangleBorder(
@@ -82,177 +91,188 @@ class ScanModal {
         ),
       ),
       builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            print('Starting image stream...');
-            controller.startImageStream((CameraImage image) async {
-              print('Received image stream.');
+        FlutterStatusbarcolor.setNavigationBarColor(
+            Theme.of(context).shadowColor);
+        return Consumer<FidelityCardsProvider>(builder: (context, cards, _) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              if (dev) print('Starting image stream...');
+              controller.startImageStream((CameraImage image) async {
+                if (dev) print('Received image stream.');
 
-              if (!hasScanned) {
-                print('Processing image...');
-                final inputImage =
-                    _inputImageFromCameraImage(controller, image);
-                if (inputImage == null) {
-                  print('InputImage is null.');
-                  return;
-                }
-
-                try {
-                  // Process the image to detect barcodes
-                  print('Scanning image for barcodes...');
-                  final List<Barcode> barcodes =
-                      await barcodeScanner.processImage(inputImage);
-                  print('Barcodes found: ${barcodes.length}');
-
-                  if (barcodes.isNotEmpty) {
-                    setState(() {
-                      hasScanned = true;
-                      Haptics.vibrate(HapticsType.success); //may need deleting
-                    });
-
-                    // Optionally: Stop the image stream to avoid multiple scans
-                    print('Stopping image stream...');
-                    await controller.stopImageStream();
-
-                    Future.delayed(const Duration(seconds: 1), () {
-                      print('Barcode format: ${barcodes[0].format}');
-                      Navigator.pop(context); // Dismiss the modal first
-                      StoreModal.show(context, barcodes[0].rawValue ?? "Null",
-                          barcodes[0].format.toString());
-                      // Navigate to the EnterCardNamePage
-                    });
+                if (!hasScanned) {
+                  if (dev) print('Processing image...');
+                  final inputImage =
+                      _inputImageFromCameraImage(controller, image);
+                  if (inputImage == null) {
+                    if (dev) print('InputImage is null.');
+                    return;
                   }
-                } catch (e) {
-                  print('Error scanning barcode: $e');
-                }
-              }
-            });
 
-            return Padding(
-              padding: const EdgeInsets.only(
-                  left: 20, right: 20, top: 20, bottom: 30),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Theme.of(context).cardColor,
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            print('Closing modal and disposing camera...');
-                            Navigator.pop(context);
-                            controller.dispose();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: Icon(
-                              Icons.close,
-                              color: Theme.of(context).shadowColor,
+                  try {
+                    // Process the image to detect barcodes
+                    if (dev) print('Scanning image for barcodes...');
+                    final List<Barcode> barcodes =
+                        await barcodeScanner.processImage(inputImage);
+                    if (dev) print('Barcodes found: ${barcodes.length}');
+
+                    if (barcodes.isNotEmpty) {
+                      setState(() {
+                        hasScanned = true;
+                        Haptics.vibrate(
+                            HapticsType.success); //may need deleting
+                      });
+
+                      // Optionally: Stop the image stream to avoid multiple scans
+                      if (dev) print('Stopping image stream...');
+                      await controller.stopImageStream();
+
+                      Future.delayed(const Duration(seconds: 1), () {
+                        if (dev) print('Barcode format: ${barcodes[0].format}');
+                        Navigator.pop(context); // Dismiss the modal first
+                        StoreModal.show(context, barcodes[0].rawValue ?? "Null",
+                            barcodes[0].format.toString());
+                        // Navigate to the EnterCardNamePage
+                      });
+                    }
+                  } catch (e) {
+                    if (dev) print('Error scanning barcode: $e');
+                  }
+                }
+              });
+
+              return Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 20, bottom: 30),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context).cardColor,
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              if (dev)
+                                print('Closing modal and disposing camera...');
+                              Navigator.pop(context);
+                              controller.dispose();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(3.0),
+                              child: Icon(
+                                Icons.close,
+                                color: Theme.of(context).shadowColor,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    AppLocalizations.of(context)!.scan_loyalty_card,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: "SFProRounded",
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  // Display the camera preview
-                  Stack(
-                    children: [
-                      buildCameraPreview(controller),
-                      AnimatedOpacity(
-                        opacity: hasScanned ? 1.0 : 0.0,
-                        duration: const Duration(
-                            milliseconds: 500), // Adjust the duration as needed
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Container(
-                              height: 273,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: Colors.white.withOpacity(0),
+                    const SizedBox(height: 5),
+                    Text(
+                      AppLocalizations.of(context)!.scan_loyalty_card,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: "SFProRounded",
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    // Display the camera preview
+                    Stack(
+                      children: [
+                        buildCameraPreview(controller),
+                        AnimatedOpacity(
+                          opacity: hasScanned ? 1.0 : 0.0,
+                          duration: const Duration(
+                              milliseconds:
+                                  500), // Adjust the duration as needed
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                height: 273,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.white.withOpacity(0),
+                                ),
+                              ).asGlass(
+                                enabled: true,
+                                tintColor: Colors.transparent,
+                                clipBorderRadius: BorderRadius.circular(15.0),
                               ),
-                            ).asGlass(
-                              enabled: true,
-                              tintColor: Colors.transparent,
-                              clipBorderRadius: BorderRadius.circular(15.0),
-                            ),
-                            const Icon(
-                              CupertinoIcons.check_mark_circled_solid,
-                              color: Colors.green,
-                              size: 60,
-                            ),
-                          ],
+                              const Icon(
+                                CupertinoIcons.check_mark_circled_solid,
+                                color: Colors.green,
+                                size: 60,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    GestureDetector(
+                      onTap: () {
+                        if (dev) print('Navigating to AddBarcode page...');
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AddBarcode()),
+                        );
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.add_manually_button,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () {
-                      print('Navigating to AddBarcode page...');
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AddBarcode()),
-                      );
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.add_manually_button,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
+                  ],
+                ),
+              );
+            },
+          );
+        });
       },
     ).whenComplete(() async {
+      FlutterStatusbarcolor.setNavigationBarColor(
+          Theme.of(context).primaryColorDark);
       // Dispose of the controller when the modal is closed
-      print('Modal closed, disposing camera controller...');
+      if (dev) print('Modal closed, disposing camera controller...');
       await controller.dispose();
 
       // Close the barcode scanner to release resources
-      print('Closing barcode scanner...');
+      if (dev) print('Closing barcode scanner...');
       barcodeScanner.close();
     });
   }
 
   static InputImage? _inputImageFromCameraImage(
       CameraController controller, CameraImage image) {
-    print('Creating InputImage from CameraImage...');
+    if (dev) print('Creating InputImage from CameraImage...');
 
     // Get image rotation
     final sensorOrientation = controller.description.sensorOrientation;
     InputImageRotation rotation;
     if (Platform.isIOS) {
       rotation = InputImageRotationValue.fromRawValue(sensorOrientation)!;
-      print('iOS rotation: $rotation');
+      if (dev) print('iOS rotation: $rotation');
     } else if (Platform.isAndroid) {
       final rotationCompensation =
           _getRotationCompensation(controller, sensorOrientation);
       rotation = InputImageRotationValue.fromRawValue(rotationCompensation)!;
-      print('Android rotation: $rotation');
+      if (dev) print('Android rotation: $rotation');
     } else {
-      print('Unsupported platform for rotation');
+      if (dev) print('Unsupported platform for rotation');
       return null;
     }
 
@@ -261,7 +281,7 @@ class ScanModal {
     if (format == null ||
         (Platform.isAndroid && format != InputImageFormat.yuv_420_888) ||
         (Platform.isIOS && format != InputImageFormat.bgra8888)) {
-      print('Unsupported format: $format');
+      if (dev) print('Unsupported format: $format');
       return null;
     }
 
@@ -269,7 +289,7 @@ class ScanModal {
     if (format == InputImageFormat.yuv_420_888) {
       final nv21Image = _convertYUV420toNV21(image);
       if (nv21Image == null) {
-        print('Error converting YUV_420_888 to NV21');
+        if (dev) print('Error converting YUV_420_888 to NV21');
         return null;
       }
 
@@ -287,13 +307,14 @@ class ScanModal {
 
     // Handle NV21 or BGRA8888 format
     if (image.planes.length != 1) {
-      print('Unexpected number of planes: ${image.planes.length}');
+      if (dev) print('Unexpected number of planes: ${image.planes.length}');
       return null;
     }
 
     final plane = image.planes.first;
-    print(
-        'Plane data - bytesPerRow: ${plane.bytesPerRow}, bytes length: ${plane.bytes.length}');
+    if (dev)
+      print(
+          'Plane data - bytesPerRow: ${plane.bytesPerRow}, bytes length: ${plane.bytes.length}');
 
     // Compose InputImage using bytes
     return InputImage.fromBytes(
@@ -313,17 +334,17 @@ class ScanModal {
       final uPlane = image.planes[1].bytes;
       final vPlane = image.planes[2].bytes;
 
-      print('Y plane length: ${yPlane.length}');
-      print('U plane length: ${uPlane.length}');
-      print('V plane length: ${vPlane.length}');
+      if (dev) print('Y plane length: ${yPlane.length}');
+      if (dev) print('U plane length: ${uPlane.length}');
+      if (dev) print('V plane length: ${vPlane.length}');
 
       final uvPlane = _mergeUVPlanes(uPlane, vPlane, image.width, image.height);
       final nv21Bytes = Uint8List.fromList([...yPlane, ...uvPlane]);
 
-      print('NV21 bytes length: ${nv21Bytes.length}');
+      if (dev) print('NV21 bytes length: ${nv21Bytes.length}');
       return nv21Bytes;
     } catch (e) {
-      print('Error converting YUV_420_888 to NV21: $e');
+      if (dev) print('Error converting YUV_420_888 to NV21: $e');
       return null;
     }
   }
@@ -337,13 +358,13 @@ class ScanModal {
       uvPlane[i + 1] = vPlane[i ~/ 2];
     }
 
-    print('UV plane length: ${uvPlane.length}');
+    if (dev) print('UV plane length: ${uvPlane.length}');
     return uvPlane;
   }
 
   static int _getRotationCompensation(
       CameraController controller, int sensorOrientation) {
-    print('Calculating rotation compensation...');
+    if (dev) print('Calculating rotation compensation...');
     final orientations = {
       DeviceOrientation.portraitUp: 0,
       DeviceOrientation.landscapeLeft: 90,
@@ -353,7 +374,7 @@ class ScanModal {
 
     var rotationCompensation = orientations[controller.value.deviceOrientation];
     if (rotationCompensation == null) {
-      print('No rotation compensation found, using sensorOrientation');
+      if (dev) print('No rotation compensation found, using sensorOrientation');
       return sensorOrientation;
     }
     if (controller.description.lensDirection == CameraLensDirection.front) {
@@ -362,12 +383,12 @@ class ScanModal {
       rotationCompensation =
           (sensorOrientation - rotationCompensation + 360) % 360;
     }
-    print('Rotation compensation: $rotationCompensation');
+    if (dev) print('Rotation compensation: $rotationCompensation');
     return rotationCompensation;
   }
 
   static void _showNoCameraDialog(BuildContext context) {
-    print('Showing no camera dialog...');
+    if (dev) print('Showing no camera dialog...');
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -388,7 +409,7 @@ class ScanModal {
 }
 
 Widget buildCameraPreview(CameraController cameraController) {
-  print('Building camera preview...');
+  if (dev) print('Building camera preview...');
   const double previewAspectRatio = 0.7;
   return ClipRRect(
     borderRadius: BorderRadius.circular(15),

@@ -209,7 +209,7 @@
   "@offline_access": {
     "description": "Titlu funcție pentru accesul offline"
   },
-  "access_cards_without_an_internet_connection": "Accesează cardurile fără o conexiune la internet.",
+  "access_cards_without_an_internet_connection": "Accesează cardurile fără internet.",
   "@access_cards_without_an_internet_connection": {
     "description": "Descriere funcție pentru accesul offline"
   },

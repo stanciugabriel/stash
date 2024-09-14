@@ -1,7 +1,7 @@
-import 'package:Stash/homepage.dart';
 import 'package:Stash/navbar.dart';
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/card_provider.dart';
+import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/providers/locale_provider.dart';
 import 'package:Stash/providers/stores_provider.dart';
 import 'package:Stash/providers/theme_provider.dart';
@@ -25,6 +25,7 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (_) => AccountProvider()),
       ChangeNotifierProvider(create: (_) => StoresProvider()),
+      ChangeNotifierProvider(create: (_) => FidelityCardsProvider()),
       ChangeNotifierProvider(create: (_) => CardProvider()),
       ChangeNotifierProvider(create: (_) => themeProvider),
       ChangeNotifierProvider(create: (_) => LocaleProvider()),
@@ -43,15 +44,25 @@ class MyApp extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final localeProvider = Provider.of<LocaleProvider>(context);
 
-    return MaterialApp(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: themeProvider.themeData.primaryColorDark,
+        systemNavigationBarColor: themeProvider.themeData.primaryColorDark,
+        statusBarIconBrightness:
+            themeProvider.themeData.brightness == Brightness.dark
+                ? Brightness.light
+                : Brightness.dark,
+      ),
+      child: MaterialApp(
         theme: themeProvider.themeData,
         navigatorObservers: [routeObserver],
         locale: localeProvider.locale,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
+        home: const NavBar(pageIndex: 0),
+        // home: const Testpad()
         debugShowCheckedModeBanner: false,
-        home: NavBar(
-          pageIndex: 0,
-        ));
+      ),
+    );
   }
 }
