@@ -1,5 +1,4 @@
 import 'package:Stash/add_barcode.dart';
-import 'package:Stash/delete_account_modal.dart';
 import 'package:Stash/models/fidelity_card.dart';
 import 'package:Stash/models/store.dart';
 import 'package:Stash/onboarding/onboarding_name.dart';
