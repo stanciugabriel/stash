@@ -1,16 +1,16 @@
-import 'dart:developer';
+import 'package:Stash/navbar.dart';
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DeleteAccountModal {
   static void show(BuildContext context) {
     showModalBottomSheet(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).shadowColor,
         isScrollControlled: true,
         context: context,
         shape: const RoundedRectangleBorder(
@@ -20,6 +20,12 @@ class DeleteAccountModal {
           ),
         ),
         builder: (BuildContext context) {
+          FlutterStatusbarcolor.setNavigationBarColor(
+              Theme.of(context).shadowColor);
+          if (Theme.of(context).brightness == Brightness.light) {
+            FlutterStatusbarcolor.setStatusBarColor(
+                Theme.of(context).dividerColor);
+          }
           return Consumer<FidelityCardsProvider>(builder: (context, cards, _) {
             return Consumer<AccountProvider>(
               builder: (context, auth, _) {
@@ -28,7 +34,6 @@ class DeleteAccountModal {
                       left: 20, right: 20, top: 20, bottom: 30),
                   child: Container(
                     decoration: const BoxDecoration(
-                      color: Colors.white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(9),
                         topRight: Radius.circular(9),
@@ -44,10 +49,10 @@ class DeleteAccountModal {
                           children: [
                             Container(
                               decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color.fromARGB(255, 255, 210, 207)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(10.0),
                                 child: Icon(
                                   CupertinoIcons.exclamationmark_triangle_fill,
                                   color: Colors.red,
@@ -56,18 +61,18 @@ class DeleteAccountModal {
                               ),
                             ),
                             Container(
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Color.fromARGB(255, 228, 228, 228)),
+                                  color: Theme.of(context).cardColor),
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.pop(context);
                                 },
-                                child: const Padding(
-                                  padding: EdgeInsets.all(3.0),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(3.0),
                                   child: Icon(
                                     Icons.close,
-                                    color: Color.fromARGB(255, 170, 170, 170),
+                                    color: Theme.of(context).shadowColor,
                                   ),
                                 ),
                               ),
@@ -79,7 +84,7 @@ class DeleteAccountModal {
                           children: [
                             Text(
                               AppLocalizations.of(context)!.are_you_sure,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w700,
                                 fontFamily: "SFProRounded",
@@ -90,7 +95,7 @@ class DeleteAccountModal {
                         const SizedBox(height: 10),
                         Text(
                           AppLocalizations.of(context)!.delete_account_warning,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
                             fontFamily: "SFProRounded",
@@ -101,7 +106,7 @@ class DeleteAccountModal {
                         Text(
                           AppLocalizations.of(context)!
                               .this_action_cannot_be_reverted,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
                             fontFamily: "SFProRounded",
@@ -111,24 +116,27 @@ class DeleteAccountModal {
                         const SizedBox(height: 20),
                         GestureDetector(
                           onTap: () async {
-                            await auth.logout();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        const NavBar(pageIndex: 0)));
+                            await auth.deleteAccount();
                             await cards.unloadCards();
-                            Navigator.pop(context);
-                            Navigator.pop(context);
                           },
                           child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(11),
                                   color: Colors.red),
                               child: Padding(
-                                padding: EdgeInsets.all(15.0),
+                                padding: const EdgeInsets.all(15.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
                                       AppLocalizations.of(context)!
                                           .delete_account,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontFamily: "SFProRounded",
                                           fontSize: 16,
@@ -146,6 +154,11 @@ class DeleteAccountModal {
               },
             );
           });
-        });
+        }).whenComplete(() {
+      FlutterStatusbarcolor.setNavigationBarColor(
+          Theme.of(context).primaryColorDark);
+      FlutterStatusbarcolor.setStatusBarColor(
+          Theme.of(context).primaryColorDark);
+    });
   }
 }

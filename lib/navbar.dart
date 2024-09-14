@@ -6,6 +6,7 @@ import 'package:Stash/rewards.dart';
 import 'package:Stash/scan_modal.dart';
 import 'package:Stash/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io' show Platform;
@@ -38,8 +39,6 @@ class _NavBarState extends State<NavBar> {
       await stores.fetchStores();
       await cards.loadCards();
       await cards.sweepAll(auth.token);
-
-      print(cards.cards);
     });
 
     _selectedIndex = widget.pageIndex;
@@ -52,6 +51,19 @@ class _NavBarState extends State<NavBar> {
   ];
 
   void _onItemTapped(int index) {
+    if (index == 1) {
+      FlutterStatusbarcolor.setNavigationBarColor(
+        Theme.of(context).primaryColorDark,
+      );
+      FlutterStatusbarcolor.setStatusBarColor(
+        Colors.transparent,
+      );
+    } else {
+      FlutterStatusbarcolor.setStatusBarColor(
+          Theme.of(context).primaryColorDark);
+      FlutterStatusbarcolor.setNavigationBarColor(
+          Theme.of(context).primaryColorDark);
+    }
     setState(() {
       _selectedIndex = index;
     });

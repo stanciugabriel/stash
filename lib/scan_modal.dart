@@ -82,8 +82,8 @@ class ScanModal {
       context: context,
       backgroundColor: Theme.of(context).shadowColor,
       isScrollControlled: true,
-      isDismissible: false,
-      enableDrag: false,
+      isDismissible: true,
+      enableDrag: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(35),
@@ -92,7 +92,9 @@ class ScanModal {
       ),
       builder: (BuildContext context) {
         FlutterStatusbarcolor.setNavigationBarColor(
-            Theme.of(context).shadowColor);
+            Theme.of(context).shadowColor,
+            animate: true);
+        FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).dividerColor);
         return Consumer<FidelityCardsProvider>(builder: (context, cards, _) {
           return StatefulBuilder(
             builder: (context, setState) {
@@ -246,6 +248,9 @@ class ScanModal {
     ).whenComplete(() async {
       FlutterStatusbarcolor.setNavigationBarColor(
           Theme.of(context).primaryColorDark);
+      FlutterStatusbarcolor.setStatusBarColor(
+          Theme.of(context).primaryColorDark);
+
       // Dispose of the controller when the modal is closed
       if (dev) print('Modal closed, disposing camera controller...');
       await controller.dispose();

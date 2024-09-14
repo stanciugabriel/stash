@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class OnboardingCode extends StatefulWidget {
   const OnboardingCode({super.key});
 
@@ -108,9 +110,9 @@ class _OnboardingCodeState extends State<OnboardingCode> {
                       ),
                     ),
                     Container(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: lightGrey,
+                        color: Theme.of(context).shadowColor,
                       ),
                       child: const Padding(
                         padding: EdgeInsets.all(15.0),
@@ -151,13 +153,16 @@ class _OnboardingCodeState extends State<OnboardingCode> {
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none),
                           filled: true,
-                          fillColor: const Color(0xFFE8E8E8),
-                          hintText: 'Cod OTP',
+                          fillColor: Theme.of(context).shadowColor,
+                          hintText:
+                              AppLocalizations.of(context)!.onboarding_otp_hint,
+                          hintStyle: const TextStyle(
+                              fontSize: 18, fontFamily: 'UberMoveMedium'),
                           counterText: '',
                         ),
                         style: const TextStyle(
-                          fontSize: 17,
-                          fontFamily: 'SFProRounded',
+                          fontSize: 18,
+                          fontFamily: 'UberMoveMedium',
                           fontWeight: FontWeight.w600,
                         ),
                       ),

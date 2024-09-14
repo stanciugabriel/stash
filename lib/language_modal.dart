@@ -1,6 +1,7 @@
 import 'package:Stash/providers/locale_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -21,19 +22,23 @@ class LanguageModal extends StatefulWidget {
         ),
       ),
       builder: (BuildContext context) {
+        FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).dividerColor);
         return const LanguageModal();
       },
-    );
+    ).whenComplete(() {
+      FlutterStatusbarcolor.setStatusBarColor(
+          Theme.of(context).primaryColorDark);
+    });
   }
 }
 
 class _LanguageModal extends State<LanguageModal> {
-  String selectedLanguage = 'System';
+  String selectedLanguage = '';
 
   final languages = [
-    {'label': 'System', 'locale': null}, // System locale
-    {'label': 'English', 'locale': const Locale('en')},
-    {'label': 'Română', 'locale': const Locale('ro')},
+    {'label': 'System', 'locale': ''}, // System locale
+    {'label': 'English', 'locale': 'en'},
+    {'label': 'Română', 'locale': 'ro'},
   ];
 
   @override
@@ -42,7 +47,7 @@ class _LanguageModal extends State<LanguageModal> {
     final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
 
     final currentLocale = localeProvider.locale;
-    selectedLanguage = currentLocale?.languageCode ?? 'System';
+    selectedLanguage = currentLocale?.languageCode ?? '';
   }
 
   @override
@@ -99,9 +104,9 @@ class _LanguageModal extends State<LanguageModal> {
           const SizedBox(height: 15),
           ...languages.map((lang) {
             // Extract locale safely
-            Locale? locale = lang['locale'] as Locale?;
+            String locale = lang['locale'] ?? '';
             String flagEmoji;
-            switch (locale?.languageCode) {
+            switch (locale) {
               case 'en':
                 flagEmoji = '🇺🇸';
                 break;
@@ -115,14 +120,10 @@ class _LanguageModal extends State<LanguageModal> {
             return GestureDetector(
               onTap: () {
                 setState(() {
-                  selectedLanguage = locale?.languageCode ?? 'System';
+                  selectedLanguage = locale;
                 });
 
-                if (locale == null) {
-                  localeProvider.clearLocale(); // Use system locale
-                } else {
-                  localeProvider.setLocale(locale);
-                }
+                localeProvider.setLocale(locale);
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -141,7 +142,7 @@ class _LanguageModal extends State<LanguageModal> {
                         const SizedBox(
                             width: 12), // Space between flag and label
                         Text(
-                          lang['label'] as String, // Language name
+                          lang['label'] ?? '', // Language name
                           style: const TextStyle(
                             fontFamily: "SFProDisplay",
                             fontWeight: FontWeight.w600,
@@ -159,17 +160,16 @@ class _LanguageModal extends State<LanguageModal> {
                           child: child,
                         );
                       },
-                      child:
-                          selectedLanguage == (locale?.languageCode ?? 'System')
-                              ? Icon(
-                                  CupertinoIcons.checkmark_alt_circle_fill,
-                                  color: Colors
-                                      .blue, // Color for the selected checkmark
-                                  size: 24, // Size of the checkmark icon
-                                  key: ValueKey(
-                                      selectedLanguage), // Unique key for AnimatedSwitcher
-                                )
-                              : const SizedBox.shrink(),
+                      child: selectedLanguage == (locale)
+                          ? Icon(
+                              CupertinoIcons.checkmark_alt_circle_fill,
+                              color: Colors
+                                  .blue, // Color for the selected checkmark
+                              size: 24, // Size of the checkmark icon
+                              key: ValueKey(
+                                  selectedLanguage), // Unique key for AnimatedSwitcher
+                            )
+                          : const SizedBox.shrink(),
                     ),
                   ],
                 ),

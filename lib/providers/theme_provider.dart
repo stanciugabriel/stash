@@ -1,60 +1,59 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider with ChangeNotifier {
-  ThemeData _themeData;
-  String _selectedScheme = 'System';
-
-  bool get isDarkMode => _themeData == ThemeData.dark();
-
-  ThemeProvider(this._themeData);
-
-  ThemeData get themeData => _themeData;
-  String get selectedScheme => _selectedScheme;
+  ThemeData themeData = lightTheme;
+  String selectedScheme = 'System';
 
   static const String _themeKey = 'theme_mode';
 
+  ThemeProvider() {
+    initialize();
+  }
+
   Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
-    final themeMode = prefs.getString(_themeKey) ?? 'System';
+    selectedScheme = prefs.getString(_themeKey) ?? 'System';
 
-    final brightness = SchedulerBinding.instance.window.platformBrightness;
-    if (themeMode == 'Dark') {
-      _themeData = darkTheme;
-    } else if (themeMode == 'Light') {
-      _themeData = lightTheme;
+    // final brightness = SchedulerBinding.instance.window.platformBrightness;
+    if (selectedScheme == 'Dark') {
+      themeData = darkTheme;
+    } else if (selectedScheme == 'Light') {
+      themeData = lightTheme;
     } else {
-      _themeData = brightness == Brightness.dark ? darkTheme : lightTheme;
+      final brightness = PlatformDispatcher.instance.platformBrightness;
+      themeData = brightness == Brightness.dark ? darkTheme : lightTheme;
     }
     notifyListeners();
   }
 
   Future<void> setSystemTheme() async {
-    final brightness = SchedulerBinding.instance.window.platformBrightness;
-    _themeData = brightness == Brightness.dark ? darkTheme : lightTheme;
-    _selectedScheme = 'System';
-    await _saveTheme('System');
+    final brightness = PlatformDispatcher.instance.platformBrightness;
+    themeData = brightness == Brightness.dark ? darkTheme : lightTheme;
+    selectedScheme = 'System';
+    await saveTheme();
     notifyListeners();
   }
 
   Future<void> setLightTheme() async {
-    _themeData = lightTheme;
-    _selectedScheme = 'Light';
-    await _saveTheme('Light');
+    themeData = lightTheme;
+    selectedScheme = 'Light';
+    await saveTheme();
     notifyListeners();
   }
 
   Future<void> setDarkTheme() async {
-    _themeData = darkTheme;
-    _selectedScheme = 'Dark';
-    await _saveTheme('Dark');
+    themeData = darkTheme;
+    selectedScheme = 'Dark';
+    await saveTheme();
     notifyListeners();
   }
 
-  Future<void> _saveTheme(String themeMode) async {
+  Future<void> saveTheme() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_themeKey, themeMode);
+    await prefs.setString(_themeKey, selectedScheme);
   }
 }
 
@@ -67,6 +66,8 @@ final ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
   cardColor: const Color(0xFF4E4E4E),
   bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.white),
+  dividerColor: const Color(0xFF757575),
+  splashColor: const Color.fromARGB(0, 0, 0, 0),
 );
 
 final ThemeData darkTheme = ThemeData(
@@ -77,5 +78,8 @@ final ThemeData darkTheme = ThemeData(
   disabledColor: const Color(0xFF141414),
   scaffoldBackgroundColor: Colors.black,
   cardColor: const Color(0xFF545357), //used for text on grey background
-  bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Color(0xFF141414)),
+  bottomSheetTheme:
+      const BottomSheetThemeData(backgroundColor: Color(0xFF141414)),
+  dividerColor: Colors.black,
+  splashColor: const Color.fromARGB(0, 0, 0, 0),
 );

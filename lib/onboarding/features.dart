@@ -5,7 +5,6 @@ import 'package:Stash/navbar.dart';
 import 'package:Stash/onboarding/onboarding_phone.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:Stash/onboarding/account_prompt.dart'; // Import AccountPrompt
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,11 +12,11 @@ class Features extends StatefulWidget {
   const Features({super.key});
 
   @override
-  _FeaturesState createState() => _FeaturesState();
+  State<Features> createState() => _FeaturesState();
 }
 
 class _FeaturesState extends State<Features> {
-  List<bool> _visible = [
+  final List<bool> _visible = [
     false,
     false,
     false,
@@ -70,7 +69,7 @@ class _FeaturesState extends State<Features> {
           AnimatedOpacity(
             opacity: _visible[0] ? 1.0 : 0.0,
             duration: const Duration(milliseconds: 500),
-            child: FeatureContainer(
+            child: featureContainer(
               context,
               icon: CupertinoIcons.lock_fill,
               iconColor: Colors.blue,
@@ -83,10 +82,10 @@ class _FeaturesState extends State<Features> {
           AnimatedOpacity(
             opacity: _visible[1] ? 1.0 : 0.0,
             duration: const Duration(milliseconds: 500),
-            child: FeatureContainer(
+            child: featureContainer(
               context,
               icon: CupertinoIcons.arrowshape_turn_up_right_fill,
-              iconColor: Color(0xFFFE7C02),
+              iconColor: const Color(0xFFFE7C02),
               title: AppLocalizations.of(context)!.share_your_cards_with_ease,
               description:
                   AppLocalizations.of(context)!.share_cards_with_just_a_link,
@@ -95,11 +94,11 @@ class _FeaturesState extends State<Features> {
           const SizedBox(height: 10),
           AnimatedOpacity(
             opacity: _visible[2] ? 1.0 : 0.0,
-            duration: Duration(milliseconds: 500),
-            child: FeatureContainer(
+            duration: const Duration(milliseconds: 500),
+            child: featureContainer(
               context,
               icon: CupertinoIcons.cloud_download_fill,
-              iconColor: Color.fromARGB(255, 144, 144, 144),
+              iconColor: const Color.fromARGB(255, 144, 144, 144),
               title: AppLocalizations.of(context)!.offline_access,
               description: AppLocalizations.of(context)!
                   .access_cards_without_an_internet_connection,
@@ -109,10 +108,10 @@ class _FeaturesState extends State<Features> {
           AnimatedOpacity(
             opacity: _visible[3] ? 1.0 : 0.0,
             duration: const Duration(milliseconds: 500),
-            child: FeatureContainer(
+            child: featureContainer(
               context,
               icon: CupertinoIcons.arrow_up_circle_fill,
-              iconColor: Color(0xFFFF6565),
+              iconColor: const Color(0xFFFF6565),
               title: AppLocalizations.of(context)!.automatic_backup,
               description: AppLocalizations.of(context)!
                   .backup_cards_and_never_lose_them,
@@ -203,7 +202,7 @@ class _FeaturesState extends State<Features> {
     );
   }
 
-  Widget FeatureContainer(BuildContext context,
+  Widget featureContainer(BuildContext context,
       {required IconData icon,
       required Color iconColor,
       required String title,

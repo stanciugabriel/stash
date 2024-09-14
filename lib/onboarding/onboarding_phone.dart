@@ -1,9 +1,10 @@
 import 'package:Stash/onboarding/onboarding_code.dart';
+import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/utils/vars.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/account_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OnboardingPhone extends StatefulWidget {
   const OnboardingPhone({super.key});
@@ -85,9 +86,9 @@ class _OnboardingPhoneState extends State<OnboardingPhone> {
                       ),
                     ),
                     Container(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: lightGrey,
+                        color: Theme.of(context).shadowColor,
                       ),
                       child: const Padding(
                         padding: EdgeInsets.all(15.0),
@@ -132,19 +133,22 @@ class _OnboardingPhoneState extends State<OnboardingPhone> {
                             ],
                             controller: phoneNumberController,
                             textInputAction: TextInputAction.done,
-                            cursorColor: Colors.black,
                             style: const TextStyle(
-                              fontSize: 22,
+                              fontSize: 18,
                               fontFamily: 'UberMoveMedium',
                             ),
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide.none,
-                              ),
-                              fillColor: const Color(0xFFE8E8E8),
-                              filled: true,
-                            ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide.none,
+                                ),
+                                fillColor: Theme.of(context).shadowColor,
+                                filled: true,
+                                hintText: AppLocalizations.of(context)!
+                                    .onboarding_phone_hint,
+                                hintStyle: const TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'UberMoveMedium')),
                           ),
                         ],
                       ),

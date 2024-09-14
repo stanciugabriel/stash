@@ -8,6 +8,7 @@ import 'package:barcode_widget/barcode_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -36,10 +37,15 @@ class CardModal extends StatefulWidget {
           ),
         ),
         builder: (BuildContext context) {
+          FlutterStatusbarcolor.setStatusBarColor(
+              Theme.of(context).dividerColor);
           return CardModal(id: id);
         }).then((_) async {
       // Restore the previous brightness level when the modal is dismissed
       await ScreenBrightness().setScreenBrightness(brightness);
+
+      FlutterStatusbarcolor.setStatusBarColor(
+          Theme.of(context).primaryColorDark);
     });
   }
 }
