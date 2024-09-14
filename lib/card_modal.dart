@@ -3,6 +3,7 @@ import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/providers/stores_provider.dart';
 import 'package:Stash/utils/card.dart';
+import 'package:Stash/utils/url.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -119,7 +120,7 @@ class _CardModal extends State<CardModal> {
         // Get the height for the barcode based on the format
         final barcodeHeight = barcodeHeights[currentCard.format] ?? 100.0;
         final cardColor = getCardColor(currentCard, stores.stores);
-        final cardLogo = getCardLogo(currentCard, stores.stores);
+        final cardLogo = getStoreImage(currentCard.storeID);
         return Container(
           color: Colors.transparent,
           height: MediaQuery.of(context).size.height * 0.92,
