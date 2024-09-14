@@ -4,6 +4,7 @@ import 'package:Stash/navbar.dart';
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/providers/stores_provider.dart';
+import 'package:Stash/providers/theme_provider.dart';
 import 'package:Stash/utils/vars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -161,67 +162,71 @@ class _AddCardNameState extends State<AddCardName> {
                             builder: (context, cards, _) {
                           return Consumer<StoresProvider>(
                             builder: (context, stores, _) {
-                              return ListView.builder(
-                                itemCount: filteredStores.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedStoreID =
-                                            filteredStores[index].id;
-                                      });
-                                    },
-                                    child: DecoratedBox(
-                                      decoration: filteredStores[index].id ==
-                                              selectedStoreID
-                                          ? BoxDecoration(
-                                              color: lightGrey,
-                                              borderRadius:
-                                                  BorderRadius.circular(12))
-                                          : const BoxDecoration(),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10.0, vertical: 10),
-                                        child: Row(children: [
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.17,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.17 /
-                                                1.586,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: Colors.blueGrey[100],
+                              return Consumer<ThemeProvider>(
+                                  builder: (context, themeProvider, _) {
+                                return ListView.builder(
+                                  itemCount: filteredStores.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selectedStoreID =
+                                              filteredStores[index].id;
+                                        });
+                                      },
+                                      child: DecoratedBox(
+                                        decoration: filteredStores[index].id ==
+                                                selectedStoreID
+                                            ? BoxDecoration(
+                                                color: themeProvider
+                                                    .themeData.shadowColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(12))
+                                            : const BoxDecoration(),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0, vertical: 10),
+                                          child: Row(children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.17,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.17 /
+                                                  1.586,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colors.blueGrey[100],
+                                              ),
+                                              child: const Padding(
+                                                padding: EdgeInsets.all(5.0),
+                                                // child: CachedNetworkImage(
+                                                //   imageUrl: storesProvider.stores[index].logoUrl, // Ensure this property exists
+                                                //   errorWidget: (context, url, error) =>
+                                                //       Icon(Icons.error),
+                                                // ),
+                                              ),
                                             ),
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(5.0),
-                                              // child: CachedNetworkImage(
-                                              //   imageUrl: storesProvider.stores[index].logoUrl, // Ensure this property exists
-                                              //   errorWidget: (context, url, error) =>
-                                              //       Icon(Icons.error),
-                                              // ),
+                                            const SizedBox(
+                                              width: 10,
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            filteredStores[index].name,
-                                            style: const TextStyle(
-                                                fontFamily: "SFProDisplay",
-                                                fontSize: 16),
-                                          ),
-                                        ]),
+                                            Text(
+                                              filteredStores[index].name,
+                                              style: const TextStyle(
+                                                  fontFamily: "SFProDisplay",
+                                                  fontSize: 16),
+                                            ),
+                                          ]),
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
+                                    );
+                                  },
+                                );
+                              });
                             },
                           );
                         });

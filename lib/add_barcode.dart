@@ -150,7 +150,7 @@ class _AddBarcodeState extends State<AddBarcode> {
       bottomNavigationBar: SafeArea(
         child: GestureDetector(
           onTap: () {
-            if (cardController.text.isEmpty) {
+            if (cardController.text.isNotEmpty) {
               Navigator.push(
                 context,
                 MaterialPageRoute(

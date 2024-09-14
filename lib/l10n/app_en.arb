@@ -48,7 +48,7 @@
   "@color_scheme_description": {
     "description": "Color scheme description"
   },
-  "search": "Search..",
+  "search": "Search...",
   "@search": {
     "description": "Search Label for searchbar"
   },

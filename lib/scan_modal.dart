@@ -8,6 +8,7 @@ import 'package:Stash/alert_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:glass/glass.dart';
 import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
 import 'package:haptic_feedback/haptic_feedback.dart';
@@ -78,9 +79,9 @@ class ScanModal {
     bool hasScanned = false;
 
     showModalBottomSheet(
+      context: context,
       backgroundColor: Theme.of(context).shadowColor,
       isScrollControlled: true,
-      context: context,
       isDismissible: false,
       enableDrag: false,
       shape: const RoundedRectangleBorder(
@@ -90,6 +91,8 @@ class ScanModal {
         ),
       ),
       builder: (BuildContext context) {
+        FlutterStatusbarcolor.setNavigationBarColor(
+            Theme.of(context).shadowColor);
         return Consumer<FidelityCardsProvider>(builder: (context, cards, _) {
           return StatefulBuilder(
             builder: (context, setState) {
@@ -241,6 +244,8 @@ class ScanModal {
         });
       },
     ).whenComplete(() async {
+      FlutterStatusbarcolor.setNavigationBarColor(
+          Theme.of(context).primaryColorDark);
       // Dispose of the controller when the modal is closed
       if (dev) print('Modal closed, disposing camera controller...');
       await controller.dispose();

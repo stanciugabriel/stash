@@ -30,9 +30,7 @@ class StoresProvider with ChangeNotifier {
     stores = extractStores(rawStores);
     notifyListeners();
 
-    if (rawStores.isEmpty) {
-      await fetchStores();
-    }
+    await fetchStores();
   }
 
   fetchStores() async {

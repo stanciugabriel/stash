@@ -58,10 +58,10 @@ class _HomepageState extends State<Homepage> {
     }
 
     setState(() {
-      _filteredCards = [];
       if (query == '') {
         _filteredCards = rawCards;
       } else {
+        _filteredCards = [];
         for (int i = 0; i < rawCards.length; i++) {
           if (queryStores.contains(rawCards[i].storeID)) {
             _filteredCards.add(rawCards[i]);
@@ -148,15 +148,16 @@ class _HomepageState extends State<Homepage> {
               child: Consumer<StoresProvider>(builder: (context, stores, _) {
                 return Consumer<FidelityCardsProvider>(
                   builder: (context, cards, _) {
-                    // final showCards =
-                    //     _filteredCards.isEmpty ? cards.cards : _filteredCards;
+                    final showCards = _searchController.text == ''
+                        ? cards.cards
+                        : _filteredCards;
 
                     return MediaQuery.removePadding(
                       context: context,
                       removeTop: true,
                       child: ListView.builder(
-                        itemCount: (_filteredCards.length / 2)
-                            .ceil(), // Number of rows
+                        itemCount:
+                            (showCards.length / 2).ceil(), // Number of rows
                         itemBuilder: (BuildContext context, int index) {
                           final firstItemIndex = index * 2;
                           final secondItemIndex = firstItemIndex + 1;
@@ -170,28 +171,28 @@ class _HomepageState extends State<Homepage> {
                                     onTap: () {
                                       CardModal.show(
                                         context,
-                                        _filteredCards[firstItemIndex].id,
+                                        showCards[firstItemIndex].id,
                                       );
                                     },
                                     child: cardBuilder(
                                       context,
-                                      _filteredCards[firstItemIndex],
+                                      showCards[firstItemIndex],
                                       stores.stores,
                                     )),
-                                if (secondItemIndex < _filteredCards.length)
+                                if (secondItemIndex < showCards.length)
                                   GestureDetector(
                                       onTap: () {
                                         CardModal.show(
                                           context,
-                                          _filteredCards[secondItemIndex].id,
+                                          showCards[secondItemIndex].id,
                                         );
                                       },
                                       child: cardBuilder(
                                         context,
-                                        _filteredCards[secondItemIndex],
+                                        showCards[secondItemIndex],
                                         stores.stores,
                                       )),
-                                if (secondItemIndex >= _filteredCards.length)
+                                if (secondItemIndex >= showCards.length)
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.44,
