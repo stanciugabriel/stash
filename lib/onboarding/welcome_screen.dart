@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class WelcomeScreen extends StatelessWidget {
   final VoidCallback onContinue;
 
-  WelcomeScreen({required this.onContinue});
+  const WelcomeScreen({required this.onContinue, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class WelcomeScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(),
+        const SizedBox(),
         // App Logo and Name
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),

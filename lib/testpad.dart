@@ -35,8 +35,27 @@ class _TestpadState extends State<Testpad> {
                         children: [
                           GestureDetector(
                               onTap: () async {
+                                print(auth.token);
+                              },
+                              child: const Text("See token")),
+                          const SizedBox(height: 20),
+                          GestureDetector(
+                              onTap: () async {
+                                await auth.onboarding("+40712345678");
+                                await auth.verifyCode("0000");
+                                await auth.addName("New", "Client");
+
+                                await cards.initializeAccountCards(auth.token);
+
+                                print(auth.account.id);
+                              },
+                              child: const Text("Create account")),
+                          const SizedBox(height: 20),
+                          GestureDetector(
+                              onTap: () async {
                                 await auth.onboarding("+40723010405");
                                 await auth.verifyCode("0000");
+                                await cards.fetchFidelityCards(auth.token);
 
                                 print(auth.account.id);
                               },
@@ -45,6 +64,7 @@ class _TestpadState extends State<Testpad> {
                           GestureDetector(
                               onTap: () async {
                                 await auth.logout();
+                                await cards.unloadCards();
                                 print(auth.account.id);
                               },
                               child: const Text("Logout")),

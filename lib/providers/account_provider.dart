@@ -58,6 +58,7 @@ class AccountProvider with ChangeNotifier {
       newClient = body['newClient'];
       token = body['token'];
 
+      notifyListeners();
       setError('');
     } else {
       setError(body['message']);
@@ -87,6 +88,7 @@ class AccountProvider with ChangeNotifier {
       setAccount(account);
       account = await getAccount();
 
+      notifyListeners();
       setError('');
     } else {
       setError(body['message']);

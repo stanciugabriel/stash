@@ -38,6 +38,17 @@ class FidelityCardsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> unloadCards() async {
+    cards = [];
+    removeCards();
+
+    clearAddQueue();
+    clearDeleteQueue();
+    clearUpdateQueue();
+
+    notifyListeners();
+  }
+
   sweepAll(String token) async {
     await sweepAddQueue(token);
     await sweepDeleteQueue(token);
@@ -88,6 +99,12 @@ class FidelityCardsProvider with ChangeNotifier {
     updateCard = UpdateFidelityCard(id: id, nickname: nickname);
 
     notifyListeners();
+  }
+
+  initializeAccountCards(String token) async {
+    addQueue = cards;
+
+    sweepAddQueue(token);
   }
 
   addFidelityCard(String token) async {
