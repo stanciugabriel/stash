@@ -6,6 +6,7 @@ import 'package:Stash/utils/vars.dart';
 import 'package:flutter/material.dart';
 // import 'package:otp_autofill/otp_autofill.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingCode extends StatefulWidget {
   const OnboardingCode({super.key});
@@ -55,7 +56,10 @@ class _OnboardingCodeState extends State<OnboardingCode> {
               MaterialPageRoute(builder: (context) => const OnboardingName()),
             );
           } else {
-            cards.fetchFidelityCards(auth.token).then((_) {
+            cards.fetchFidelityCards(auth.token).then((_) async {
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setBool(
+                  'finishedOnboarding', true); // Set onboarding finished
               Navigator.push(
                 context,
                 MaterialPageRoute(

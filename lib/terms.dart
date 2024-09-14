@@ -21,7 +21,7 @@ class TermsOfUse {
           child: WebViewWidget(
             controller: WebViewController()
               ..loadRequest(
-                Uri.parse('https://tos.blitzapp.ro'),
+                Uri.parse('https://tos.stashapp.ro'),
               ),
           ),
         );

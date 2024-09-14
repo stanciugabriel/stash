@@ -6,6 +6,7 @@ import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/utils/vars.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingName extends StatefulWidget {
   const OnboardingName({super.key});
@@ -54,7 +55,10 @@ class _OnboardingNameState extends State<OnboardingName> {
 
       if (auth.errorMessage.isEmpty) {
         Timer(const Duration(milliseconds: 200), () {
-          cards.initializeAccountCards(auth.token).then((_) {
+          cards.initializeAccountCards(auth.token).then((_) async {
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setBool(
+                'finishedOnboarding', true); // Set onboarding finished
             Navigator.push(
               context,
               MaterialPageRoute(

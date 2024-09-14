@@ -244,5 +244,37 @@
   "how_does_your_barcode_look": "How does your barcode look like?",
   "@how_does_your_barcode_look": {
     "description": "Feature description for automatic backup"
+  },
+  "account_details": "Account Details",
+  "@account_details": {
+    "description": "Account details modal title"
+  },
+  "basic_info": "Basic Info",
+  "@basic_info": {
+    "description": "Account details modal title"
+  },
+  "name_details": "Name",
+  "@name_details": {
+    "description": "Account details modal title"
+  },
+  "phone_number": "Phone Number",
+  "@phone_number": {
+    "description": "Account details modal title"
+  },
+  "delete_account": "Delete Account",
+  "@delete_account": {
+    "description": "Account details modal title"
+  },
+  "are_you_sure": "Are you sure?",
+  "@are_you_sure": {
+    "description": "Account details modal title"
+  },
+  "delete_account_warning": "You will lose access to all the loyalty cards you have saved, both those stored in your account and those stored locally on your device, and will no longer be able to retrieve them.",
+  "@delete_account_warning": {
+    "description": "Account details modal title"
+  },
+  "this_action_cannot_be_reverted": "This action cannot be reverted",
+  "@this_action_cannot_be_reverted": {
+    "description": "Account details modal title"
   }
 }

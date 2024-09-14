@@ -244,5 +244,37 @@
   "how_does_your_barcode_look": "Cum arata codul tau de bare?",
   "@how_does_your_barcode_look": {
     "description": "Feature description for automatic backup"
+  },
+  "account_details": "Detalii Cont",
+  "@account_details": {
+    "description": "Account details modal title"
+  },
+  "basic_info": "Informații de bază",
+  "@basic_info": {
+    "description": "Account details modal title"
+  },
+  "name_details": "Nume",
+  "@name_details": {
+    "description": "Account details modal title"
+  },
+  "phone_number": "Număr de telefon",
+  "@phone_number": {
+    "description": "Account details modal title"
+  },
+  "delete_account": "Șterge Cont",
+  "@delete_account": {
+    "description": "Account details modal title"
+  },
+  "are_you_sure": "Ești sigur?",
+  "@are_you_sure": {
+    "description": "Account details modal title"
+  },
+  "delete_account_warning": "Vei pierde accesul la toate cardurile de loialitate pe care le-ai salvat, atât cele stocate în contul tău, cât și cele stocate local pe dispozitivul tău, și nu vei mai putea să le recuperezi.",
+  "@delete_account_warning": {
+    "description": "Account details modal title"
+  },
+  "this_action_cannot_be_reverted": "Această acțiune este ireversibilă.",
+  "@this_action_cannot_be_reverted": {
+    "description": "Account details modal title"
   }
 }

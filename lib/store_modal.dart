@@ -171,17 +171,15 @@ class _StoreModal extends State<StoreModal> {
                                               1.586,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        // image: DecorationImage(
-                                        //     image: CachedNetworkImageProvider(
-                                        //   '$apiURL/images/${filteredStores[index].id}.png',
-                                        // )),
                                       ),
-                                      child: CachedNetworkImage(
-                                        imageUrl: getStoreImage(filteredStores[
-                                                index]
-                                            .id), // Ensure this property exists
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: CachedNetworkImage(
+                                          imageUrl: getStoreImage(
+                                              filteredStores[index].id),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(

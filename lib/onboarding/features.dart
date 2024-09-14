@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:Stash/alert_box.dart';
 import 'package:Stash/navbar.dart';
+import 'package:Stash/onboarding/onboarding_phone.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Stash/onboarding/account_prompt.dart'; // Import AccountPrompt
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Features extends StatefulWidget {
   const Features({super.key});
@@ -118,6 +120,12 @@ class _FeaturesState extends State<Features> {
           ),
           const Expanded(child: SizedBox()),
           GestureDetector(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const OnboardingPhone()), //Needs replacing
+            ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
@@ -162,9 +170,11 @@ class _FeaturesState extends State<Features> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          const AccountPrompt()), //Needs replacing
+                          const OnboardingPhone()), //Needs replacing
                 ),
                 declineCallback: () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  await prefs.setBool('finishedOnboarding', true);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

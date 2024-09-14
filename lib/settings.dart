@@ -1,3 +1,4 @@
+import 'package:Stash/account_details_modal.dart';
 import 'package:Stash/appearance_modal.dart';
 import 'package:Stash/language_modal.dart';
 import 'package:Stash/notifications_modal.dart';
@@ -73,24 +74,29 @@ class _SettingsState extends State<Settings> {
                                       fontSize: 24,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!
-                                          .account_settings,
-                                      style: const TextStyle(
-                                          fontFamily: "SFProDisplay",
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xFF6F6F6F)),
-                                    ),
-                                    const Icon(
-                                      CupertinoIcons.forward,
-                                      color: Color(0xFF6F6F6F),
-                                      size: 16,
-                                    )
-                                  ],
+                                GestureDetector(
+                                  onTap: () =>
+                                      AccountDetailsModal.show(context),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .account_settings,
+                                        style: const TextStyle(
+                                            fontFamily: "SFProDisplay",
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xFF6F6F6F)),
+                                      ),
+                                      const Icon(
+                                        CupertinoIcons.forward,
+                                        color: Color(0xFF6F6F6F),
+                                        size: 16,
+                                      )
+                                    ],
+                                  ),
                                 )
                               ],
                             )
