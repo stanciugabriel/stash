@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:Stash/models/fidelity_card.dart';
+import 'package:Stash/utils/internet.dart';
 import 'package:Stash/utils/preferences.dart';
 import 'package:Stash/utils/url.dart';
 import 'package:flutter/material.dart';
@@ -50,9 +51,11 @@ class FidelityCardsProvider with ChangeNotifier {
   }
 
   sweepAll(String token) async {
-    await sweepAddQueue(token);
-    await sweepDeleteQueue(token);
-    await sweepUpdateQueue(token);
+    if (await checkInternet()) {
+      await sweepAddQueue(token);
+      await sweepDeleteQueue(token);
+      await sweepUpdateQueue(token);
+    }
   }
 
   setLoading(bool newLoading) {
@@ -113,7 +116,7 @@ class FidelityCardsProvider with ChangeNotifier {
       pushAddQueue();
 
       // trying to sweep the queue
-      await sweepAddQueue(token);
+      if (await checkInternet()) await sweepAddQueue(token);
     }
 
     // adding the card to the active cards
@@ -129,8 +132,8 @@ class FidelityCardsProvider with ChangeNotifier {
       // adding the delete to the queue
       pushDeleteQueue();
 
-      // trying to sweep the queu
-      await sweepDeleteQueue(token);
+      // trying to sweep the queue
+      if (await checkInternet()) await sweepDeleteQueue(token);
     }
 
     // deleting the card from the active cards
@@ -147,7 +150,7 @@ class FidelityCardsProvider with ChangeNotifier {
       pushUpdateQueue();
 
       // trying to sweep the queue
-      await sweepUpdateQueue(token);
+      if (await checkInternet()) await sweepUpdateQueue(token);
     }
 
     // updating the card to the active cards

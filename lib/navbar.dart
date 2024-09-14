@@ -32,11 +32,10 @@ class _NavBarState extends State<NavBar> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final stores = Provider.of<StoresProvider>(context, listen: false);
-      stores.fetchStores();
-
       final auth = Provider.of<AccountProvider>(context, listen: false);
-
       final cards = Provider.of<FidelityCardsProvider>(context, listen: false);
+
+      await stores.fetchStores();
       await cards.loadCards();
       await cards.sweepAll(auth.token);
 

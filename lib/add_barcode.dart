@@ -96,18 +96,18 @@ class _AddBarcodeState extends State<AddBarcode> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
                 AppLocalizations.of(context)!.how_does_your_barcode_look,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: "SFProDisplay",
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
@@ -150,13 +150,12 @@ class _AddBarcodeState extends State<AddBarcode> {
       bottomNavigationBar: SafeArea(
         child: GestureDetector(
           onTap: () {
-            if (!cardController.text.isEmpty) {
+            if (cardController.text.isEmpty) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => AddCardName(
-                        cardCode: cardController.text,
-                        format: selectedBarcode)),
+                        barcode: cardController.text, format: selectedBarcode)),
               );
             }
           },
@@ -176,7 +175,7 @@ class _AddBarcodeState extends State<AddBarcode> {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.continue_button,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: "SFProDisplay",
                           fontSize: 18,
                           fontWeight: FontWeight.w600,

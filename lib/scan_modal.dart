@@ -218,9 +218,11 @@ class ScanModal {
                     GestureDetector(
                       onTap: () {
                         if (dev) print('Navigating to AddBarcode page...');
+                        Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => AddBarcode()),
+                          MaterialPageRoute(
+                              builder: (context) => const AddBarcode()),
                         );
                       },
                       child: Text(

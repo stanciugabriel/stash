@@ -108,7 +108,12 @@ Future<List<String>> getDeleteQueue() async {
     return [];
   }
 
-  return jsonDecode(idsString);
+  final idsList = jsonDecode(idsString);
+  List<String> deleteList = [];
+  for (int i = 0; i < idsList.length; i++) {
+    deleteList.add(idsList[i]);
+  }
+  return deleteList;
 }
 
 void setDeleteQueue(List<String> ids) async {

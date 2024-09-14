@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:Stash/models/store.dart';
+import 'package:Stash/utils/internet.dart';
 import 'package:Stash/utils/preferences.dart';
 import 'package:Stash/utils/url.dart';
 import 'package:flutter/material.dart';
@@ -35,22 +36,24 @@ class StoresProvider with ChangeNotifier {
   }
 
   fetchStores() async {
-    final res = await http.get(
-      Uri.parse('$apiURL/stores'),
-      headers: basicHeader,
-    );
+    if (await checkInternet()) {
+      final res = await http.get(
+        Uri.parse('$apiURL/stores'),
+        headers: basicHeader,
+      );
 
-    final body = json.decode(utf8.decode(res.bodyBytes));
-    final statusCode = res.statusCode;
+      final body = json.decode(utf8.decode(res.bodyBytes));
+      final statusCode = res.statusCode;
 
-    if (statusCode == 200) {
-      rawStores = [];
-      for (int i = 0; i < body.length; i++) {
-        rawStores.add(Store.fromJSON(body[i]));
+      if (statusCode == 200) {
+        rawStores = [];
+        for (int i = 0; i < body.length; i++) {
+          rawStores.add(Store.fromJSON(body[i]));
+        }
+        stores = extractStores(rawStores);
+        setStores(body);
+        notifyListeners();
       }
-      stores = extractStores(rawStores);
-      setStores(body);
-      notifyListeners();
     }
   }
 }

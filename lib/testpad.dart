@@ -1,5 +1,6 @@
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
+import 'package:Stash/utils/internet.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -33,6 +34,12 @@ class _TestpadState extends State<Testpad> {
                       child: ListView(
                         scrollDirection: Axis.vertical,
                         children: [
+                          GestureDetector(
+                              onTap: () async {
+                                print(await checkInternet());
+                              },
+                              child: const Text("Check internet")),
+                          const SizedBox(height: 20),
                           GestureDetector(
                               onTap: () async {
                                 print(auth.token);
@@ -137,9 +144,9 @@ class _TestpadState extends State<Testpad> {
                                 await cards.addCardAttachStore("12345");
 
                                 await cards.addFidelityCard(auth.token);
-                                // for (int i = 0; i < cards.cards.length; i++) {
-                                //   print(cards.cards[i].id);
-                                // }
+                                for (int i = 0; i < cards.cards.length; i++) {
+                                  print(cards.cards[i].id);
+                                }
                               },
                               child: const Text("Add fidelity card")),
                           const SizedBox(height: 20),
@@ -186,7 +193,7 @@ class _TestpadState extends State<Testpad> {
                                 cards.deleteCardSet(card);
                                 await cards.deleteFidelityCard(auth.token);
                               },
-                              child: const Text("Remove fidelity card")),
+                              child: const Text("Delete fidelity card")),
                           const SizedBox(height: 20),
                           GestureDetector(
                               onTap: () async {

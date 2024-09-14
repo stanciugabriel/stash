@@ -53,9 +53,9 @@ class _StoreModal extends State<StoreModal> {
     // Load stores from the provider
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final cards = Provider.of<FidelityCardsProvider>(context, listen: false);
-      await cards.addCardAttachBarcode(widget.barcode, widget.format);
-
       final stores = Provider.of<StoresProvider>(context, listen: false);
+
+      await cards.addCardAttachBarcode(widget.barcode, widget.format);
       setState(() {
         rawStores = stores.rawStores;
         filteredStores = stores.rawStores;
@@ -199,6 +199,8 @@ class _StoreModal extends State<StoreModal> {
                     });
                   }),
           ),
+
+          // up to here
         ],
       ),
     );
