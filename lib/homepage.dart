@@ -1,5 +1,6 @@
 import 'package:Stash/add_barcode.dart';
 import 'package:Stash/models/fidelity_card.dart';
+import 'package:Stash/models/store.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/providers/stores_provider.dart';
 import 'package:Stash/testpad.dart';
@@ -14,16 +15,28 @@ class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
   @override
-  _HomepageState createState() => _HomepageState();
+  State<Homepage> createState() => _HomepageState();
 }
 
 class _HomepageState extends State<Homepage> {
   late TextEditingController _searchController;
+  List<FidelityCard> rawCards = [];
+  List<Store> rawStores = [];
   List<FidelityCard> _filteredCards = [];
 
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final cards = Provider.of<FidelityCardsProvider>(context, listen: false);
+      final stores = Provider.of<StoresProvider>(context, listen: false);
+
+      rawCards = cards.cards;
+      _filteredCards = rawCards;
+      rawStores = stores.rawStores;
+    });
+
     _searchController = TextEditingController();
     _searchController.addListener(_filterCards);
   }
@@ -36,12 +49,25 @@ class _HomepageState extends State<Homepage> {
 
   void _filterCards() {
     final query = _searchController.text.toLowerCase();
-    final cards = Provider.of<FidelityCardsProvider>(context, listen: false);
-    final stores = Provider.of<StoresProvider>(context, listen: false);
+
+    List<String> queryStores = [];
+    for (int i = 0; i < rawStores.length; i++) {
+      if (rawStores[i].name.toLowerCase().contains(query.toLowerCase())) {
+        queryStores.add(rawStores[i].id);
+      }
+    }
+
     setState(() {
-      _filteredCards = cards.cards.where((card) {
-        return stores.stores[card.storeID]!.name.toLowerCase().contains(query);
-      }).toList();
+      _filteredCards = [];
+      if (query == '') {
+        _filteredCards = rawCards;
+      } else {
+        for (int i = 0; i < rawCards.length; i++) {
+          if (queryStores.contains(rawCards[i].storeID)) {
+            _filteredCards.add(rawCards[i]);
+          }
+        }
+      }
     });
   }
 
@@ -122,15 +148,15 @@ class _HomepageState extends State<Homepage> {
               child: Consumer<StoresProvider>(builder: (context, stores, _) {
                 return Consumer<FidelityCardsProvider>(
                   builder: (context, cards, _) {
-                    final showCards =
-                        _filteredCards.isEmpty ? cards.cards : _filteredCards;
+                    // final showCards =
+                    //     _filteredCards.isEmpty ? cards.cards : _filteredCards;
 
                     return MediaQuery.removePadding(
                       context: context,
                       removeTop: true,
                       child: ListView.builder(
-                        itemCount:
-                            (showCards.length / 2).ceil(), // Number of rows
+                        itemCount: (_filteredCards.length / 2)
+                            .ceil(), // Number of rows
                         itemBuilder: (BuildContext context, int index) {
                           final firstItemIndex = index * 2;
                           final secondItemIndex = firstItemIndex + 1;
@@ -144,28 +170,28 @@ class _HomepageState extends State<Homepage> {
                                     onTap: () {
                                       CardModal.show(
                                         context,
-                                        showCards[firstItemIndex].id,
+                                        _filteredCards[firstItemIndex].id,
                                       );
                                     },
                                     child: cardBuilder(
                                       context,
-                                      showCards[firstItemIndex],
+                                      _filteredCards[firstItemIndex],
                                       stores.stores,
                                     )),
-                                if (secondItemIndex < showCards.length)
+                                if (secondItemIndex < _filteredCards.length)
                                   GestureDetector(
                                       onTap: () {
                                         CardModal.show(
                                           context,
-                                          showCards[secondItemIndex].id,
+                                          _filteredCards[secondItemIndex].id,
                                         );
                                       },
                                       child: cardBuilder(
                                         context,
-                                        showCards[secondItemIndex],
+                                        _filteredCards[secondItemIndex],
                                         stores.stores,
                                       )),
-                                if (secondItemIndex >= showCards.length)
+                                if (secondItemIndex >= _filteredCards.length)
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.44,
