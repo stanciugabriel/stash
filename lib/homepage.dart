@@ -1,4 +1,5 @@
 import 'package:Stash/add_barcode.dart';
+import 'package:Stash/delete_account_modal.dart';
 import 'package:Stash/models/fidelity_card.dart';
 import 'package:Stash/models/store.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
@@ -81,6 +82,9 @@ class _HomepageState extends State<Homepage> {
             children: [
               const SizedBox(width: 20),
               GestureDetector(
+                onTap: () {
+                  DeleteAccountModal.show(context);
+                },
                 onLongPress: () {
                   Navigator.push(
                     context,

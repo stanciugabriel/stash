@@ -16,8 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPre
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final themeProvider = ThemeProvider(lightTheme);
-  await themeProvider.initialize();
+  final themeProvider = ThemeProvider();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

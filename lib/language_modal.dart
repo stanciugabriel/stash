@@ -119,9 +119,9 @@ class _LanguageModal extends State<LanguageModal> {
                 });
 
                 if (locale == null) {
-                  localeProvider.clearLocale(); // Use system locale
+                  localeProvider.setLocale(''); // Use system locale
                 } else {
-                  localeProvider.setLocale(locale);
+                  localeProvider.setLocale(locale.languageCode);
                 }
               },
               child: Padding(

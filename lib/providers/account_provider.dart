@@ -123,7 +123,24 @@ class AccountProvider with ChangeNotifier {
     }
   }
 
-  logout() async {
+  deleteAccount() async {
+    setLoading(true);
+    final res = await http.delete(
+      Uri.parse('$apiURL/accounts'),
+      headers: authHeader(token),
+    );
+
+    final statusCode = res.statusCode;
+
+    setLoading(false);
+
+    if (statusCode == 200) {
+      logout();
+      setError('');
+    }
+  }
+
+  logout() {
     account = Account.fromEmpty();
     token = '';
     notifyListeners();

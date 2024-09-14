@@ -1,6 +1,5 @@
 import 'package:Stash/delete_account_modal.dart';
 import 'package:Stash/providers/account_provider.dart';
-import 'package:Stash/providers/locale_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

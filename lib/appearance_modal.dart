@@ -28,121 +28,119 @@ class AppearanceModal extends StatefulWidget {
 }
 
 class _AppearanceModal extends State<AppearanceModal> {
-  String selectedScheme = 'System';
-
   @override
   void initState() {
     super.initState();
-    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-
-    selectedScheme = themeProvider.selectedScheme;
   }
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    return Container(
-      padding: const EdgeInsets.all(20.0),
-      color: Colors.transparent,
-      height: MediaQuery.of(context).size.height * 0.92,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Icon(CupertinoIcons.chevron_back)),
-              Text(
-                AppLocalizations.of(context)!.appearance,
-                style: const TextStyle(
-                  fontFamily: "SFProDisplay",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 22,
+    return Consumer<ThemeProvider>(builder: (context, theme, _) {
+      print("THEME: ${theme.selectedScheme}.");
+      return Container(
+        padding: const EdgeInsets.all(20.0),
+        color: Colors.transparent,
+        height: MediaQuery.of(context).size.height * 0.92,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(CupertinoIcons.chevron_back)),
+                Text(
+                  AppLocalizations.of(context)!.appearance,
+                  style: const TextStyle(
+                    fontFamily: "SFProDisplay",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 22,
+                  ),
                 ),
-              ),
-              Icon(
-                CupertinoIcons.arrow_left,
-                color: Colors.white.withOpacity(0),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Text(
-            AppLocalizations.of(context)!.color_scheme,
-            style: const TextStyle(
-              fontFamily: "SFProDisplay",
-              fontWeight: FontWeight.w600,
-              fontSize: 20,
+                Icon(
+                  CupertinoIcons.arrow_left,
+                  color: Colors.white.withOpacity(0),
+                ),
+              ],
             ),
-          ),
-          Text(
-            AppLocalizations.of(context)!.color_scheme_description,
-            style: const TextStyle(
-              fontFamily: "SFProDisplay",
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
+            const SizedBox(height: 20),
+            Text(
+              AppLocalizations.of(context)!.color_scheme,
+              style: const TextStyle(
+                fontFamily: "SFProDisplay",
+                fontWeight: FontWeight.w600,
+                fontSize: 20,
+              ),
             ),
-          ),
-          const SizedBox(height: 15),
-          Row(
-            children: [
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedScheme = 'System';
-                    });
-                    themeProvider.setSystemTheme();
-                  },
-                  child: ThemeSwitcher(
-                    isSelected: selectedScheme == 'System',
-                    label: AppLocalizations.of(context)!.system_mode,
-                    icon: CupertinoIcons.circle_lefthalf_fill,
+            Text(
+              AppLocalizations.of(context)!.color_scheme_description,
+              style: const TextStyle(
+                fontFamily: "SFProDisplay",
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 15),
+            Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        theme.selectedScheme = 'System';
+                      });
+                      themeProvider.setSystemTheme();
+                    },
+                    child: ThemeSwitcher(
+                      isSelected: theme.selectedScheme == 'System',
+                      label: AppLocalizations.of(context)!.system_mode,
+                      icon: CupertinoIcons.circle_lefthalf_fill,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedScheme = 'Light';
-                    });
-                    themeProvider.setLightTheme();
-                  },
-                  child: ThemeSwitcher(
-                    isSelected: selectedScheme == 'Light',
-                    label: AppLocalizations.of(context)!.light_mode,
-                    icon: CupertinoIcons.sun_max_fill,
+                const SizedBox(width: 10),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        theme.selectedScheme = 'Light';
+                      });
+                      themeProvider.setLightTheme();
+                    },
+                    child: ThemeSwitcher(
+                      isSelected: theme.selectedScheme == 'Light',
+                      label: AppLocalizations.of(context)!.light_mode,
+                      icon: CupertinoIcons.sun_max_fill,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedScheme = 'Dark';
-                    });
-                    themeProvider.setDarkTheme();
-                  },
-                  child: ThemeSwitcher(
-                    isSelected: selectedScheme == 'Dark',
-                    label: AppLocalizations.of(context)!.dark_mode,
-                    icon: CupertinoIcons.moon_fill,
+                const SizedBox(width: 10),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        theme.selectedScheme = 'Dark';
+                      });
+                      themeProvider.setDarkTheme();
+                    },
+                    child: ThemeSwitcher(
+                      isSelected: theme.selectedScheme == 'Dark',
+                      label: AppLocalizations.of(context)!.dark_mode,
+                      icon: CupertinoIcons.moon_fill,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
+              ],
+            )
+          ],
+        ),
+      );
+    });
   }
 }
 
