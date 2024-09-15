@@ -26,12 +26,24 @@ class AppearanceModal extends StatefulWidget {
       builder: (BuildContext context) {
         FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).dividerColor,
             animate: true);
+        if (Theme.of(context).brightness == Brightness.dark) {
+          FlutterStatusbarcolor.setNavigationBarColor(
+              Theme.of(context).shadowColor,
+              animate: true);
+        }
+        if (Theme.of(context).brightness == Brightness.light) {
+          FlutterStatusbarcolor.setNavigationBarColor(
+              Theme.of(context).primaryColorDark,
+              animate: true);
+        }
         return const AppearanceModal();
       },
     ).whenComplete(() {
       FlutterStatusbarcolor.setStatusBarColor(
           Theme.of(context).primaryColorDark,
           animate: true);
+      FlutterStatusbarcolor.setNavigationBarColor(
+          Theme.of(context).primaryColorDark);
     });
   }
 }
@@ -104,6 +116,12 @@ class _AppearanceModal extends State<AppearanceModal> {
                       });
 
                       await themeProvider.setSystemTheme();
+
+                      // if (Theme.of(context).brightness == Brightness.dark) {
+                      //   FlutterStatusbarcolor.setNavigationBarColor(
+                      //       Theme.of(context).shadowColor,
+                      //       animate: true);
+                      // }
                     },
                     child: ThemeSwitcher(
                       isSelected: theme.selectedScheme == 'System',
@@ -121,6 +139,10 @@ class _AppearanceModal extends State<AppearanceModal> {
                       });
 
                       await themeProvider.setLightTheme();
+                      // FlutterStatusbarcolor.setNavigationBarColor(
+                      //   Theme.of(context).primaryColorDark,
+                      //   animate: true,
+                      // );
                     },
                     child: ThemeSwitcher(
                       isSelected: theme.selectedScheme == 'Light',
@@ -138,6 +160,10 @@ class _AppearanceModal extends State<AppearanceModal> {
                       });
 
                       await themeProvider.setDarkTheme();
+
+                      // FlutterStatusbarcolor.setNavigationBarColor(
+                      //     Theme.of(context).shadowColor,
+                      //     animate: true);
                     },
                     child: ThemeSwitcher(
                       isSelected: theme.selectedScheme == 'Dark',

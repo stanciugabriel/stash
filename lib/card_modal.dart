@@ -39,12 +39,20 @@ class CardModal extends StatefulWidget {
         builder: (BuildContext context) {
           FlutterStatusbarcolor.setStatusBarColor(
               Theme.of(context).dividerColor);
+          if (Theme.of(context).brightness == Brightness.dark) {
+            FlutterStatusbarcolor.setNavigationBarColor(
+                Theme.of(context).shadowColor,
+                animate: true);
+          }
           return CardModal(id: id);
         }).then((_) async {
       // Restore the previous brightness level when the modal is dismissed
       await ScreenBrightness().setScreenBrightness(brightness);
 
       FlutterStatusbarcolor.setStatusBarColor(
+          Theme.of(context).primaryColorDark);
+
+      FlutterStatusbarcolor.setNavigationBarColor(
           Theme.of(context).primaryColorDark);
     });
   }

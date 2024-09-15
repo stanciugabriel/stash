@@ -67,7 +67,6 @@ final ThemeData lightTheme = ThemeData(
   cardColor: const Color(0xFF4E4E4E),
   bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.white),
   dividerColor: const Color(0xFF757575),
-  splashColor: const Color.fromARGB(0, 0, 0, 0),
 );
 
 final ThemeData darkTheme = ThemeData(
@@ -81,5 +80,4 @@ final ThemeData darkTheme = ThemeData(
   bottomSheetTheme:
       const BottomSheetThemeData(backgroundColor: Color(0xFF141414)),
   dividerColor: Colors.black,
-  splashColor: const Color.fromARGB(0, 0, 0, 0),
 );
