@@ -6,6 +6,7 @@ import 'package:Stash/onboarding/onboarding_phone.dart';
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/terms.dart';
+import 'package:Stash/upgrade_modal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -45,6 +46,7 @@ class _SettingsState extends State<Settings> {
   }
 
   final InAppReview inAppReview = InAppReview.instance;
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Consumer<FidelityCardsProvider>(builder: (context, cards, _) {
@@ -168,6 +170,118 @@ class _SettingsState extends State<Settings> {
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: GestureDetector(
                       onTap: () {
+                        UpgradeModal.show(context);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                CupertinoIcons.plus_square,
+                                size: 25,
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Text("Current plan",
+                                  style: const TextStyle(
+                                    fontFamily: "SFProDisplay",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                  ))
+                            ],
+                          ),
+                          Text("Free plan",
+                              style: const TextStyle(
+                                fontFamily: "SFProDisplay",
+                                fontSize: 20,
+                                color: Color.fromARGB(255, 100, 100, 100),
+                                fontWeight: FontWeight.w500,
+                              ))
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        UpgradeModal.show(context);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                CupertinoIcons.arrow_up_circle,
+                                size: 25,
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Text("Upgrade to Stash Plus",
+                                  style: const TextStyle(
+                                    fontFamily: "SFProDisplay",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                  ))
+                            ],
+                          ),
+                          const Icon(
+                            CupertinoIcons.chevron_right,
+                            size: 20,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _isLoading = true;
+                        });
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                CupertinoIcons.arrow_2_circlepath,
+                                size: 25,
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Text("Restore purchases",
+                                  style: const TextStyle(
+                                    fontFamily: "SFProDisplay",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                  ))
+                            ],
+                          ),
+                          _isLoading
+                              ? SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator())
+                              : Icon(
+                                  CupertinoIcons.chevron_right,
+                                  size: 20,
+                                )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: GestureDetector(
+                      onTap: () {
                         NotificationsModal.show(context);
                       },
                       child: Row(
@@ -177,7 +291,7 @@ class _SettingsState extends State<Settings> {
                             children: [
                               const Icon(
                                 CupertinoIcons.bell,
-                                size: 30,
+                                size: 25,
                               ),
                               const SizedBox(
                                 width: 15,
@@ -211,7 +325,7 @@ class _SettingsState extends State<Settings> {
                             children: [
                               const Icon(
                                 CupertinoIcons.paintbrush,
-                                size: 30,
+                                size: 25,
                               ),
                               const SizedBox(
                                 width: 15,
@@ -245,7 +359,7 @@ class _SettingsState extends State<Settings> {
                             children: [
                               const Icon(
                                 CupertinoIcons.globe,
-                                size: 30,
+                                size: 25,
                               ),
                               const SizedBox(
                                 width: 15,
@@ -288,7 +402,7 @@ class _SettingsState extends State<Settings> {
                           children: [
                             const Icon(
                               CupertinoIcons.ellipses_bubble,
-                              size: 30,
+                              size: 25,
                             ),
                             const SizedBox(
                               width: 15,
@@ -323,7 +437,7 @@ class _SettingsState extends State<Settings> {
                             children: [
                               const Icon(
                                 CupertinoIcons.star,
-                                size: 30,
+                                size: 25,
                               ),
                               const SizedBox(
                                 width: 15,
@@ -362,7 +476,7 @@ class _SettingsState extends State<Settings> {
                             const Icon(
                               CupertinoIcons.square_arrow_left,
                               color: Colors.red,
-                              size: 30,
+                              size: 25,
                             ),
                             const SizedBox(
                               width: 15,

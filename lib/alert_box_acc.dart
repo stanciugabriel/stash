@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glass/glass.dart';
 
-class AlertBox {
+class AlertBoxAcc {
   static void show(
     BuildContext context, {
     required String title,
@@ -41,12 +41,11 @@ class AlertBox {
                       const SizedBox(
                         height: 10,
                       ),
-                      Icon(
-                        CupertinoIcons.exclamationmark_triangle_fill,
-                        color: Colors.amber,
-                        size: 40,
+                      SvgPicture.asset(
+                        'assets/icons/profileheart.svg',
+                        height: 50,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
@@ -77,14 +76,40 @@ class AlertBox {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Divider(
-                        color: Color.fromARGB(255, 120, 120, 120),
+                      const Divider(),
+                      const SizedBox(
+                        height: 15,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5.0),
                         child: Column(
                           children: !loading
                               ? [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(40),
+                                        color: const Color.fromARGB(
+                                            255, 17, 24, 223)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: Center(
+                                        child: GestureDetector(
+                                            onTap: () async {
+                                              await acceptCallback();
+                                              loading = true;
+                                            },
+                                            child: Text(
+                                              accept,
+                                              style: TextStyle(
+                                                fontFamily: "SFProRounded",
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14,
+                                                color: acceptColor,
+                                              ),
+                                            )),
+                                      ),
+                                    ),
+                                  ),
                                   SizedBox(height: 15),
                                   Center(
                                     child: GestureDetector(

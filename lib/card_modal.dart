@@ -2,6 +2,7 @@ import 'package:Stash/models/fidelity_card.dart';
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/providers/stores_provider.dart';
+import 'package:Stash/upgrade_modal.dart';
 import 'package:Stash/utils/card.dart';
 import 'package:Stash/utils/url.dart';
 import 'package:barcode_widget/barcode_widget.dart';
@@ -226,80 +227,86 @@ class _CardModal extends State<CardModal> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    right: 30, left: 30, top: 30, bottom: 10),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      CupertinoIcons.pencil,
-                      size: 35,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.edit,
-                          style: const TextStyle(
-                              fontFamily: "SFProDisplay",
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20,
-                              height: 1.3),
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.edit_description,
-                          style: const TextStyle(
-                            fontFamily: "SFProDisplay",
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+              SizedBox(
+                height: 30,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      CupertinoIcons.share,
-                      size: 35,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.share,
-                            style: const TextStyle(
-                                fontFamily: "SFProDisplay",
-                                fontWeight: FontWeight.w700,
-                                fontSize: 20,
-                                height: 1.3),
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.share_description,
-                            style: const TextStyle(
-                              fontFamily: "SFProDisplay",
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                            ),
-                          )
-                        ],
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       right: 30, left: 30, top: 30, bottom: 10),
+              //   child: Row(
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: [
+              //       const Icon(
+              //         CupertinoIcons.pencil,
+              //         size: 35,
+              //       ),
+              //       const SizedBox(
+              //         width: 10,
+              //       ),
+              //       Column(
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+              //         children: [
+              //           Text(
+              //             AppLocalizations.of(context)!.edit,
+              //             style: const TextStyle(
+              //                 fontFamily: "SFProDisplay",
+              //                 fontWeight: FontWeight.w700,
+              //                 fontSize: 20,
+              //                 height: 1.3),
+              //           ),
+              //           Text(
+              //             AppLocalizations.of(context)!.edit_description,
+              //             style: const TextStyle(
+              //               fontFamily: "SFProDisplay",
+              //               fontWeight: FontWeight.w500,
+              //               fontSize: 14,
+              //             ),
+              //           )
+              //         ],
+              //       )
+              //     ],
+              //   ),
+              // ),
+              GestureDetector(
+                onTap: () => UpgradeModal.show(context),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 30.0, vertical: 10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        CupertinoIcons.share,
+                        size: 35,
                       ),
-                    )
-                  ],
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.share,
+                              style: const TextStyle(
+                                  fontFamily: "SFProDisplay",
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20,
+                                  height: 1.3),
+                            ),
+                            Text(
+                              AppLocalizations.of(context)!.share_description,
+                              style: const TextStyle(
+                                fontFamily: "SFProDisplay",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Consumer<AccountProvider>(builder: (context, auth, _) {

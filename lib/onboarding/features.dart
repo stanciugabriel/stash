@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:Stash/alert_box.dart';
+import 'package:Stash/alert_box_acc.dart';
 import 'package:Stash/navbar.dart';
 import 'package:Stash/onboarding/onboarding_phone.dart';
 import 'package:flutter/cupertino.dart';
@@ -157,7 +157,7 @@ class _FeaturesState extends State<Features> {
           ),
           GestureDetector(
             onTap: () {
-              AlertBox.show(
+              AlertBoxAcc.show(
                 context, // Pass context here
                 title: AppLocalizations.of(context)!
                     .stash_is_better_with_an_account,

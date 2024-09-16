@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:Stash/add_barcode.dart';
+import 'package:Stash/alert_box.dart';
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/store_modal.dart';
 import 'package:camera/camera.dart';
-import 'package:Stash/alert_box.dart';
+import 'package:Stash/alert_box_acc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
