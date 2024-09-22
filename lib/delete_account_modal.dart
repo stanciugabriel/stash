@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class DeleteAccountModal {
   static void show(BuildContext context) {
     showModalBottomSheet(
-        backgroundColor: Theme.of(context).shadowColor,
+        backgroundColor: Theme.of(context).primaryColorDark,
         isScrollControlled: true,
         context: context,
         shape: const RoundedRectangleBorder(
@@ -30,10 +30,10 @@ class DeleteAccountModal {
             return Consumer<AccountProvider>(
               builder: (context, auth, _) {
                 return Padding(
-                  padding: const EdgeInsets.only(
-                      left: 20, right: 20, top: 20, bottom: 30),
+                  padding:
+                      EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 30),
                   child: Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(9),
                         topRight: Radius.circular(9),
@@ -48,9 +48,9 @@ class DeleteAccountModal {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                              ),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Theme.of(context).shadowColor),
                               child: const Padding(
                                 padding: EdgeInsets.all(10.0),
                                 child: Icon(
@@ -63,7 +63,7 @@ class DeleteAccountModal {
                             Container(
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Theme.of(context).cardColor),
+                                  color: Theme.of(context).shadowColor),
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.pop(context);
@@ -72,7 +72,7 @@ class DeleteAccountModal {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Icon(
                                     Icons.close,
-                                    color: Theme.of(context).shadowColor,
+                                    color: Theme.of(context).cardColor,
                                   ),
                                 ),
                               ),

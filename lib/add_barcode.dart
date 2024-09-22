@@ -160,7 +160,7 @@ class _AddBarcodeState extends State<AddBarcode> {
             }
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
             child: Padding(
               padding: EdgeInsets.only(bottom: Platform.isAndroid ? 15 : 0),
               child: Container(

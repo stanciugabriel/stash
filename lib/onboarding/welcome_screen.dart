@@ -17,7 +17,9 @@ class WelcomeScreen extends StatelessWidget {
         const SizedBox(),
         // App Logo and Name
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20.0,
+          ),
           child: Column(
             children: [
               Container(
@@ -71,7 +73,7 @@ class WelcomeScreen extends StatelessWidget {
         GestureDetector(
           onTap: onContinue,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
             child: Padding(
               padding: EdgeInsets.only(bottom: Platform.isAndroid ? 15 : 0),
               child: Container(
@@ -100,6 +102,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
         ),
+
         // Adjust height for padding at the bottom
       ],
     );

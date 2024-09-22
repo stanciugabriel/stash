@@ -1,5 +1,6 @@
 import 'package:Stash/account_details_modal.dart';
 import 'package:Stash/appearance_modal.dart';
+import 'package:Stash/delete_account_modal.dart';
 import 'package:Stash/language_modal.dart';
 import 'package:Stash/notifications_modal.dart';
 import 'package:Stash/onboarding/onboarding_phone.dart';
@@ -154,7 +155,7 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                   const SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   Text(AppLocalizations.of(context)!.preferences,
                       style: const TextStyle(
@@ -166,118 +167,118 @@ class _SettingsState extends State<Settings> {
                   const SizedBox(
                     height: 5,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        UpgradeModal.show(context);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                CupertinoIcons.plus_square,
-                                size: 25,
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Text("Current plan",
-                                  style: const TextStyle(
-                                    fontFamily: "SFProDisplay",
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                  ))
-                            ],
-                          ),
-                          Text("Free plan",
-                              style: const TextStyle(
-                                fontFamily: "SFProDisplay",
-                                fontSize: 20,
-                                color: Color.fromARGB(255, 100, 100, 100),
-                                fontWeight: FontWeight.w500,
-                              ))
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        UpgradeModal.show(context);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                CupertinoIcons.arrow_up_circle,
-                                size: 25,
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Text("Upgrade to Stash Plus",
-                                  style: const TextStyle(
-                                    fontFamily: "SFProDisplay",
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                  ))
-                            ],
-                          ),
-                          const Icon(
-                            CupertinoIcons.chevron_right,
-                            size: 20,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _isLoading = true;
-                        });
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                CupertinoIcons.arrow_2_circlepath,
-                                size: 25,
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Text("Restore purchases",
-                                  style: const TextStyle(
-                                    fontFamily: "SFProDisplay",
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                  ))
-                            ],
-                          ),
-                          _isLoading
-                              ? SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: CircularProgressIndicator())
-                              : Icon(
-                                  CupertinoIcons.chevron_right,
-                                  size: 20,
-                                )
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  //   child: GestureDetector(
+                  //     onTap: () {
+                  //       UpgradeModal.show(context);
+                  //     },
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: [
+                  //         Row(
+                  //           children: [
+                  //             const Icon(
+                  //               CupertinoIcons.plus_square,
+                  //               size: 25,
+                  //             ),
+                  //             const SizedBox(
+                  //               width: 15,
+                  //             ),
+                  //             Text("Current plan",
+                  //                 style: const TextStyle(
+                  //                   fontFamily: "SFProDisplay",
+                  //                   fontSize: 18,
+                  //                   fontWeight: FontWeight.w700,
+                  //                 ))
+                  //           ],
+                  //         ),
+                  //         Text("Free plan",
+                  //             style: const TextStyle(
+                  //               fontFamily: "SFProDisplay",
+                  //               fontSize: 18,
+                  //               color: Color.fromARGB(255, 100, 100, 100),
+                  //               fontWeight: FontWeight.w500,
+                  //             ))
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  //   child: GestureDetector(
+                  //     onTap: () {
+                  //       UpgradeModal.show(context);
+                  //     },
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: [
+                  //         Row(
+                  //           children: [
+                  //             const Icon(
+                  //               CupertinoIcons.arrow_up_circle,
+                  //               size: 25,
+                  //             ),
+                  //             const SizedBox(
+                  //               width: 15,
+                  //             ),
+                  //             Text("Upgrade to Stash Plus",
+                  //                 style: const TextStyle(
+                  //                   fontFamily: "SFProDisplay",
+                  //                   fontSize: 18,
+                  //                   fontWeight: FontWeight.w700,
+                  //                 ))
+                  //           ],
+                  //         ),
+                  //         const Icon(
+                  //           CupertinoIcons.chevron_right,
+                  //           size: 20,
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  //   child: GestureDetector(
+                  //     onTap: () {
+                  //       setState(() {
+                  //         _isLoading = true;
+                  //       });
+                  //     },
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: [
+                  //         Row(
+                  //           children: [
+                  //             const Icon(
+                  //               CupertinoIcons.arrow_2_circlepath,
+                  //               size: 25,
+                  //             ),
+                  //             const SizedBox(
+                  //               width: 15,
+                  //             ),
+                  //             Text("Restore purchases",
+                  //                 style: const TextStyle(
+                  //                   fontFamily: "SFProDisplay",
+                  //                   fontSize: 18,
+                  //                   fontWeight: FontWeight.w700,
+                  //                 ))
+                  //           ],
+                  //         ),
+                  //         _isLoading
+                  //             ? SizedBox(
+                  //                 height: 20,
+                  //                 width: 20,
+                  //                 child: CircularProgressIndicator())
+                  //             : Icon(
+                  //                 CupertinoIcons.chevron_right,
+                  //                 size: 20,
+                  //               )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: GestureDetector(
@@ -299,7 +300,7 @@ class _SettingsState extends State<Settings> {
                               Text(AppLocalizations.of(context)!.notifications,
                                   style: const TextStyle(
                                     fontFamily: "SFProDisplay",
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.w700,
                                   ))
                             ],
@@ -333,7 +334,7 @@ class _SettingsState extends State<Settings> {
                               Text(AppLocalizations.of(context)!.appearance,
                                   style: const TextStyle(
                                     fontFamily: "SFProDisplay",
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.w700,
                                   ))
                             ],
@@ -367,7 +368,7 @@ class _SettingsState extends State<Settings> {
                               Text(AppLocalizations.of(context)!.language,
                                   style: const TextStyle(
                                     fontFamily: "SFProDisplay",
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.w700,
                                   ))
                             ],
@@ -379,89 +380,6 @@ class _SettingsState extends State<Settings> {
                         ],
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(AppLocalizations.of(context)!.resources,
-                      style: const TextStyle(
-                        fontFamily: "SFProDisplay",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF6F6F6F),
-                      )),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(
-                              CupertinoIcons.ellipses_bubble,
-                              size: 25,
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Text(AppLocalizations.of(context)!.leave_feedback,
-                                style: const TextStyle(
-                                  fontFamily: "SFProDisplay",
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
-                                ))
-                          ],
-                        ),
-                        const Icon(
-                          CupertinoIcons.chevron_right,
-                          size: 20,
-                        )
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      if (await inAppReview.isAvailable()) {
-                        inAppReview.requestReview();
-                      }
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                CupertinoIcons.star,
-                                size: 25,
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Text(
-                                  AppLocalizations.of(context)!
-                                      .rate_in_app_store,
-                                  style: const TextStyle(
-                                    fontFamily: "SFProDisplay",
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                  ))
-                            ],
-                          ),
-                          const Icon(
-                            CupertinoIcons.chevron_right,
-                            size: 20,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
                   ),
                   if (auth.token != '')
                     GestureDetector(
@@ -493,30 +411,34 @@ class _SettingsState extends State<Settings> {
                     ),
                   Expanded(
                     child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            "assets/icons/hex.svg",
-                            height: 30,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            "${AppLocalizations.of(context)!.version} ${_packageInfo.version} (${_packageInfo.buildNumber})",
-                            style: const TextStyle(color: Color(0xFF6F6F6F)),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              TermsOfUse.show(context);
-                            },
-                            child: Text(
-                              AppLocalizations.of(context)!.terms_and_privacy,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 15.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              "assets/icons/hex.svg",
+                              height: 30,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "${AppLocalizations.of(context)!.version} ${_packageInfo.version} (${_packageInfo.buildNumber})",
                               style: const TextStyle(color: Color(0xFF6F6F6F)),
                             ),
-                          ),
-                        ],
+                            GestureDetector(
+                              onTap: () {
+                                TermsOfUse.show(context);
+                              },
+                              child: Text(
+                                AppLocalizations.of(context)!.terms_and_privacy,
+                                style:
+                                    const TextStyle(color: Color(0xFF6F6F6F)),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

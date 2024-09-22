@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 
 class UpgradeModal extends StatefulWidget {
   const UpgradeModal({super.key});
@@ -26,6 +27,28 @@ class UpgradeModal extends StatefulWidget {
 
 class _UpgradeModal extends State<UpgradeModal> {
   bool switchValue = true;
+
+  @override
+  void initState() {
+    super.initState();
+    InitializeStore();
+  }
+
+  void InitializeStore() async {
+    final bool available = await InAppPurchase.instance.isAvailable();
+    if (!available) {
+      print("Store unavailable");
+    }
+    const Set<String> kIds = <String>{'stashplus'};
+    final ProductDetailsResponse response =
+        await InAppPurchase.instance.queryProductDetails(kIds);
+    if (response.notFoundIDs.isNotEmpty) {
+      print("Products not found");
+    }
+    List<ProductDetails> products = response.productDetails;
+    print(products[0]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -80,8 +103,7 @@ class _UpgradeModal extends State<UpgradeModal> {
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                border: Border.all(
-                    color: const Color.fromARGB(255, 216, 216, 216))),
+                border: Border.all(color: Theme.of(context).cardColor)),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -200,8 +222,8 @@ class _UpgradeModal extends State<UpgradeModal> {
             ],
           ),
           SizedBox(
-            height: 30,
-          )
+            height: 5,
+          ),
         ],
       ),
     );

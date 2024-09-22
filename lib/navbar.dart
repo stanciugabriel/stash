@@ -78,7 +78,7 @@ class _NavBarState extends State<NavBar> {
           body: Stack(children: [
             _screens[_selectedIndex],
             Padding(
-              padding: EdgeInsets.only(bottom: Platform.isAndroid ? 12 : 0),
+              padding: EdgeInsets.only(bottom: 12),
               child: SafeArea(
                 child: Align(
                   alignment: Alignment.bottomCenter,

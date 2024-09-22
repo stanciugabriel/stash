@@ -185,7 +185,7 @@ class _FeaturesState extends State<Features> {
               );
             },
             child: Padding(
-              padding: EdgeInsets.only(bottom: Platform.isAndroid ? 15 : 0),
+              padding: EdgeInsets.only(bottom: 15),
               child: Text(
                 AppLocalizations.of(context)!.continue_without_an_account,
                 style: const TextStyle(
@@ -242,7 +242,7 @@ class _FeaturesState extends State<Features> {
                   style: const TextStyle(
                     height: 1.4,
                     fontFamily: "SFProDisplay",
-                    fontSize: 18,
+                    fontSize: 17,
                     fontWeight: FontWeight.w700,
                     color: Color(0xFF000630),
                   ),
