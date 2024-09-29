@@ -16,6 +16,8 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>Stash</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-5098666037124898~4984632392</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

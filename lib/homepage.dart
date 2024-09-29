@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:Stash/add_barcode.dart';
 import 'package:Stash/models/fidelity_card.dart';
 import 'package:Stash/models/store.dart';
@@ -8,6 +10,7 @@ import 'package:Stash/testpad.dart';
 import 'package:Stash/utils/card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:Stash/card_modal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,6 +27,9 @@ class _HomepageState extends State<Homepage> {
   List<FidelityCard> rawCards = [];
   List<Store> rawStores = [];
   List<FidelityCard> _filteredCards = [];
+  BannerAd? _bannerAd;
+  final AdSize adSize = AdSize.banner;
+  final String adUnitId = 'ca-app-pub-5098666037124898/4218345633';
 
   @override
   void initState() {
@@ -70,6 +76,35 @@ class _HomepageState extends State<Homepage> {
         }
       }
     });
+  }
+
+  /// Loads a banner ad.
+  void _loadAd() {
+    final bannerAd = BannerAd(
+      size: adSize,
+      adUnitId: adUnitId,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        // Called when an ad is successfully received.
+        onAdLoaded: (ad) {
+          if (!mounted) {
+            ad.dispose();
+            return;
+          }
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        // Called when an ad request failed.
+        onAdFailedToLoad: (ad, error) {
+          debugPrint('BannerAd failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    );
+
+    // Start loading.
+    bannerAd.load();
   }
 
   @override
@@ -151,6 +186,15 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              width: _bannerAd == null ? 0 : adSize.width.toDouble(),
+              height: _bannerAd == null ? 0 : adSize.height.toDouble(),
+              child: _bannerAd == null
+                  // Nothing to render yet.
+                  ? const SizedBox()
+                  // The actual ad.
+                  : AdWidget(ad: _bannerAd!),
             ),
             const SizedBox(
               height: 25,
