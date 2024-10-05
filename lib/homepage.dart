@@ -44,6 +44,7 @@ class _HomepageState extends State<Homepage> {
       rawStores = stores.rawStores;
     });
 
+    _loadAd();
     _searchController = TextEditingController();
     _searchController.addListener(_filterCards);
   }
@@ -188,16 +189,26 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
             SizedBox(
-              width: _bannerAd == null ? 0 : adSize.width.toDouble(),
-              height: _bannerAd == null ? 0 : adSize.height.toDouble(),
-              child: _bannerAd == null
-                  // Nothing to render yet.
-                  ? const SizedBox()
-                  // The actual ad.
-                  : AdWidget(ad: _bannerAd!),
+              height: _bannerAd == null ? 0 : 20,
             ),
+            rawCards.length != 0
+                ? SafeArea(
+                    child: SizedBox(
+                      width:
+                          _bannerAd == null ? 0 : adSize.width.toDouble() * 1.2,
+                      height: _bannerAd == null
+                          ? 0
+                          : adSize.height.toDouble() * 1.2,
+                      child: _bannerAd == null
+                          // Nothing to render yet.
+                          ? const SizedBox()
+                          // The actual ad.
+                          : AdWidget(ad: _bannerAd!),
+                    ),
+                  )
+                : SizedBox(),
             const SizedBox(
-              height: 25,
+              height: 20,
             ),
             Expanded(
               child: Padding(
