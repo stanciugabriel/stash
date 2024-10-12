@@ -273,10 +273,6 @@
   "@delete_account_warning": {
     "description": "Account details modal title"
   },
-  "this_action_cannot_be_reverted": "This action cannot be reverted",
-  "@this_action_cannot_be_reverted": {
-    "description": "Account details modal title"
-  },
   "onboarding_phone_hint": "Phone number",
   "@onboarding_phone_hint" : {
     "description": "Hint text for onboarding phone number text field"

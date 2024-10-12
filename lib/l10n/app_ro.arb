@@ -301,10 +301,7 @@
   "@onboarding_name_subtitle": {
     "description": "Subtitlul paginii de adaugare nume"
   },
-  "this_action_cannot_be_reverted": "Această acțiune nu poate fi anulată",
-  "@this_action_cannot_be_reverted": {
-    "description": "Titlu pentru detalii cont modal"
-  },
+ 
   
   "enter_received_code": "Introdu codul primit",
   "@enter_received_code": {
