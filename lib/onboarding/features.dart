@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:Stash/alert_box_acc.dart';
 import 'package:Stash/navbar.dart';
 import 'package:Stash/onboarding/onboarding_phone.dart';

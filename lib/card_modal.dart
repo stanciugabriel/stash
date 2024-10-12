@@ -2,7 +2,6 @@ import 'package:Stash/models/fidelity_card.dart';
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/providers/stores_provider.dart';
-import 'package:Stash/upgrade_modal.dart';
 import 'package:Stash/utils/card.dart';
 import 'package:Stash/utils/url.dart';
 import 'package:barcode_widget/barcode_widget.dart';

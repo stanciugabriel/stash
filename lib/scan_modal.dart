@@ -78,6 +78,8 @@ class ScanModal {
 
     // State to control the blur and tick animation
     bool hasScanned = false;
+    List<String> barcodeBuffer = [];
+    final int maxBufferSize = 5;
 
     showModalBottomSheet(
       context: context,
@@ -103,7 +105,7 @@ class ScanModal {
               controller.startImageStream((CameraImage image) async {
                 if (dev) print('Received image stream.');
 
-                if (!hasScanned) {
+                if (!hasScanned && barcodeBuffer.length < maxBufferSize) {
                   if (dev) print('Processing image...');
                   final inputImage =
                       _inputImageFromCameraImage(controller, image);
@@ -113,33 +115,35 @@ class ScanModal {
                   }
 
                   try {
-                    // Process the image to detect barcodes
-                    if (dev) print('Scanning image for barcodes...');
                     final List<Barcode> barcodes =
                         await barcodeScanner.processImage(inputImage);
-                    if (dev) print('Barcodes found: ${barcodes.length}');
-
                     if (barcodes.isNotEmpty) {
                       setState(() {
-                        hasScanned = true;
-                        Haptics.vibrate(
-                            HapticsType.success); //may need deleting
+                        barcodeBuffer.add(barcodes[0].rawValue ?? "");
                       });
 
-                      // Optionally: Stop the image stream to avoid multiple scans
-                      if (dev) print('Stopping image stream...');
-                      await controller.stopImageStream();
+                      if (barcodeBuffer.length >= maxBufferSize) {
+                        print("List of barcodes: \n");
+                        print(barcodeBuffer);
+                        print("Final barcode: \n");
+                        String mostFrequentBarcode =
+                            _getMostFrequentBarcode(barcodeBuffer);
+                        print(mostFrequentBarcode);
+                        setState(() {
+                          hasScanned = true;
+                          Haptics.vibrate(HapticsType.success);
+                        });
 
-                      Future.delayed(const Duration(seconds: 1), () {
-                        if (dev) print('Barcode format: ${barcodes[0].format}');
-                        Navigator.pop(context); // Dismiss the modal first
-                        StoreModal.show(context, barcodes[0].rawValue ?? "Null",
-                            barcodes[0].format.toString());
-                        // Navigate to the EnterCardNamePage
-                      });
+                        await controller.stopImageStream();
+                        Future.delayed(const Duration(seconds: 1), () {
+                          Navigator.pop(context);
+                          StoreModal.show(context, mostFrequentBarcode,
+                              barcodes[0].format.toString());
+                        });
+                      }
                     }
                   } catch (e) {
-                    if (dev) print('Error scanning barcode: $e');
+                    print('Error scanning barcode: $e');
                   }
                 }
               });
@@ -260,6 +264,19 @@ class ScanModal {
       if (dev) print('Closing barcode scanner...');
       barcodeScanner.close();
     });
+  }
+
+  static String _getMostFrequentBarcode(List<String> barcodeBuffer) {
+    final Map<String, int> frequencyMap = {};
+    for (var barcode in barcodeBuffer) {
+      if (frequencyMap.containsKey(barcode)) {
+        frequencyMap[barcode] = frequencyMap[barcode]! + 1;
+      } else {
+        frequencyMap[barcode] = 1;
+      }
+    }
+
+    return frequencyMap.entries.reduce((a, b) => a.value > b.value ? a : b).key;
   }
 
   static InputImage? _inputImageFromCameraImage(

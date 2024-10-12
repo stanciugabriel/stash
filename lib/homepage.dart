@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:Stash/add_barcode.dart';
 import 'package:Stash/models/fidelity_card.dart';
 import 'package:Stash/models/store.dart';
@@ -38,13 +36,12 @@ class _HomepageState extends State<Homepage> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final cards = Provider.of<FidelityCardsProvider>(context, listen: false);
       final stores = Provider.of<StoresProvider>(context, listen: false);
-
+      await _loadAd();
       rawCards = cards.cards;
       _filteredCards = rawCards;
       rawStores = stores.rawStores;
     });
 
-    _loadAd();
     _searchController = TextEditingController();
     _searchController.addListener(_filterCards);
   }
@@ -80,7 +77,7 @@ class _HomepageState extends State<Homepage> {
   }
 
   /// Loads a banner ad.
-  void _loadAd() {
+  Future<void> _loadAd() async {
     final bannerAd = BannerAd(
       size: adSize,
       adUnitId: adUnitId,

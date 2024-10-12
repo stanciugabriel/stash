@@ -15,7 +15,7 @@ class AlertBox {
     required Future<void> Function() declineCallback,
   }) {
     double screenWidth = MediaQuery.of(context).size.width;
-    bool loading = false;
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -82,39 +82,22 @@ class AlertBox {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5.0),
-                        child: Column(
-                          children: !loading
-                              ? [
-                                  SizedBox(height: 15),
-                                  Center(
-                                    child: GestureDetector(
-                                      onTap: declineCallback,
-                                      child: Text(
-                                        decline,
-                                        style: const TextStyle(
-                                          fontFamily: "SFProRounded",
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ]
-                              : [
-                                  const Expanded(
-                                    // padding: EdgeInsets,
-                                    child: Center(
-                                        child: SizedBox(
-                                      width: 20,
-                                      height: 20,
-                                      child: CircularProgressIndicator(
-                                        color: Color.fromARGB(255, 91, 91, 91),
-                                        strokeWidth: 2,
-                                      ),
-                                    )),
-                                  ),
-                                ],
-                        ),
+                        child: Column(children: [
+                          SizedBox(height: 15),
+                          Center(
+                            child: GestureDetector(
+                              onTap: declineCallback,
+                              child: Text(
+                                decline,
+                                style: const TextStyle(
+                                  fontFamily: "SFProRounded",
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ]),
                       ),
                     ],
                   ),

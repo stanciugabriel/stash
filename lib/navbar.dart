@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
-import 'dart:io' show Platform;
 
 import 'package:provider/provider.dart';
 
