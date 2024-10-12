@@ -228,7 +228,7 @@ class _CardModal extends State<CardModal> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               // Padding(

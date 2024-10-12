@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glass/glass.dart';
 
 class AlertBox {
@@ -41,12 +40,12 @@ class AlertBox {
                       const SizedBox(
                         height: 10,
                       ),
-                      Icon(
+                      const Icon(
                         CupertinoIcons.exclamationmark_triangle_fill,
                         color: Colors.amber,
                         size: 40,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
@@ -83,7 +82,7 @@ class AlertBox {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5.0),
                         child: Column(children: [
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                           Center(
                             child: GestureDetector(
                               onTap: declineCallback,

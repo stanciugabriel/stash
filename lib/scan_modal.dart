@@ -5,7 +5,6 @@ import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/store_modal.dart';
 import 'package:camera/camera.dart';
-import 'package:Stash/alert_box_acc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -79,7 +78,7 @@ class ScanModal {
     // State to control the blur and tick animation
     bool hasScanned = false;
     List<String> barcodeBuffer = [];
-    final int maxBufferSize = 5;
+    const int maxBufferSize = 5;
 
     showModalBottomSheet(
       context: context,
@@ -164,8 +163,9 @@ class ScanModal {
                           ),
                           child: GestureDetector(
                             onTap: () {
-                              if (dev)
+                              if (dev) {
                                 print('Closing modal and disposing camera...');
+                              }
                               Navigator.pop(context);
                               controller.dispose();
                             },
@@ -335,9 +335,10 @@ class ScanModal {
     }
 
     final plane = image.planes.first;
-    if (dev)
+    if (dev) {
       print(
           'Plane data - bytesPerRow: ${plane.bytesPerRow}, bytes length: ${plane.bytes.length}');
+    }
 
     // Compose InputImage using bytes
     return InputImage.fromBytes(

@@ -111,7 +111,7 @@ class _HomepageState extends State<Homepage> {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
@@ -188,7 +188,7 @@ class _HomepageState extends State<Homepage> {
             SizedBox(
               height: _bannerAd == null ? 0 : 20,
             ),
-            rawCards.length != 0
+            rawCards.isNotEmpty
                 ? SafeArea(
                     child: SizedBox(
                       width:
@@ -203,7 +203,7 @@ class _HomepageState extends State<Homepage> {
                           : AdWidget(ad: _bannerAd!),
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             const SizedBox(
               height: 20,
             ),

@@ -4,7 +4,6 @@ import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/utils/vars.dart';
 import 'package:flutter/material.dart';
-// import 'package:otp_autofill/otp_autofill.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -124,8 +123,8 @@ class _OnboardingCodeState extends State<OnboardingCode> {
                       ),
                     ),
                     const SizedBox(height: 15),
-                    const Text(
-                      "Introdu codul primit",
+                    Text(
+                      AppLocalizations.of(context)!.enter_received_code,
                       style: TextStyle(
                         fontSize: 22,
                         fontFamily: 'SFProRounded',
@@ -133,8 +132,8 @@ class _OnboardingCodeState extends State<OnboardingCode> {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    const Text(
-                      "Ti-am trimis un cod de verificare prin SMS",
+                    Text(
+                      AppLocalizations.of(context)!.sent_verification_code_sms,
                       style: TextStyle(
                         fontSize: 15,
                         fontFamily: 'SFProRounded',
@@ -207,8 +206,9 @@ class _OnboardingCodeState extends State<OnboardingCode> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             !auth.loading
-                                ? const Text(
-                                    'Continua',
+                                ? Text(
+                                    AppLocalizations.of(context)!
+                                        .continue_button,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,

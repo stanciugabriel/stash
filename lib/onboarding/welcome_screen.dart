@@ -35,21 +35,21 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                     ],
                     borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
+                    image: const DecorationImage(
                         image: AssetImage(
                       'assets/logo.png', // Replace with your app's logo path
                     ))),
               ),
 
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               // Headline
               Text(
                 AppLocalizations.of(context)!.welcome_to_stash,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: "SFProDisplay",
                   fontSize: 32,
                   fontWeight: FontWeight.w700,
-                  color: const Color.fromARGB(255, 3, 68, 230),
+                  color: Color.fromARGB(255, 3, 68, 230),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -58,11 +58,11 @@ class WelcomeScreen extends StatelessWidget {
               Text(
                 AppLocalizations.of(context)!
                     .your_loyalty_cards_all_in_one_place,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: "SFProDisplay",
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
-                  color: const Color.fromARGB(255, 3, 68, 230),
+                  color: Color.fromARGB(255, 3, 68, 230),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -88,7 +88,7 @@ class WelcomeScreen extends StatelessWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.continue_button,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: "SFProDisplay",
                           fontSize: 18,
                           fontWeight: FontWeight.w600,

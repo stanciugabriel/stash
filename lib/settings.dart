@@ -1,13 +1,11 @@
 import 'package:Stash/account_details_modal.dart';
 import 'package:Stash/appearance_modal.dart';
-import 'package:Stash/delete_account_modal.dart';
 import 'package:Stash/language_modal.dart';
 import 'package:Stash/notifications_modal.dart';
 import 'package:Stash/onboarding/onboarding_phone.dart';
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/terms.dart';
-import 'package:Stash/upgrade_modal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -47,7 +45,7 @@ class _SettingsState extends State<Settings> {
   }
 
   final InAppReview inAppReview = InAppReview.instance;
-  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<FidelityCardsProvider>(builder: (context, cards, _) {

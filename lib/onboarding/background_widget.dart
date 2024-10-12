@@ -4,7 +4,7 @@ import 'package:mesh_gradient/mesh_gradient.dart';
 class BackgroundWidget extends StatelessWidget {
   final Widget child;
 
-  const BackgroundWidget({Key? key, required this.child}) : super(key: key);
+  const BackgroundWidget({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class BackgroundWidget extends StatelessWidget {
         children: [
           Positioned.fill(
             child: AnimatedMeshGradient(
-              colors: [
+              colors: const [
                 Color.fromARGB(255, 192, 160, 248),
                 Color.fromARGB(255, 76, 164, 252),
                 Color.fromARGB(255, 255, 187, 228),

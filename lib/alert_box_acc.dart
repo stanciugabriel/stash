@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glass/glass.dart';
@@ -110,7 +109,7 @@ class AlertBoxAcc {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height: 15),
+                                  const SizedBox(height: 15),
                                   Center(
                                     child: GestureDetector(
                                       onTap: declineCallback,

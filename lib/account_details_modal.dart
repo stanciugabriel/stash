@@ -65,70 +65,70 @@ class _AccountDetailsModal extends State<AccountDetailsModal> {
             const SizedBox(height: 20),
             Text(
               AppLocalizations.of(context)!.basic_info,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: "SFProDisplay",
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: const Color.fromARGB(255, 180, 180, 180),
+                color: Color.fromARGB(255, 180, 180, 180),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               children: [
-                Icon(
+                const Icon(
                   CupertinoIcons.person,
-                  color: const Color.fromARGB(255, 180, 180, 180),
+                  color: Color.fromARGB(255, 180, 180, 180),
                   size: 30,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text(
                   AppLocalizations.of(context)!.name_details,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: "SFProDisplay",
                       fontSize: 16,
                       fontWeight: FontWeight.w600),
                 ),
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
                 Text(
                   '${auth.account.firstName} ${auth.account.lastName}',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: "SFProDisplay",
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
-                      color: const Color.fromARGB(255, 110, 110, 110)),
+                      color: Color.fromARGB(255, 110, 110, 110)),
                 ),
               ],
             ),
             const SizedBox(height: 15),
             Row(
               children: [
-                Icon(
+                const Icon(
                   CupertinoIcons.phone,
                   size: 30,
-                  color: const Color.fromARGB(255, 180, 180, 180),
+                  color: Color.fromARGB(255, 180, 180, 180),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text(
                   AppLocalizations.of(context)!.phone_number,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: "SFProDisplay",
                       fontSize: 16,
                       fontWeight: FontWeight.w600),
                 ),
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
                 Text(
                   '${auth.account.phone.substring(0, 3)} ${auth.account.phone.substring(3, 6)} ${auth.account.phone.substring(6, 9)} ${auth.account.phone.substring(9)}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: "SFProDisplay",
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: const Color.fromARGB(255, 110, 110, 110),
+                    color: Color.fromARGB(255, 110, 110, 110),
                   ),
                 ),
               ],
@@ -138,14 +138,14 @@ class _AccountDetailsModal extends State<AccountDetailsModal> {
               onTap: () => DeleteAccountModal.show(context),
               child: Row(
                 children: [
-                  Icon(CupertinoIcons.person_badge_minus,
+                  const Icon(CupertinoIcons.person_badge_minus,
                       size: 30, color: Colors.red),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(
                     AppLocalizations.of(context)!.delete_account,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: "SFProDisplay",
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

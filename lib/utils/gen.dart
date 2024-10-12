@@ -5,7 +5,7 @@ const Encoding =
 
 String genID(int n) {
   String id = '';
-  final rng = new Random();
+  final rng = Random();
 
   for (int i = 0; i < n; i++) {
     id += Encoding[rng.nextInt(64)];

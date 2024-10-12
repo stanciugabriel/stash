@@ -57,7 +57,7 @@ class _FeaturesState extends State<Features> {
                   fontFamily: "SFProDisplay",
                   fontSize: 32,
                   fontWeight: FontWeight.w700,
-                  color: const Color.fromARGB(255, 3, 68, 230),
+                  color: Color.fromARGB(255, 3, 68, 230),
                 ),
               ),
             ),
@@ -183,7 +183,7 @@ class _FeaturesState extends State<Features> {
               );
             },
             child: Padding(
-              padding: EdgeInsets.only(bottom: 15),
+              padding: const EdgeInsets.only(bottom: 15),
               child: Text(
                 AppLocalizations.of(context)!.continue_without_an_account,
                 style: const TextStyle(

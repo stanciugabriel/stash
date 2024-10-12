@@ -300,5 +300,46 @@
   "onboarding_name_subtitle": "Enter your name and surname",
   "@onboarding_name_subtitle": {
     "description": "Subtitle of the add name onboarding page"
-  }
+  },
+  
+    "this_action_cannot_be_reverted": "This action cannot be reverted",
+    "@this_action_cannot_be_reverted": {
+      "description": "Account details modal title"
+    },
+    
+    "enter_received_code": "Enter the received code",
+    "@enter_received_code": {
+      "description": "Prompt for entering the verification code"
+    },
+    
+    "sent_verification_code_sms": "We sent you a verification code via SMS",
+    "@sent_verification_code_sms": {
+      "description": "Message indicating the verification code has been sent via SMS"
+    },
+  
+    "no_first_name_entered": "You haven't entered a first name.",
+    "@no_first_name_entered": {
+      "description": "Error message when the first name field is empty"
+    },
+  
+    "no_last_name_entered": "You haven't entered a last name.",
+    "@no_last_name_entered": {
+      "description": "Error message when the last name field is empty"
+    },
+  
+    "incorrect_phone_number": "Incorrect phone number.",
+    "@incorrect_phone_number": {
+      "description": "Error message for an incorrect phone number"
+    },
+  
+    "continue_with_phone_number": "Continue with phone number",
+    "@continue_with_phone_number": {
+      "description": "Button text for continuing with a phone number"
+    },
+  
+    "login_or_register_with_phone": "Log in or sign up with phone number",
+    "@login_or_register_with_phone": {
+      "description": "Text for prompting the user to log in or register using their phone number"
+    }
+  
 }

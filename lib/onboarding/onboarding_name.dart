@@ -49,9 +49,9 @@ class _OnboardingNameState extends State<OnboardingName> {
     final auth = Provider.of<AccountProvider>(context, listen: false);
 
     if (lastNameController.text.isEmpty) {
-      auth.setError("Nu ai introdus un nume.");
+      auth.setError(AppLocalizations.of(context)!.no_last_name_entered);
     } else if (firstNameController.text.isEmpty) {
-      auth.setError("Nu ai introdus un prenume.");
+      auth.setError(AppLocalizations.of(context)!.no_first_name_entered);
     } else {
       await auth.addName(firstNameController.text, lastNameController.text);
 
@@ -243,10 +243,10 @@ class _OnboardingNameState extends State<OnboardingName> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       !auth.loading
-                          ? const SizedBox(
+                          ? SizedBox(
                               height: 30,
                               child: Text(
-                                'Continua',
+                                AppLocalizations.of(context)!.continue_button,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,

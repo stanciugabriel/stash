@@ -70,14 +70,14 @@ class _UpgradeModal extends State<UpgradeModal> {
           const SizedBox(
             height: 20,
           ),
-          RadiantGradientMask(
+          const RadiantGradientMask(
             child: Icon(
               CupertinoIcons.sparkles,
               size: 100,
               color: Colors.white,
             ),
           ),
-          Text(
+          const Text(
             "Get Stash Plus",
             style: TextStyle(
                 fontFamily: "SFProDisplay",
@@ -86,32 +86,32 @@ class _UpgradeModal extends State<UpgradeModal> {
           ),
           SizedBox(
             width: MediaQuery.sizeOf(context).width * 0.8,
-            child: Text(
+            child: const Text(
               "Unlock all premium features with a one-time payment",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontFamily: "SFProDisplay",
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
-                  color: const Color.fromARGB(255, 132, 132, 132)),
+                  color: Color.fromARGB(255, 132, 132, 132)),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 border: Border.all(color: Theme.of(context).cardColor)),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
+            child: const Padding(
+              padding: EdgeInsets.all(20.0),
               child: Column(
                 children: [
                   Row(
                     children: [
                       Icon(
                         CupertinoIcons.checkmark,
-                        color: const Color.fromARGB(255, 3, 68, 230),
+                        color: Color.fromARGB(255, 3, 68, 230),
                       ),
                       SizedBox(
                         width: 10,
@@ -130,7 +130,7 @@ class _UpgradeModal extends State<UpgradeModal> {
                     children: [
                       Icon(
                         CupertinoIcons.checkmark,
-                        color: const Color.fromARGB(255, 3, 68, 230),
+                        color: Color.fromARGB(255, 3, 68, 230),
                       ),
                       SizedBox(
                         width: 10,
@@ -149,7 +149,7 @@ class _UpgradeModal extends State<UpgradeModal> {
                     children: [
                       Icon(
                         CupertinoIcons.checkmark,
-                        color: const Color.fromARGB(255, 3, 68, 230),
+                        color: Color.fromARGB(255, 3, 68, 230),
                       ),
                       SizedBox(
                         width: 10,
@@ -167,18 +167,18 @@ class _UpgradeModal extends State<UpgradeModal> {
               ),
             ),
           ),
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
           GestureDetector(
             onTap: () {},
             child: Padding(
-              padding: EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.only(bottom: 10),
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 3, 68, 230),
                   borderRadius: BorderRadius.circular(11),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -197,7 +197,7 @@ class _UpgradeModal extends State<UpgradeModal> {
               ),
             ),
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
@@ -220,7 +220,7 @@ class _UpgradeModal extends State<UpgradeModal> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
         ],

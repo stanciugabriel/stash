@@ -178,7 +178,7 @@ class _StoreModal extends State<StoreModal> {
                                           imageUrl: getStoreImage(
                                               filteredStores[index].id),
                                           errorWidget: (context, url, error) =>
-                                              Icon(Icons.error),
+                                              const Icon(Icons.error),
                                         ),
                                       ),
                                     ),

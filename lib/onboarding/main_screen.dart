@@ -24,13 +24,13 @@ class _MainScreenState extends State<MainScreen> {
     return BackgroundWidget(
       child: SafeArea(
         child: AnimatedSwitcher(
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           transitionBuilder: (Widget child, Animation<double> animation) {
             return FadeTransition(opacity: animation, child: child);
           },
           child: _showWelcome
               ? WelcomeScreen(onContinue: _toggleScreens)
-              : Features(),
+              : const Features(),
         ),
       ),
     );

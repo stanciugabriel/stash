@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
         locale: localeProvider.locale,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        home: _showOnboarding ? MainScreen() : const NavBar(pageIndex: 0),
+        home: _showOnboarding ? const MainScreen() : const NavBar(pageIndex: 0),
         debugShowCheckedModeBanner: false,
       ),
     );

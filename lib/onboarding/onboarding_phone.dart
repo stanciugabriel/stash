@@ -34,7 +34,7 @@ class _OnboardingPhoneState extends State<OnboardingPhone> {
     final auth = Provider.of<AccountProvider>(context, listen: false);
 
     if (phoneNumber.length != 10 && phoneNumber.isNotEmpty) {
-      auth.setError("Numarul de telefon incorect.");
+      auth.setError(AppLocalizations.of(context)!.incorrect_phone_number);
     } else {
       auth.setError('');
     }
@@ -54,7 +54,7 @@ class _OnboardingPhoneState extends State<OnboardingPhone> {
         }
       });
     } else {
-      await auth.setError("Număr de telefon incorect.");
+      await auth.setError(AppLocalizations.of(context)!.incorrect_phone_number);
     }
   }
 
@@ -102,8 +102,8 @@ class _OnboardingPhoneState extends State<OnboardingPhone> {
                     const SizedBox(
                       height: 15,
                     ),
-                    const Text(
-                      "Continua cu numarul de telefon",
+                    Text(
+                      AppLocalizations.of(context)!.continue_with_phone_number,
                       style: TextStyle(
                         fontSize: 22,
                         fontFamily: 'SFProRounded',
@@ -113,8 +113,9 @@ class _OnboardingPhoneState extends State<OnboardingPhone> {
                     const SizedBox(
                       height: 5,
                     ),
-                    const Text(
-                      "Logheaza-te sau inregistreaza-te cu numarul de telefon",
+                    Text(
+                      AppLocalizations.of(context)!
+                          .login_or_register_with_phone,
                       style: TextStyle(
                         fontSize: 15,
                         fontFamily: 'SFProRounded',
@@ -193,8 +194,9 @@ class _OnboardingPhoneState extends State<OnboardingPhone> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             !auth.loading
-                                ? const Text(
-                                    'Continua',
+                                ? Text(
+                                    AppLocalizations.of(context)!
+                                        .continue_button,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,

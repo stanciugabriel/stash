@@ -300,5 +300,44 @@
   "onboarding_name_subtitle": "Introdu numele și prenumele",
   "@onboarding_name_subtitle": {
     "description": "Subtitlul paginii de adaugare nume"
+  },
+  "this_action_cannot_be_reverted": "Această acțiune nu poate fi anulată",
+  "@this_action_cannot_be_reverted": {
+    "description": "Titlu pentru detalii cont modal"
+  },
+  
+  "enter_received_code": "Introdu codul primit",
+  "@enter_received_code": {
+    "description": "Prompt pentru introducerea codului de verificare"
+  },
+
+  "sent_verification_code_sms": "Ți-am trimis un cod de verificare prin SMS",
+  "@sent_verification_code_sms": {
+    "description": "Mesaj care indică faptul că codul de verificare a fost trimis prin SMS"
+  },
+
+  "no_first_name_entered": "Nu ai introdus un prenume.",
+  "@no_first_name_entered": {
+    "description": "Mesaj de eroare când câmpul prenume este gol"
+  },
+
+  "no_last_name_entered": "Nu ai introdus un nume.",
+  "@no_last_name_entered": {
+    "description": "Mesaj de eroare când câmpul nume este gol"
+  },
+
+  "incorrect_phone_number": "Numărul de telefon incorect.",
+  "@incorrect_phone_number": {
+    "description": "Mesaj de eroare pentru un număr de telefon incorect"
+  },
+
+  "continue_with_phone_number": "Continuă cu numărul de telefon",
+  "@continue_with_phone_number": {
+    "description": "Text pentru butonul de continuare cu numărul de telefon"
+  },
+
+  "login_or_register_with_phone": "Loghează-te sau înregistrează-te cu numărul de telefon",
+  "@login_or_register_with_phone": {
+    "description": "Text pentru a solicita utilizatorului să se logheze sau să se înregistreze folosind numărul de telefon"
   }
 }

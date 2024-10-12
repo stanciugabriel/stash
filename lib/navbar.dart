@@ -77,7 +77,7 @@ class _NavBarState extends State<NavBar> {
           body: Stack(children: [
             _screens[_selectedIndex],
             Padding(
-              padding: EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.only(bottom: 12),
               child: SafeArea(
                 child: Align(
                   alignment: Alignment.bottomCenter,

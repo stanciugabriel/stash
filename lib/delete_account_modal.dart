@@ -31,9 +31,9 @@ class DeleteAccountModal {
               builder: (context, auth, _) {
                 return Padding(
                   padding:
-                      EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 30),
+                      const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 30),
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(9),
                         topRight: Radius.circular(9),
