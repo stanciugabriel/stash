@@ -1,6 +1,6 @@
 const dev = false;
 
-const apiURL = dev ? 'http://localhost:6000' : 'https://stash.blitzapp.ro';
+const apiURL = dev ? 'http://localhost:6000' : 'https://api.stashapp.ro';
 
 const Map<String, String> basicHeader = <String, String>{
   'Content-Type': 'application/json',

@@ -336,6 +336,33 @@
     "login_or_register_with_phone": "Log in or sign up with phone number",
     "@login_or_register_with_phone": {
       "description": "Text for prompting the user to log in or register using their phone number"
-    }
-  
+    },
+
+    "edit_your_card_details": "Edit your card details",
+    "@edit_your_card_details": {
+      "description": "Edit card details title"
+    },
+
+    "you_can_change_both_name_and_id": "You can edit both nickname and barcode",
+    "@you_can_change_both_name_and_id": {
+      "description": "You can edit both name and barcode"
+    },
+
+    "nickname": "Nickname",
+    "@nickname": {
+      "description": "nickname"
+    },
+
+    "barcode": "barcode",
+    "@barcode": {
+      "description": "barcode"
+    },
+
+    "addYourFirstCard": "Add your first card",
+    "noCardsYet": "It looks like you don’t have any cards yet. Start by adding your first loyalty card to effortlessly breeze through checkouts.",
+    "newCard": "New Card",
+    "nicknamed": "Nicknamed:",
+    "editDetails": "Edit"
+
+
 }

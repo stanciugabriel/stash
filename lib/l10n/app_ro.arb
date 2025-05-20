@@ -336,5 +336,32 @@
   "login_or_register_with_phone": "Loghează-te sau înregistrează-te cu numărul de telefon",
   "@login_or_register_with_phone": {
     "description": "Text pentru a solicita utilizatorului să se logheze sau să se înregistreze folosind numărul de telefon"
-  }
+  },
+
+  "edit_your_card_details": "Editează detaliile cardului tău",
+  "@edit_your_card_details": {
+    "description": "Edit card details title"
+  },
+
+  "you_can_change_both_name_and_id": "Poți edita numele cardului și codul de bare",
+  "@you_can_change_both_name_and_id": {
+    "description": "You can edit both name and barcode"
+  },
+
+  "nickname": "Nume",
+  "@nickname": {
+    "description": "nickname"
+  },
+
+  "barcode": "Cod de bare",
+  "@barcode": {
+      "description": "barcode"
+  },
+
+  "addYourFirstCard": "Adaugă primul tău card",
+  "noCardsYet": "Se pare că nu ai încă niciun card. Începe prin a adăuga primul tău card de loialitate pentru a trece rapid prin casele de marcat.",
+  "newCard": "Card nou",
+  "nicknamed": "Denumit:",
+  "editDetails": "Editează"
+
 }

@@ -2,8 +2,10 @@ import 'package:Stash/add_barcode.dart';
 import 'package:Stash/models/fidelity_card.dart';
 import 'package:Stash/models/store.dart';
 import 'package:Stash/onboarding/onboarding_name.dart';
+import 'package:Stash/placeholder.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/providers/stores_provider.dart';
+import 'package:Stash/scan_modal.dart';
 import 'package:Stash/testpad.dart';
 import 'package:Stash/utils/card.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,7 +24,6 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   late TextEditingController _searchController;
-  List<FidelityCard> rawCards = [];
   List<Store> rawStores = [];
   List<FidelityCard> _filteredCards = [];
   BannerAd? _bannerAd;
@@ -32,28 +33,21 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final cards = Provider.of<FidelityCardsProvider>(context, listen: false);
-      final stores = Provider.of<StoresProvider>(context, listen: false);
-      await _loadAd();
-      rawCards = cards.cards;
-      _filteredCards = rawCards;
-      rawStores = stores.rawStores;
-    });
-
     _searchController = TextEditingController();
     _searchController.addListener(_filterCards);
-  }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final stores = Provider.of<StoresProvider>(context, listen: false);
+      setState(() {
+        rawStores = stores.rawStores;
+      });
+    });
   }
 
   void _filterCards() {
     final query = _searchController.text.toLowerCase();
+    final cards = Provider.of<FidelityCardsProvider>(context, listen: false);
+    List<FidelityCard> allCards = cards.cards;
 
     List<String> queryStores = [];
     for (int i = 0; i < rawStores.length; i++) {
@@ -63,221 +57,180 @@ class _HomepageState extends State<Homepage> {
     }
 
     setState(() {
-      if (query == '') {
-        _filteredCards = rawCards;
+      if (query.isEmpty) {
+        _filteredCards = allCards;
       } else {
-        _filteredCards = [];
-        for (int i = 0; i < rawCards.length; i++) {
-          if (queryStores.contains(rawCards[i].storeID)) {
-            _filteredCards.add(rawCards[i]);
-          }
-        }
+        _filteredCards = allCards
+            .where((card) => queryStores.contains(card.storeID))
+            .toList();
       }
     });
   }
 
-  /// Loads a banner ad.
-  Future<void> _loadAd() async {
-    final bannerAd = BannerAd(
-      size: adSize,
-      adUnitId: adUnitId,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        // Called when an ad is successfully received.
-        onAdLoaded: (ad) {
-          if (!mounted) {
-            ad.dispose();
-            return;
-          }
-          setState(() {
-            _bannerAd = ad as BannerAd;
-          });
-        },
-        // Called when an ad request failed.
-        onAdFailedToLoad: (ad, error) {
-          debugPrint('BannerAd failed to load: $error');
-          ad.dispose();
-        },
-      ),
-    );
-
-    // Start loading.
-    bannerAd.load();
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
+    return Consumer<FidelityCardsProvider>(
+      builder: (context, cardsProvider, _) {
+        final cards = cardsProvider.cards;
+        final hasCards = cards.isNotEmpty;
+        final showCards =
+            _searchController.text.isEmpty ? cards : _filteredCards;
+
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
               children: [
-                const SizedBox(width: 20),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const OnboardingName()));
-                  },
-                  onLongPress: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AddBarcode()),
-                    );
-                  },
-                  onDoubleTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Testpad()));
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.card_title,
-                    style: const TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'SFProRounded',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 45,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).shadowColor,
-                        borderRadius: BorderRadius.circular(40),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    const SizedBox(width: 20),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const OnboardingName()));
+                      },
+                      onLongPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AddBarcode()),
+                        );
+                      },
+                      onDoubleTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Testpad()));
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.card_title,
+                        style: const TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'SFProRounded',
+                        ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: TextField(
-                          controller: _searchController,
-                          decoration: InputDecoration(
-                            icon: Icon(
-                              CupertinoIcons.search,
-                              color: Theme.of(context).primaryColor,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 45,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).shadowColor,
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0),
+                            child: TextField(
+                              controller: _searchController,
+                              decoration: InputDecoration(
+                                icon: Icon(
+                                  CupertinoIcons.search,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                hintText: AppLocalizations.of(context)!.search,
+                                hintStyle: TextStyle(
+                                  fontFamily: 'SFProRounded',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                border: InputBorder.none,
+                              ),
                             ),
-                            hintText: AppLocalizations.of(context)!.search,
-                            hintStyle: TextStyle(
-                              fontFamily: 'SFProRounded',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            border: InputBorder.none,
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: _bannerAd == null ? 0 : 20,
-            ),
-            rawCards.isNotEmpty
-                ? SafeArea(
-                    child: SizedBox(
-                      width:
-                          _bannerAd == null ? 0 : adSize.width.toDouble() * 1.2,
-                      height: _bannerAd == null
-                          ? 0
-                          : adSize.height.toDouble() * 1.2,
-                      child: _bannerAd == null
-                          // Nothing to render yet.
-                          ? const SizedBox()
-                          // The actual ad.
-                          : AdWidget(ad: _bannerAd!),
-                    ),
-                  )
-                : const SizedBox(),
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Consumer<StoresProvider>(builder: (context, stores, _) {
-                  return Consumer<FidelityCardsProvider>(
-                    builder: (context, cards, _) {
-                      final showCards = _searchController.text == ''
-                          ? cards.cards
-                          : _filteredCards;
+                ),
+                const SizedBox(height: 20),
+                hasCards
+                    ? Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Consumer<StoresProvider>(
+                              builder: (context, stores, _) {
+                            return MediaQuery.removePadding(
+                              context: context,
+                              removeTop: true,
+                              child: ListView.builder(
+                                itemCount: (showCards.length / 2).ceil(),
+                                itemBuilder: (BuildContext context, int index) {
+                                  final firstItemIndex = index * 2;
+                                  final secondItemIndex = firstItemIndex + 1;
 
-                      return MediaQuery.removePadding(
-                        context: context,
-                        removeTop: true,
-                        child: ListView.builder(
-                          itemCount:
-                              (showCards.length / 2).ceil(), // Number of rows
-                          itemBuilder: (BuildContext context, int index) {
-                            final firstItemIndex = index * 2;
-                            final secondItemIndex = firstItemIndex + 1;
-
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  GestureDetector(
-                                      onTap: () {
-                                        CardModal.show(
-                                          context,
-                                          showCards[firstItemIndex].id,
-                                        );
-                                      },
-                                      child: cardBuilder(
-                                        context,
-                                        showCards[firstItemIndex],
-                                        stores.stores,
-                                      )),
-                                  if (secondItemIndex < showCards.length)
-                                    GestureDetector(
-                                        onTap: () {
-                                          CardModal.show(
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            CardModal.show(
+                                              context,
+                                              showCards[firstItemIndex].id,
+                                            );
+                                          },
+                                          child: cardBuilder(
                                             context,
-                                            showCards[secondItemIndex].id,
-                                          );
-                                        },
-                                        child: cardBuilder(
-                                          context,
-                                          showCards[secondItemIndex],
-                                          stores.stores,
-                                        )),
-                                  if (secondItemIndex >= showCards.length)
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.44,
+                                            showCards[firstItemIndex],
+                                            stores.stores,
+                                          ),
+                                        ),
+                                        if (secondItemIndex < showCards.length)
+                                          GestureDetector(
+                                            onTap: () {
+                                              CardModal.show(
+                                                context,
+                                                showCards[secondItemIndex].id,
+                                              );
+                                            },
+                                            child: cardBuilder(
+                                              context,
+                                              showCards[secondItemIndex],
+                                              stores.stores,
+                                            ),
+                                          ),
+                                        if (secondItemIndex >= showCards.length)
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.44,
+                                          ),
+                                      ],
                                     ),
-                                ],
+                                  );
+                                },
                               ),
                             );
-                          },
+                          }),
                         ),
-                      );
-                    },
-                  );
-                }),
-              ),
+                      )
+                    : CardPlaceholder(),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:Stash/edit_modal.dart';
 import 'package:Stash/models/fidelity_card.dart';
 import 'package:Stash/providers/account_provider.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CardModal extends StatefulWidget {
@@ -28,7 +30,6 @@ class CardModal extends StatefulWidget {
   static void show(BuildContext context, String id) async {
     final brightness = await ScreenBrightness().current;
     showModalBottomSheet(
-        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
         isScrollControlled: true,
         enableDrag: false,
         context: context,
@@ -231,179 +232,187 @@ class _CardModal extends State<CardModal> {
               const SizedBox(
                 height: 20,
               ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 20),
-              //   child: Container(
-              //     decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(9),
-              //       color: Colors.white,
-              //       boxShadow: const [
-              //         BoxShadow(
-              //           color: Colors.black26,
-              //           blurRadius: 15,
-              //           spreadRadius: -7,
-              //           offset: Offset(0, 0),
-              //         ),
-              //       ],
-              //     ),
-              //     child: Padding(
-              //       padding: const EdgeInsets.symmetric(
-              //           horizontal: 20, vertical: 15),
-              //       child: Row(
-              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //         children: [
-              //           Column(
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             children: [
-              //               Text(
-              //                 "Balance",
-              //                 style: TextStyle(
-              //                     fontFamily: "SFProDisplay",
-              //                     fontSize: 20,
-              //                     fontWeight: FontWeight.w600,
-              //                     height: 1.2),
-              //               ),
-              //               Text(
-              //                 "300 Points",
-              //                 style: TextStyle(
-              //                     fontFamily: "SFProRounded",
-              //                     fontSize: 24,
-              //                     fontWeight: FontWeight.w700,
-              //                     height: 1.2),
-              //               ),
-              //               Text(
-              //                 "Bronze Level",
-              //                 style: TextStyle(
-              //                     fontFamily: "SFProDisplay",
-              //                     fontSize: 16,
-              //                     fontWeight: FontWeight.w500,
-              //                     color:
-              //                         const Color.fromARGB(255, 125, 125, 125)),
-              //               ),
-              //             ],
-              //           ),
-              //           GestureDetector(
-              //             onTap: () async {
-              //               await _openUrl(
-              //                   'https://apps.apple.com/ro/app/mega-image-online/id1364063438');
-              //             },
-              //             child: Container(
-              //               decoration: BoxDecoration(
-              //                   borderRadius: BorderRadius.circular(40),
-              //                   color: Colors.black),
-              //               child: Padding(
-              //                 padding: const EdgeInsets.symmetric(
-              //                     horizontal: 15, vertical: 10),
-              //                 child: Row(
-              //                   crossAxisAlignment: CrossAxisAlignment.center,
-              //                   children: [
-              //                     Text(
-              //                       "Open App",
-              //                       style: TextStyle(
-              //                           fontFamily: "SFProDisplay",
-              //                           fontSize: 16,
-              //                           fontWeight: FontWeight.w700,
-              //                           color: Colors.white),
-              //                     ),
-              //                     SizedBox(
-              //                       width: 5,
-              //                     ),
-              //                     Icon(
-              //                       CupertinoIcons.arrow_up_right,
-              //                       color: Colors.white,
-              //                       size: 20,
-              //                     )
-              //                   ],
-              //                 ),
-              //               ),
-              //             ),
-              //           )
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // GestureDetector(
-              //   child: Padding(
-              //     padding: const EdgeInsets.only(
-              //         right: 30, left: 30, top: 20, bottom: 10),
-              //     child: Row(
-              //       crossAxisAlignment: CrossAxisAlignment.center,
-              //       children: [
-              //         const Icon(
-              //           CupertinoIcons.pencil,
-              //           size: 35,
-              //         ),
-              //         const SizedBox(
-              //           width: 10,
-              //         ),
-              //         Column(
-              //           crossAxisAlignment: CrossAxisAlignment.start,
-              //           children: [
-              //             Text(
-              //               AppLocalizations.of(context)!.edit,
-              //               style: const TextStyle(
-              //                   fontFamily: "SFProDisplay",
-              //                   fontWeight: FontWeight.w700,
-              //                   fontSize: 20,
-              //                   height: 1.3),
-              //             ),
-              //             Text(
-              //               AppLocalizations.of(context)!.edit_description,
-              //               style: const TextStyle(
-              //                 fontFamily: "SFProDisplay",
-              //                 fontWeight: FontWeight.w500,
-              //                 fontSize: 14,
-              //               ),
-              //             )
-              //           ],
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // GestureDetector(
-              //   onTap: () => UpgradeModal.show(context),
-              //   child: Padding(
-              //     padding: const EdgeInsets.symmetric(
-              //         horizontal: 30.0, vertical: 10),
-              //     child: Row(
-              //       crossAxisAlignment: CrossAxisAlignment.center,
-              //       children: [
-              //         const Icon(
-              //           CupertinoIcons.share,
-              //           size: 35,
-              //         ),
-              //         const SizedBox(
-              //           width: 10,
-              //         ),
-              //         Expanded(
-              //           child: Column(
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             children: [
-              //               Text(
-              //                 AppLocalizations.of(context)!.share,
-              //                 style: const TextStyle(
-              //                     fontFamily: "SFProDisplay",
-              //                     fontWeight: FontWeight.w700,
-              //                     fontSize: 20,
-              //                     height: 1.3),
-              //               ),
-              //               Text(
-              //                 AppLocalizations.of(context)!.share_description,
-              //                 style: const TextStyle(
-              //                   fontFamily: "SFProDisplay",
-              //                   fontWeight: FontWeight.w500,
-              //                   fontSize: 14,
-              //                 ),
-              //               )
-              //             ],
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
+              currentCard.nickname.isEmpty
+                  ? GestureDetector(
+                      onTap: () => EditModal.show(context, currentCard.id),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            right: 30, left: 30, top: 20, bottom: 10),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              CupertinoIcons.pencil,
+                              size: 35,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)!.edit,
+                                  style: const TextStyle(
+                                      fontFamily: "SFProDisplay",
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 20,
+                                      height: 1.3),
+                                ),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .edit_description,
+                                  style: const TextStyle(
+                                    color: Color(0xFF6F6F6F),
+                                    fontFamily: "SFProDisplay",
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(9),
+                          color: Theme.of(context).primaryColorDark,
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 15,
+                              spreadRadius: -7,
+                              offset: Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppLocalizations.of(context)!.nicknamed,
+                                      style: const TextStyle(
+                                        fontFamily: "SFProDisplay",
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                        height: 1.2,
+                                      ),
+                                    ),
+                                    SizedBox(height: 4),
+                                    Text(
+                                      "\"${currentCard.nickname}\"",
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      softWrap: false,
+                                      style: const TextStyle(
+                                        fontFamily: "SFProRounded",
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w700,
+                                        height: 1.2,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              GestureDetector(
+                                onTap: () =>
+                                    EditModal.show(context, currentCard.id),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 10),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .editDetails,
+                                        style: TextStyle(
+                                          fontFamily: "SFProDisplay",
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: Theme.of(context)
+                                              .primaryColorDark,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 5),
+                                      Icon(
+                                        CupertinoIcons.arrow_up_right,
+                                        color:
+                                            Theme.of(context).primaryColorDark,
+                                        size: 20,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+              GestureDetector(
+                onTap: () {
+                  SharePlus.instance.share(ShareParams(
+                      text: 'https://share.stashapp.ro/?id=${currentCard.id}'));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 30.0, vertical: 10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        CupertinoIcons.share,
+                        size: 35,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.share,
+                              style: const TextStyle(
+                                  fontFamily: "SFProDisplay",
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20,
+                                  height: 1.3),
+                            ),
+                            Text(
+                              AppLocalizations.of(context)!.share_description,
+                              style: const TextStyle(
+                                color: Color(0xFF6F6F6F),
+                                fontFamily: "SFProDisplay",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
               Consumer<AccountProvider>(builder: (context, auth, _) {
                 return GestureDetector(
                   onTap: () async {
@@ -472,14 +481,14 @@ Color getCloseButtonColor(Color backgroundColor) {
   return isLightColor(backgroundColor) ? Colors.black : Colors.white;
 }
 
-Future<void> _openUrl(String url) async {
-  final uri = Uri.parse(url);
-  if (await canLaunchUrl(uri)) {
-    await launchUrl(
-      uri,
-      mode: LaunchMode.externalApplication,
-    );
-    return;
-  }
-  print('Could not launch $url');
-}
+// Future<void> _openUrl(String url) async {
+//   final uri = Uri.parse(url);
+//   if (await canLaunchUrl(uri)) {
+//     await launchUrl(
+//       uri,
+//       mode: LaunchMode.externalApplication,
+//     );
+//     return;
+//   }
+//   print('Could not launch $url');
+// }

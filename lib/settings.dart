@@ -416,7 +416,7 @@ class _SettingsState extends State<Settings> {
                           children: [
                             SvgPicture.asset(
                               "assets/icons/hex.svg",
-                              height: 30,
+                              height: 35,
                             ),
                             const SizedBox(
                               height: 10,
