@@ -14,7 +14,6 @@ import 'package:screen_brightness/screen_brightness.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CardModal extends StatefulWidget {
   final String id;
@@ -311,7 +310,7 @@ class _CardModal extends State<CardModal> {
                                         height: 1.2,
                                       ),
                                     ),
-                                    SizedBox(height: 4),
+                                    const SizedBox(height: 4),
                                     Text(
                                       "\"${currentCard.nickname}\"",
                                       overflow: TextOverflow.ellipsis,

@@ -125,7 +125,7 @@ class _OnboardingCodeState extends State<OnboardingCode> {
                     const SizedBox(height: 15),
                     Text(
                       AppLocalizations.of(context)!.enter_received_code,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 22,
                         fontFamily: 'SFProRounded',
                         fontWeight: FontWeight.w600,
@@ -134,7 +134,7 @@ class _OnboardingCodeState extends State<OnboardingCode> {
                     const SizedBox(height: 5),
                     Text(
                       AppLocalizations.of(context)!.sent_verification_code_sms,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 15,
                         fontFamily: 'SFProRounded',
                         fontWeight: FontWeight.w400,
@@ -209,7 +209,7 @@ class _OnboardingCodeState extends State<OnboardingCode> {
                                 ? Text(
                                     AppLocalizations.of(context)!
                                         .continue_button,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600,

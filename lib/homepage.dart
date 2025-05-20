@@ -5,7 +5,6 @@ import 'package:Stash/onboarding/onboarding_name.dart';
 import 'package:Stash/placeholder.dart';
 import 'package:Stash/providers/fidelity_cards_provider.dart';
 import 'package:Stash/providers/stores_provider.dart';
-import 'package:Stash/scan_modal.dart';
 import 'package:Stash/testpad.dart';
 import 'package:Stash/utils/card.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,7 +25,7 @@ class _HomepageState extends State<Homepage> {
   late TextEditingController _searchController;
   List<Store> rawStores = [];
   List<FidelityCard> _filteredCards = [];
-  BannerAd? _bannerAd;
+  // BannerAd? _bannerAd;
   final AdSize adSize = AdSize.banner;
   final String adUnitId = 'ca-app-pub-5098666037124898/4218345633';
 
@@ -225,7 +224,7 @@ class _HomepageState extends State<Homepage> {
                           }),
                         ),
                       )
-                    : CardPlaceholder(),
+                    : const CardPlaceholder(),
               ],
             ),
           ),

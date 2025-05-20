@@ -104,7 +104,7 @@ class _OnboardingPhoneState extends State<OnboardingPhone> {
                     ),
                     Text(
                       AppLocalizations.of(context)!.continue_with_phone_number,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 22,
                         fontFamily: 'SFProRounded',
                         fontWeight: FontWeight.w600,
@@ -116,7 +116,7 @@ class _OnboardingPhoneState extends State<OnboardingPhone> {
                     Text(
                       AppLocalizations.of(context)!
                           .login_or_register_with_phone,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 15,
                         fontFamily: 'SFProRounded',
                         fontWeight: FontWeight.w400,
@@ -197,7 +197,7 @@ class _OnboardingPhoneState extends State<OnboardingPhone> {
                                 ? Text(
                                     AppLocalizations.of(context)!
                                         .continue_button,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600,

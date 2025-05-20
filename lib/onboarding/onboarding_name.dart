@@ -247,7 +247,7 @@ class _OnboardingNameState extends State<OnboardingName> {
                               height: 30,
                               child: Text(
                                 AppLocalizations.of(context)!.continue_button,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
